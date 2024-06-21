@@ -8,7 +8,7 @@ const Home = () => {
       
       <div className={styles.mainContent}>
           <AsideMenu/>
-          <Navigation visible={true}/>
+          <Navigation/>
 
       </div>
       
