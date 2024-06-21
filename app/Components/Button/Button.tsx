@@ -10,18 +10,19 @@ type ButtonProps = {
     border: string;
 };
 
-const Button: React.FC<ButtonProps> = ({ text, width, backgroundColor, borderRadius, textColor, border }) => {
+const Button = (props: ButtonProps) => {
+    
     const buttonStyle = {
-        width,
-        backgroundColor,
-        borderRadius,
-        color: textColor,
-        border,
+        width: props.width,
+        backgroundColor: props.backgroundColor,
+        borderRadius: props.borderRadius,
+        color: props.textColor,
+        border: props.border
     };
 
     return (
         <button className={styles.button} style={buttonStyle}>
-            {text}
+            {props.text}
         </button>
     );
 };
