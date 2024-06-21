@@ -1,0 +1,19 @@
+.nav {
+    width: 100%;
+  }
+  
+  .navContent {
+    display: flex;
+    width: 100%;
+    justify-content: space-between; /* This can be adjusted as needed */
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .sale {
+    flex-grow: 1; /* This makes each item take up available space */
+    text-align: center; /* Centers the text within each item */
+  }
+  

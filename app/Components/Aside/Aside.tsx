@@ -1,11 +1,9 @@
-import { div } from '@tensorflow/tfjs';
 import styles from './Aside.module.scss'
 import Icon from '../Icon/Icon';
 import MenuItem from '../MenuItem/MenuItem';
 
-type Props = {
-}
-const AsideMenu = (props:Props) => {
+
+const AsideMenu = () => {
     return (
             
             <div className={styles.aside}>
@@ -26,4 +24,4 @@ const AsideMenu = (props:Props) => {
     )
 }
 
-export default AsideMenu
+export default AsideMenu;

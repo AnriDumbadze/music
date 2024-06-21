@@ -1,14 +1,14 @@
 import React from 'react';
-import Button from './Components/Button/Button';
 import AsideMenu from './Components/Aside/Aside';
-import { div } from '@tensorflow/tfjs';
 import styles from './page.module.scss'
+import Navigation from './Components/Navigation/Nav';
 
 const Home = () => {
     return (
       
       <div className={styles.mainContent}>
           <AsideMenu/>
+          <Navigation visible={true}/>
 
       </div>
       
