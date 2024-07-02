@@ -1,0 +1,17 @@
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.itemContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 16px;
+  padding: 12px 16px;
+}
+
+.itemContent span {
+  color: #898989;
+}
