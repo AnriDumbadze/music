@@ -28,7 +28,7 @@ const Navigation = () => {
           visible={true}
         />
         <NavItem
-          navContent={"Personal information"}
+          navContent={"Persoasdasdasdnal information"}
           backgroundColor={"yellow"}
           visible={true}
         />
