@@ -4,7 +4,9 @@ import Button from './Components/Button/Button';
 const Home = () => {
     return (
       <>
-      
+        <div>
+          zd
+        </div>
       
       </>
     );
