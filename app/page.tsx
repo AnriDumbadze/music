@@ -4,6 +4,7 @@ import styles from "./page.module.scss";
 import Navigation from "./Components/AdminNavigation/Nav";
 import Header from "./Components/Header/Header";
 import MusicCard from "./Components/MusicCard/MusicCard";
+import Badge from "./Components/Badge/Badge";
 
 const Home = () => {
   return (
@@ -11,8 +12,14 @@ const Home = () => {
       <AsideMenu />
       <div className={styles.mainContent__container}>
         <Header />
-        <div className={styles.mainContent}>
-          <MusicCard artistSRC={"./artist.png"} artistName={"lursman batonu"} songName={"oxx kovzi"} />
+        <div className={styles.content}>
+
+          {/* FOR TESTING */}
+
+
+
+          
+          {/* FOR TESTING */}
 
         </div>
       </div>

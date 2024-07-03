@@ -1,0 +1,39 @@
+.badge {
+  display: flex;
+  width: 100%;
+  background-color: yellow;
+}
+
+.badgeContent {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.badgeContent span {
+  display: flex;
+  padding: 8px 16px;
+  gap: 10px;
+  color: var(--lSecondaryWhiteTExtCollorMode, #8f93a3);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.28px;
+  height: 35px;
+}
+
+.active {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: var(--PrimaryCollor, #ff5f5f);
+  color: #FFF;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; 
+  letter-spacing: -0.28px;
+}
+
