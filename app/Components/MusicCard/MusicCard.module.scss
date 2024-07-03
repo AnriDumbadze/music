@@ -1,0 +1,35 @@
+.musicCard {
+  display: flex;
+  height: 230px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.songInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.artistName {
+  color: var(--WhitePrimaryText, #fff);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  text-transform: capitalize;
+}
+
+.songName {
+  color: var(--SecondaryDarkModeTExtCollor, #898989);
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px; 
+  letter-spacing: -0.32px;
+  text-transform: capitalize;
+}
