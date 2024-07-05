@@ -4,3 +4,17 @@
   height: 100vh;
   background: #f7f7f7;
 }
+
+.mainContent__container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  padding-left: 32px;
+  padding-top: 16px;
+}
