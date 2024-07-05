@@ -8,7 +8,6 @@ import MusicListItem from "./Components/MusicList/MusicListItem";
 
 const Home = () => {
   return (
-    <>
     <div className={styles.mainContent}>
       <AsideMenu />
       <Navigation />
@@ -21,8 +20,6 @@ const Home = () => {
         button={"playbtn.svg"}
       />
     </div>
-    
-    </>
   );
 };
 
