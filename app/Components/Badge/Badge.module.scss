@@ -1,12 +1,14 @@
-
+.badge{
+  display: flex;
+}
 
 .badgeContent {
   display: flex;
   gap: 8px;
-  width: 1000px;
+  width: 100%;
 }
 
-.badgeContent span {
+.badgeContent {
   display: flex;
   padding: 8px 16px;
   gap: 10px;
@@ -21,7 +23,18 @@
   cursor: pointer;
 }
 
+.badgeContent:hover{
+  color: white;
+}
+
+.badgeContent span{
+  height: 34px;
+}
+
 .active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 8px 16px;
   border-radius: 12px;
   background: var(--PrimaryCollor, #ff5f5f);
@@ -32,8 +45,7 @@
   font-weight: 500;
   line-height: 18px; 
   letter-spacing: -0.28px;
+  height: 34px;
 }
 
-.active span {
-  color: white;
-}
+
