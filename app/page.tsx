@@ -5,7 +5,6 @@ import Navigation from "./Components/AdminNavigation/Nav";
 import Header from "./Components/Header/Header";
 import MusicCard from "./Components/MusicCard/MusicCard";
 import Badge from "./Components/Badge/Badge";
-import AdminPanel from "./Components/AddAlbum/AddAlbum";
 
 const Home = () => {
   return (
@@ -16,8 +15,6 @@ const Home = () => {
         <div className={styles.content}>
 
           {/* FOR TESTING */}
-
-<AdminPanel/>
 
           
           {/* FOR TESTING */}
