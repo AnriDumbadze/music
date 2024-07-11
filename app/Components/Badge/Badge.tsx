@@ -1,25 +1,17 @@
 import styles from "./Badge.module.scss";
+import React from 'react';
 
 type Props = {
-  badgeItems: string[];
-  activeIndex?: number;
+  children: React.ReactNode;
 };
 
 const Badge = (props: Props) => {
-  const { badgeItems, activeIndex } = props;
-
-  const getBadgeClass = (index: number) => {
-    return index === activeIndex ? styles.active : '';
-  };
+  const { children } = props;
 
   return (
     <div className={styles.badge}>
       <div className={styles.badgeContent}>
-        {badgeItems.map((item, index) => (
-          <span key={index} className={getBadgeClass(index)}>
-            {item}
-          </span>
-        ))}
+        {children}
       </div>
     </div>
   );
