@@ -1,18 +1,12 @@
-.badge{
+.badge {
   display: flex;
-}
-
-.badgeContent {
-  display: flex;
-  gap: 8px;
-  width: 100%;
 }
 
 .badgeContent {
   display: flex;
   padding: 8px 16px;
   gap: 10px;
-  color: var(--lSecondaryWhiteTExtCollorMode, #8f93a3);
+  color: var(--lSecondaryWhiteTextCollorMode, #8f93a3);
   font-family: Inter;
   font-size: 14px;
   font-style: normal;
@@ -23,13 +17,7 @@
   cursor: pointer;
 }
 
-.badgeContent:hover{
-  color: white;
-}
 
-.badgeContent span{
-  height: 34px;
-}
 
 .active {
   display: flex;
@@ -37,7 +25,7 @@
   justify-content: center;
   padding: 8px 16px;
   border-radius: 12px;
-  background: var(--PrimaryCollor, #ff5f5f);
+  background: var(--PrimaryColor, #ff5f5f);
   color: #FFF;
   font-family: Inter;
   font-size: 14px;
@@ -47,5 +35,3 @@
   letter-spacing: -0.28px;
   height: 34px;
 }
-
-

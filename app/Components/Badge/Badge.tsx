@@ -9,14 +9,14 @@ type Props = {
 };
 
 const Badge = (props: Props) => {
-  const { children } = props;
+  const { children, id, onClick, isActive } = props;
 
   return (
     <div
-      className={props.isActive ? styles.active : styles.badgeContent}
-      onClick={() => props.onClick(props.id)}
+      className={isActive ? styles.active : styles.badgeContent}
+      onClick={() => onClick(id)}
     >
-      <div className={styles.badgeContent}>{children}</div>
+      {children}
     </div>
   );
 };
