@@ -21,6 +21,7 @@
   line-height: 18px;
   letter-spacing: -0.28px;
   height: 35px;
+  cursor: pointer;
 }
 
 .active {
@@ -36,3 +37,6 @@
   letter-spacing: -0.28px;
 }
 
+.active span {
+  color: white;
+}
