@@ -7,8 +7,6 @@ import Header from "./Components/Header/Header";
 const Home = () => {
   return (
     <div className={styles.mainContent}>
-      <AsideMenu />
-      <Header/>
     </div>
   );
 };
