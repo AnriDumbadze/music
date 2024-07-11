@@ -2,8 +2,9 @@ import { useState } from "react";
 import style from "../Badge.module.scss";
 import Badge from "../Badge";
 
+import badgeItems from "../../../../public/Consts/BadgeData"
+
 const BadgeComponent = () => {
-  const badgeItems = ["All", "Album", "Playlists", "Artists", "Downloaded"];
   const [activeBadge, setActiveBadge] = useState("All");
 
   const activeIndex = badgeItems.indexOf(activeBadge);
