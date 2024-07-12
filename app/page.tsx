@@ -1,10 +1,9 @@
 "use client";
 
-import React from "react";
-import AsideMenu from "./Components/Aside/Aside";
+import React, { useState } from "react";
 import styles from "./page.module.scss";
-import style from "../app/Components/Badge/Badge.module.scss";
-import BadgeComponent from "./Components/Badge/BadgeElements/BadgeElements";
+import badgeItems from "@/public/Consts/BadgeData";
+import Badge from "./Components/Badge/Badge";
 
 const Home = () => {
   const [activeBadge, setActiveBadge] = useState<number | null>(null);
