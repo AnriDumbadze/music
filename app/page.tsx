@@ -7,7 +7,7 @@ import Navigation from "./Components/Navigation/Nav";
 import MusicListItem from "./Components/MusicList/MusicListItem";
 import PlayerController from "./Components/PlayerController/PlayerController";
 
-const App: React.FC = () => {
+const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -57,4 +57,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Home;
