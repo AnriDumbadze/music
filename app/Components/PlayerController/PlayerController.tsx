@@ -3,7 +3,7 @@ import styles from './PlayerController.module.scss';
 
 
 
-interface PlayerControllerProps {
+type PlayerControllerProps = {
     queueTrack: string;
     queueArtist: string;
     photo: string;
@@ -20,28 +20,31 @@ interface PlayerControllerProps {
     onShuffle: () => void;
 }
 
-const PlayerController: React.FC<PlayerControllerProps> = ({
-    queueArtist,
-    queueTrack,
-    photo,
-    image,
-    currentTrack,
-    currentArtist,
-    currentTime,
-    duration,
-    isPlaying,
-    onPlayPause,
-    onSkipForward,
-    onSkipBackward,
-    onRepeat,
-    onShuffle,
-}) => {
+const PlayerController = (props: PlayerControllerProps) => {
+    const {
+      queueArtist,
+      queueTrack,
+      photo,
+      image,
+      currentTrack,
+      currentArtist,
+      currentTime,
+      duration,
+      isPlaying,
+      onPlayPause,
+      onSkipForward,
+      onSkipBackward,
+      onRepeat,
+      onShuffle,
+    } = props;
+  
     const formatTime = (seconds: number) => {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
+    
     return (
         <div className={styles.playerController}>
             <div className={styles.arrow}>

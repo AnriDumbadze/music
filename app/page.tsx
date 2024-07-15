@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from "react";
 import AsideMenu from "./Components/Aside/Aside";
@@ -25,35 +25,35 @@ const Home = () => {
 
   return (
     <div className={styles.mainContent}>
-    <AsideMenu />
-    <Navigation />
-    <MusicListItem
-      image={"image.svg"}
-      songName={"Robbery"}
-      artistName={"Juice World"}
-      rank={"1"}
-      onPlay={function (): void { }}
-      button={"playbtn.svg"}
-    />
-    <div className="App">
-      <PlayerController
-        image="musicImage.png"
-        currentTrack="Video Game"
-        currentArtist="Lana Del Rey"
-        currentTime={currentTime}
-        duration={272}
-        isPlaying={isPlaying}
-        onPlayPause={handlePlayPause}
-        onSkipForward={handleSkipForward}
-        onSkipBackward={handleSkipBackward}
-        onRepeat={() => { }}
-        onShuffle={() => { }}
-        queueTrack={"Video Game"}
-        queueArtist={"Lana Del Rey"}
-        photo={"queueImage.svg"}
+      <AsideMenu />
+      <Navigation />
+      <MusicListItem
+        image={"image.svg"}
+        songName={"Robbery"}
+        artistName={"Juice World"}
+        rank={"1"}
+        onPlay={function (): void { }}
+        button={"playbtn.svg"}
       />
+      <div className="App">
+        <PlayerController
+          image="musicImage.png"
+          currentTrack="Video Game"
+          currentArtist="Lana Del Rey"
+          currentTime={currentTime}
+          duration={272}
+          isPlaying={isPlaying}
+          onPlayPause={handlePlayPause}
+          onSkipForward={handleSkipForward}
+          onSkipBackward={handleSkipBackward}
+          onRepeat={() => { }}
+          onShuffle={() => { }}
+          queueTrack={"Video Game"}
+          queueArtist={"Lana Del Rey"}
+          photo={"queueImage.svg"}
+        />
+      </div>
     </div>
-  </div>
   );
 };
 
