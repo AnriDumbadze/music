@@ -44,7 +44,7 @@ const PlayerController = (props: PlayerControllerProps) => {
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
 
-    
+
     return (
         <div className={styles.playerController}>
             <div className={styles.arrow}>
@@ -57,7 +57,7 @@ const PlayerController = (props: PlayerControllerProps) => {
                     <h3 className={styles.track}>{currentTrack}</h3>
                     <p>{currentArtist}</p>
                 </div>
-                <div className={styles.icons}>
+                <div className={styles.icons}> 
                     <img src="plus.svg" alt="" />
                     <img src="heart.svg" alt="" />
                 </div>
