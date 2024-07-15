@@ -7,8 +7,7 @@ import Navigation from "./Components/Navigation/Nav";
 import MusicListItem from "./Components/MusicList/MusicListItem";
 import PlayerController from "./Components/PlayerController/PlayerController";
 
-const Home = () => {
-
+const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -26,36 +25,36 @@ const Home = () => {
 
   return (
     <div className={styles.mainContent}>
-      <AsideMenu />
-      <Navigation />
-      <MusicListItem
-        image={"image.svg"}
-        songName={"Robbery"}
-        artistName={"Juice World"}
-        rank={"1"}
-        onPlay={function (): void { }}
-        button={"playbtn.svg"}
+    <AsideMenu />
+    <Navigation />
+    <MusicListItem
+      image={"image.svg"}
+      songName={"Robbery"}
+      artistName={"Juice World"}
+      rank={"1"}
+      onPlay={function (): void { }}
+      button={"playbtn.svg"}
+    />
+    <div className="App">
+      <PlayerController
+        image="musicImage.png"
+        currentTrack="Video Game"
+        currentArtist="Lana Del Rey"
+        currentTime={currentTime}
+        duration={272}
+        isPlaying={isPlaying}
+        onPlayPause={handlePlayPause}
+        onSkipForward={handleSkipForward}
+        onSkipBackward={handleSkipBackward}
+        onRepeat={() => { }}
+        onShuffle={() => { }}
+        queueTrack={"Video Game"}
+        queueArtist={"Lana Del Rey"}
+        photo={"queueImage.svg"}
       />
-      <div className="App">
-        <PlayerController
-          image="musicImage.png"
-          currentTrack="Video Game"
-          currentArtist="Lana Del Rey"
-          currentTime={currentTime}
-          duration={272}
-          isPlaying={isPlaying}
-          onPlayPause={handlePlayPause}
-          onSkipForward={handleSkipForward}
-          onSkipBackward={handleSkipBackward}
-          onRepeat={() => { }}
-          onShuffle={() => { }}
-          queueTrack={"Video Game"}
-          queueArtist={"Lana Del Rey"}
-          photo={"queueImage.svg"}
-        />
-      </div>
     </div>
+  </div>
   );
-}
+};
 
-export default Home;
+export default App;
