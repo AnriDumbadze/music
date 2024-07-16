@@ -12,12 +12,6 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [activeBadge, setActiveBadge] = useState<number | null>(null);
 
-    setIsPlaying(!isPlaying);
-
-    setCurrentTime(currentTime + 10);
-
-    setCurrentTime(currentTime - 10);
-
   return (
     <div className={styles.mainContent}>
       <AsideMenu />
