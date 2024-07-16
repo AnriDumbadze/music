@@ -1,19 +1,44 @@
 .mainContent {
   display: flex;
-  width: 100%;
-  height: 100vh;
-  background: #f7f7f7;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badgeNames{
+  display: flex;
+  gap: 10px;
+}
+
+.badgePhoto{
+  display: flex;
+  gap: 10px;
 }
 
 .badgeContainer {
   display: flex;
   width: 100%;
-  flex-direction: column;
   padding: 16px 76px 18px 75px;
   background-color: black;
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+
+.badgeMap{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.badgeContent{
+  display: flex;
+}
+
+.footer{
+  display: flex;
+  cursor: pointer;
 }
 
 .badgeContainer span {
@@ -28,5 +53,5 @@
 
 
 .active {
-  color: var(--PrimaryColor, #FF5F5F);
+  color:  #FF5F5F !important;
 }
