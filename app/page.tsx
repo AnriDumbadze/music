@@ -12,17 +12,11 @@ const Home = () => {
   const [currentTime, setCurrentTime] = useState(0);
   const [activeBadge, setActiveBadge] = useState<number | null>(null);
 
-  const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
-  };
 
-  const handleSkipForward = () => {
     setCurrentTime(currentTime + 10);
-  };
 
-  const handleSkipBackward = () => {
     setCurrentTime(currentTime - 10);
-  };
 
   return (
     <div className={styles.mainContent}>
@@ -46,9 +40,9 @@ const Home = () => {
           currentTime={currentTime}
           duration={272}
           isPlaying={isPlaying}
-          onPlayPause={handlePlayPause}
-          onSkipForward={handleSkipForward}
-          onSkipBackward={handleSkipBackward}
+          onPlayPause={() => setIsPlaying(!isPlaying)}
+          onSkipForward={() => setCurrentTime(currentTime + 10)}
+          onSkipBackward={() => setCurrentTime(currentTime - 10)}
           onRepeat={() => { }}
           onShuffle={() => { }}
           queueTrack={"Video Game"}
