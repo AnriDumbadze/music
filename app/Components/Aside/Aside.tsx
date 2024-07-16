@@ -11,13 +11,13 @@ const AsideMenu = () => {
         </div>
         <div className={styles.menuItems}>
           <MenuItem
-            src={"./profile.svg"}
+            src={"images/profile.svg"}
             name={"namasdasde"}
             backgroundColor={""}
             textColor={"black"}
           />
           <MenuItem
-            src={"./profile.svg"}
+            src={"images/profile.svg"}
             name={"name"}
             backgroundColor={""}
             textColor={"black"}

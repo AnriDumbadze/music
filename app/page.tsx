@@ -11,7 +11,7 @@ const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [activeBadge, setActiveBadge] = useState<number | null>(null);
-  
+
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
@@ -29,16 +29,18 @@ const Home = () => {
       <AsideMenu />
       <Navigation />
       <MusicListItem
-        image={"image.svg"}
+        image={"images/image.svg"}
         songName={"Robbery"}
         artistName={"Juice World"}
         rank={"1"}
         onPlay={function (): void { }}
-        button={"playbtn.svg"}
+        button={"icons/playbtn.svg"}
       />
       <div className="App">
         <PlayerController
-          image="musicImage.png"
+          albumTitle="Born To Die"
+          dropdown="icons/arrowdown.svg"
+          image="images/musicImage.png"
           currentTrack="Video Game"
           currentArtist="Lana Del Rey"
           currentTime={currentTime}
@@ -51,7 +53,7 @@ const Home = () => {
           onShuffle={() => { }}
           queueTrack={"Video Game"}
           queueArtist={"Lana Del Rey"}
-          photo={"queueImage.svg"}
+          photo={"images/musicImage.png"}
         />
       </div>
     </div>
