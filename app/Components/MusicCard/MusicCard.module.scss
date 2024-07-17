@@ -24,3 +24,12 @@
     font-size: 24px;
     color: #292929;
 }
+
+@media (max-width: 768px){
+    .musicPhoto img{
+        width: 120px;
+    }
+    .musicPhoto{
+        height: 193px;
+    }
+}
