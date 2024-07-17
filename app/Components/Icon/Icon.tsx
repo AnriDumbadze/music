@@ -5,7 +5,7 @@ type Props = {
 };
 const Icon = (props: Props) => {
   return (
-    <img src={props.src} height={props.height} width={props.width} alt="" />
+    <img src={props.src} height={props.height} width={props.width} />
   );
 };
 

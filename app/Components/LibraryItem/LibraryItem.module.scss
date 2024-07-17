@@ -1,0 +1,44 @@
+@import "../colors/Colors.scss";
+
+.content {
+  display: flex;
+  width: 100%;
+  height: 80px;
+  justify-content: space-between;
+}
+
+.leftPart {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.itemInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.downloadContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.itemInfo__title {
+  color: var(--PrimaryTextCollorWHiteMode, $black);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; 
+}
+
+.songQuantity{
+    color: var(--lSecondaryWhiteTExtCollorMode, $TextWhiteModeTextSecondary);
+font-family: Inter;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 18px; 
+}
