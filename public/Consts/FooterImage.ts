@@ -1,4 +1,4 @@
-interface BadgeItem {
+export interface BadgeItem {
     name: string;
     photo: string;
     activePhoto: string;

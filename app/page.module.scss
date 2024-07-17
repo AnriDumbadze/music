@@ -1,12 +1,12 @@
 .mainContent {
   display: flex;
-  flex-direction: column;
   align-items: center;
 }
 
 .badgeNames{
   display: flex;
-  gap: 10px;
+  width: 100%;
+  gap: 100px;
 }
 
 .badgePhoto{
@@ -25,33 +25,8 @@
 }
 
 .badgeMap{
+  width: 100%;
   display: flex;
-  flex-direction: column;
   gap: 8px;
   align-items: center;
-  justify-content: space-around;
-}
-
-.badgeContent{
-  display: flex;
-}
-
-.footer{
-  display: flex;
-  cursor: pointer;
-}
-
-.badgeContainer span {
-  font-family: Inter;
-  color: white;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 16px;
-  cursor: pointer;
-}
-
-
-.active {
-  color:  #FF5F5F !important;
 }
