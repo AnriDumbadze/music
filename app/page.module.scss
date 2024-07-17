@@ -2,31 +2,3 @@
   display: flex;
   align-items: center;
 }
-
-.badgeNames{
-  display: flex;
-  width: 100%;
-  gap: 100px;
-}
-
-.badgePhoto{
-  display: flex;
-  gap: 10px;
-}
-
-.badgeContainer {
-  display: flex;
-  width: 100%;
-  padding: 16px 76px 18px 75px;
-  background-color: black;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.badgeMap{
-  width: 100%;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}

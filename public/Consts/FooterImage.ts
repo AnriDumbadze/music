@@ -6,9 +6,9 @@ export interface BadgeItem {
   }
 
 const FooterItems: BadgeItem[] = [
-    { name: "Home", photo: "./home.svg", activePhoto: "./activeHome.svg"  , id : 1},
-    { name: "Library", photo: "./home.svg", activePhoto: "./activeHome.svg", id : 2 },
-    { name: "Search", photo: "./home.svg", activePhoto: "./activeHome.svg",  id : 3}
+    { name: "Home", photo: "./Icons/home.svg", activePhoto: "./Icons/activeHome.svg"  , id : 1},
+    { name: "Library", photo: "./Icons/home.svg", activePhoto: "./Icons/activeHome.svg", id : 2 },
+    { name: "Search", photo: "./Icons/home.svg", activePhoto: "./Icons/activeHome.svg",  id : 3}
   ];
 
   export default FooterItems;
