@@ -1,3 +1,6 @@
+@import "../colors/Colors.scss";
+
+
 .wrapper {
   display: flex;
   width: 100%;
@@ -12,7 +15,7 @@
 }
 
 .title {
-  color: var(--PrimaryTextCollorWHiteMode, #292929);
+  color: var(--PrimaryTextCollorWHiteMode, $black);
   font-family: Inter;
   font-size: 20px;
   font-style: normal;

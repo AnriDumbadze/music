@@ -1,18 +1,17 @@
 "use client";
-
-import React from "react";
+import React, { useState } from "react";
 import styles from "./page.module.scss";
-import ArtistCard from "./Components/ArtistCard/ArtistCard";
-import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
-import AsideMenu from "./Components/Aside/Aside";
-import Aside from "./Components/Aside/Aside";
+import MobileFooter from "./Components/MobileFooter/MobileFooter";
 
 const Home = () => {
+  
 
   return (
     
     <div className={styles.mainContent}>
-    </div>
+<MobileFooter/>
+      </div>
+      
   );
 };
 

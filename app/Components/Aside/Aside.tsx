@@ -7,17 +7,17 @@ const AsideMenu = () => {
     <div className={styles.aside}>
       <div className={styles.siderContent}>
         <div className={styles.logo}>
-          <Icon src={"./Fazer.png"} />
+          <Icon src={"./Images/FAZER.png"} />
         </div>
         <div className={styles.menuItems}>
           <MenuItem
-            src={"./profile.svg"}
+            src={"./Icons/profile.svg"}
             name={"namasdasde"}
             backgroundColor={""}
             textColor={"black"}
           />
           <MenuItem
-            src={"./profile.svg"}
+            src={"./Icons/profile.svg"}
             name={"name"}
             backgroundColor={""}
             textColor={"black"}

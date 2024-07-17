@@ -1,8 +1,12 @@
+@import "../colors/Colors.scss";
+
+
+
 .aside {
   display: flex;
   flex-direction: column;
   width: 20%;
-  background-color: #fff;
+  background-color: $white;
 }
 
 .siderContent {
