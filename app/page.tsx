@@ -9,11 +9,6 @@ const Home = () => {
   return (
     <div className={styles.mainContent}>
       <AsideMenu />
-      <MusicCard 
-      albumCover="./image50.png"
-      author = "dsds"
-      songTitle = "asdsa"
-      />
       <Navigation />
       
     </div>
