@@ -1,7 +1,7 @@
-import { BadgeItem } from "@/public/Consts/FooterImage";
 import styles from "./Badge.module.scss";
 import React from "react";
 import Icon from "../Icon/Icon";
+import { BadgeItem } from "@/public/Interfaces/inter";
 
 type Props = {
   badgeItem: BadgeItem;

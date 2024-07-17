@@ -1,10 +1,13 @@
+@import url(../colors/Colors.scss);
+
+
 .musiclistitem {
     display: flex;
     align-items: center;
-    background-color: #1e1e1e; 
+    background-color: $black; 
     padding: 10px;
     border-radius: 20px;
-    color: #fff;
+    color: $white;
     width: 360px;
     height: 160px;
   }
@@ -30,7 +33,7 @@
     line-height: 24px;
     letter-spacing: -0.3199999928474426px;
     text-align: left;
-    color: #FFFFFF;
+    color:$white;
     margin-bottom: 4px;
     width: 120px;
     height: 24px;
@@ -42,7 +45,7 @@
     line-height: 18px;
     letter-spacing: -0.3199999928474426px;
     text-align: left;
-    color: #898989;
+    color: $TextSecondaryDarkMode;
     width: 120px;
     height: 18px;
     margin-top: -45px;

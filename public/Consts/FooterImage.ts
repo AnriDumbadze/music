@@ -1,9 +1,4 @@
-export interface BadgeItem {
-    name: string;
-    photo: string;
-    activePhoto: string;
-    id : number
-  }
+import { BadgeItem } from "../Interfaces/inter";
 
 const FooterItems: BadgeItem[] = [
     { name: "Home", photo: "./Icons/home.svg", activePhoto: "./Icons/activeHome.svg"  , id : 1},

@@ -1,8 +1,10 @@
+@import url(../colors/Colors.scss);
+
 .badgeContent {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  color: white;
+  color: $white;
   cursor: pointer;
   align-items: center;
 }
@@ -11,5 +13,5 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color:  #FF5F5F !important;
+  color:  $primary !important;
 }
