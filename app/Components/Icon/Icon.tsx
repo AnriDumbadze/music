@@ -1,12 +1,16 @@
+import React, { useState } from 'react';
+
 type Props = {
-  src: string;
+  name: string;
   height?: string;
   width?: string;
+  isActive: boolean;
+  onClick: () => void; 
 };
-const Icon = (props: Props) => {
-  return (
-    <img src={props.src} height={props.height} width={props.width} alt="" />
-  );
+
+const Icon = ({ name, height, width, isActive, onClick }: Props) => {
+  const iconSrc = isActive ? `/Icons/${name}Active.svg` : `/Icons/${name}.svg`;
+  return <img src={iconSrc} height={height} width={width} alt={name} onClick={onClick} />;
 };
 
 export default Icon;
