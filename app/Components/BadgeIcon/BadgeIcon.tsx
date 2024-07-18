@@ -12,10 +12,10 @@ type Props = {
       <img
         src={src}
         height={height}
-        width={width}
+        width={width}   
         alt={name}
         onClick={onClick} 
-        style={{ cursor: "pointer" }} 
+        style={{ cursor: "pointer"  }} 
       />
     );
   };

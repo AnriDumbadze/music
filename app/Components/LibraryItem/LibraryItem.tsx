@@ -15,7 +15,7 @@ type Props = {
 const LibraryItem = (props: Props) => {
   const [activeBadge, setActiveBadge] = useState<number | null>(null);
 
-  const handleBadgeClick = (id: number) => {
+  const handleBadgeClick = (id: number) => {   
     setActiveBadge(id);
   };
 
