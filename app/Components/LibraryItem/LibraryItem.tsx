@@ -13,35 +13,35 @@ type Props = {
 };
 
 const LibraryItem = (props: Props) => {
-  const [activeBadge, setActiveBadge] = useState<number | null>(null);
+  const [isActive, setIsActive] = useState(false);
 
-  const handleBadgeClick = (id: number) => {   
-    setActiveBadge(id);
+
+
+  const handleIconClick = () => {
+    setIsActive(!isActive);
   };
 
   return (
     <div className={styles.content}>
       <div className={styles.leftPart}>
         <div className={styles.item__image}>
-          <Icon src="./Images/image.png" width="80px" height="80px" />
+          <img src="./Images/image.png" width="80px" height="80px" />
         </div>
         <div className={styles.itemInfo}>
           <span className={styles.itemInfo__title}>{props.title}</span>
           <span className={styles.songQuantity}>{props.songQuantity}</span>
         </div>
       </div>
-      <div
-        className={styles.downloadContainer}
-      >
-        <BadgeIcon
-          src={activeBadge === props.id ? "./Icons/DownloadActive.svg" : "./Icons/Download.svg"}
-          name="Download"
-          isActive={activeBadge === props.id}
-          onClick={() => handleBadgeClick(props.id)}
-        />
-        <Icon src="./Icons/More.svg" />
-      </div>
-     
+      <div className={styles.downloadContainer}>
+        <div className={styles.downloadCursor}>
+          
+        <Icon name={"Download"}  onClick={handleIconClick} isActive={isActive} />
+        </div>
+
+        <Icon name={"More"} isActive={false} onClick={function (): void {
+          throw new Error("Function not implemented.");
+        } }  />
+      </div> 
     </div>
   );
 };
