@@ -10,7 +10,6 @@ import PlayerController from "./Components/PlayerController/PlayerController";
 const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [activeBadge, setActiveBadge] = useState<number | null>(null);
 
   return (
     <div className={styles.mainContent}>
