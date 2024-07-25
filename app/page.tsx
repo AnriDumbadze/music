@@ -9,11 +9,8 @@ import Search from "./Components/SearchComponent/Search";
 
 const Home = () => {
 
-  const [query, setQuery] = useState<string>('');
-
-  const handleInputChange = (newQuery: string) => {
-    setQuery(newQuery);
-    console.log('Search query:', newQuery);
+  const [query, setQuery] = useState<string>('');{
+    
   }
   
   return (
@@ -28,10 +25,7 @@ const Home = () => {
       songName="SOS!"
       rank="12"
       />
-      <div>
-      <Search 
-      onChange={handleInputChange}/>
-      </div>
+       <Search onChange={setQuery} />
     </div>
   );
 };
