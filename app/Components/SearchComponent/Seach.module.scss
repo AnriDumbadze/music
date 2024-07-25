@@ -1,0 +1,30 @@
+@media (max-width: 768px){
+    .input{
+        width: 346px !important;
+        height: 40px !important;
+    }
+}
+.icon{
+    position: absolute;
+    background-image: url(../../../public/Icons/SearchLoupe.svg);
+    background-position:center;
+    width: 34px;
+    height: 46px;
+    background-repeat: no-repeat;
+}
+
+.input{
+    display: flex;
+    background-color: #212121;
+    width: 1019px;
+    height: 48px;
+    border-radius: 16px;
+    padding: 12px 24px 12px 34px;
+    color: white;
+}
+
+.icon:hover{
+    cursor: pointer;
+}
+
+
