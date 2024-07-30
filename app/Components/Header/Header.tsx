@@ -6,12 +6,12 @@ const Header = () => {
     <div className={styles.header}>
       <div className={styles.headerContent}>
         <div className={styles.arrowContainer}>
-          <Icon src={"./Arrow.svg"} height={"40px"} width={"40px"} />
-          <Icon src={"./rightArr.svg"} height={"40px"} width={"40px"} />
+          <Icon src={"./Icons/Arrow.svg"} height={"40px"} width={"40px"} />
+          <Icon src={"./Icons/rightArr.svg"} height={"40px"} width={"40px"} />
         </div>
 
         <div className={styles.searchContainer}>
-          <Icon src={"./searchIcon.png"} />
+          <Icon src={"./Images/searchIcon.png"} />
           <input className={styles.noBorder} placeholder="search" />
         </div>
       </div>

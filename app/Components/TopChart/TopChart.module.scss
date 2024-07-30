@@ -1,0 +1,58 @@
+.mainContainer {
+    width: 300px;
+    height: 128px;
+    border-radius: 12px;
+    background-color: #151515;
+    display: flex;
+}
+
+.topImage {
+    width: 103px;
+    height: 104px;
+    top: 12px;
+    left: 12px;
+    border-radius: 8px;
+}
+
+.song {
+    color: #FFFFFF;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.3199999928474426px;
+    margin-top: 11px;
+}
+
+.artist {
+    color: #898989;
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.3199999928474426px;
+    margin-top: -30px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 16px;
+}
+
+
+.imageContainer {
+    display: flex;
+    align-items: center;
+}
+
+.rank {
+    color: #FFFFFF;
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21.78px;
+    letter-spacing: -0.3199999928474426px;
+    margin-bottom: 23px;
+}

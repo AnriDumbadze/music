@@ -1,22 +1,29 @@
 import styles from "./Badge.module.scss";
 import React from "react";
+import Icon from "../Icon/Icon";
+import { BadgeItem } from "@/public/Interfaces/inter";
 
 type Props = {
-  children: React.ReactNode;
+  badgeItem: BadgeItem;
   id: number;
   onClick: (value: number) => void;
   isActive: boolean;
 };
 
 const Badge = (props: Props) => {
-  const { children, id, onClick, isActive } = props;
-
   return (
     <div
-      className={isActive ? styles.active : styles.badgeContent}
-      onClick={() => onClick(id)}
+      className={props.isActive ? styles.active : styles.badgeContent}
+      onClick={() => props.onClick(props.id)}
     >
-      {children}
+      {props.badgeItem.name}
+      <Icon width={"24px"} height={"24px"}
+        src={
+          props.isActive
+            ? `${props.badgeItem.activePhoto}`
+            : `${props.badgeItem.photo}`
+        }
+      />
     </div>
   );
 };
