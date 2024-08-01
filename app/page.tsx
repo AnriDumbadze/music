@@ -5,8 +5,14 @@ import Aside from "./Components/Aside/Aside";
 import LibraryItem from "./Components/LibraryItem/LibraryItem";
 import MobileFooter from "./Components/MobileFooter/MobileFooter";
 import TopChart from "./Components/TopChart/TopChart";
+import Search from "./Components/SearchComponent/Search";
 
 const Home = () => {
+
+  const [query, setQuery] = useState<string>('');{
+    
+  }
+  
   return (
     <div className={styles.mainContent}>
       <Aside />
@@ -19,6 +25,7 @@ const Home = () => {
       songName="SOS!"
       rank="12"
       />
+       <Search onChange={setQuery} />
     </div>
   );
 };
