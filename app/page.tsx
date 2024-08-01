@@ -10,6 +10,7 @@ import Search from "./Components/SearchComponent/Search";
 
 
 const Home = () => {
+  const [query, setQuery] = useState<string>('');
 
   return (
     <div className={styles.mainContent}>
@@ -28,7 +29,8 @@ const Home = () => {
         artistName="SZA"
         songName="SOS!"
         rank="12"
-
+        />
+        <Search onChange={setQuery} />
     </div>
   );
 };
