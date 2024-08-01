@@ -9,7 +9,7 @@ import TopChart from "./Components/TopChart/TopChart";
 
 
 const Home = () => {
-  const [query, setQuery] = useState<string>('');
+  
 
   return (
     <div className={styles.mainContent}>
