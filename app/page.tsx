@@ -6,10 +6,10 @@ import Aside from "./Components/Aside/Aside";
 import LibraryItem from "./Components/LibraryItem/LibraryItem";
 import MobileFooter from "./Components/MobileFooter/MobileFooter";
 import TopChart from "./Components/TopChart/TopChart";
+import Search from "./Components/SearchComponent/Search";
 
 
 const Home = () => {
-  
 
   return (
     <div className={styles.mainContent}>
@@ -28,8 +28,7 @@ const Home = () => {
         artistName="SZA"
         songName="SOS!"
         rank="12"
-      />
-      
+
     </div>
   );
 };
