@@ -1,0 +1,35 @@
+
+.musicCard {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+}
+
+.musicPhoto img{
+    border-radius: 12px;
+}
+
+.musicInfo{
+    gap: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.author{
+    font-size: 18px;
+    color: #8F93A3;
+}
+
+.songTitle{
+    font-size: 24px;
+    color: #292929;
+}
+
+@media (max-width: 768px){
+    .musicPhoto img{
+        width: 120px;
+    }
+    .musicPhoto{
+        height: 193px;
+    }
+}
