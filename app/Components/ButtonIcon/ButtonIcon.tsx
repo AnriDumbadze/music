@@ -1,22 +1,33 @@
 import styles from "./buttonIcon.module.scss";
 import Image from "next/image";
 
+export enum ButtonStyle {
+    Red = "Red",
+    Dark = "Dark",
+    White = "White",
+    Black = "Black",
+}
+
 
 interface Props {
     title?: string;
     icon: string;
     onClick: () => void;
-    style: "Red" | "Dark" | "White" | "Black"
+    style: ButtonStyle;
 }
 
 
 const ButtonIcon = (props: Props) => {
 
-    const styleClass = 
-    props.style === "Red" ? styles.Red :
-    props.style === "Dark" ? styles.Dark :
-    props.style === "Black" ? styles.Black : 
-    styles.White;
+    let styleClass = styles.White;
+
+    if (props.style === "Red") {
+        styleClass = styles.Red;
+    } else if (props.style === "Dark") {
+        styleClass = styles.Dark;
+    } else if (props.style === "Black") {
+        styleClass = styles.Black;
+    }
 
 
     const classes = [styles.button, styleClass].join(" ").trim()

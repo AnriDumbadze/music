@@ -9,6 +9,7 @@ import TopChart from "./Components/TopChart/TopChart";
 import Search from "./Components/SearchComponent/Search";
 import ButtonIcon from "./Components/ButtonIcon/ButtonIcon";
 import ButtonArrows from "./Components/ButtonArrows/ButtonArrows";
+import { ButtonStyle } from "./Components/ButtonIcon/ButtonIcon";
 
 
 const Home = () => {
@@ -38,13 +39,13 @@ const Home = () => {
         title={""}
         icon={"icons/music.svg"}
         onClick={function ():void {} } 
-        style={"Black"} 
+        style={ButtonStyle.Black} 
         />
         </div>
         <ButtonArrows 
-        direction={"right"} 
+        direction={"left"} 
         onClick={function (): void {} } 
-        icon="icons/rightarr2.svg"
+        icon="icons/leftarr.svg"
         />
     </div>
   );
