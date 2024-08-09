@@ -7,6 +7,9 @@ import LibraryItem from "./Components/LibraryItem/LibraryItem";
 import MobileFooter from "./Components/MobileFooter/MobileFooter";
 import TopChart from "./Components/TopChart/TopChart";
 import Search from "./Components/SearchComponent/Search";
+import ButtonIcon from "./Components/ButtonIcon/ButtonIcon";
+import ButtonArrows from "./Components/ButtonArrows/ButtonArrows";
+import { ButtonStyle } from "./Components/ButtonStyles";
 
 
 const Home = () => {
@@ -31,6 +34,19 @@ const Home = () => {
         rank="12"
         />
         <Search onChange={setQuery} />
+        <div>
+        <ButtonIcon 
+        title={""}
+        icon={"icons/music.svg"}
+        onClick={function ():void {} } 
+        style={ButtonStyle.Black} 
+        />
+        </div>
+        <ButtonArrows 
+        direction={"left"} 
+        onClick={function (): void {} } 
+        icon="icons/leftarr.svg"
+        />
     </div>
   );
 };
