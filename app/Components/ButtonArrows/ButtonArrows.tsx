@@ -11,7 +11,7 @@ interface ArrowButtonProps {
 
     const directionClass = direction === "left" ? styles.left : styles.right 
 
-    const classes = [styles.button, direction].join(" ").trim()
+    const classes = [styles.button, directionClass].join(" ").trim()
 
     return (
       <button className={classes} onClick={onClick}>
