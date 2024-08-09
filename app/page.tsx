@@ -9,7 +9,7 @@ import TopChart from "./Components/TopChart/TopChart";
 import Search from "./Components/SearchComponent/Search";
 import ButtonIcon from "./Components/ButtonIcon/ButtonIcon";
 import ButtonArrows from "./Components/ButtonArrows/ButtonArrows";
-import { ButtonStyle } from "./Components/ButtonIcon/ButtonIcon";
+import { ButtonStyle } from "./Components/ButtonStyles";
 
 
 const Home = () => {

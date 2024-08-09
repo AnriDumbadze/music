@@ -1,12 +1,7 @@
 import styles from "./buttonIcon.module.scss";
 import Image from "next/image";
+import { ButtonStyle } from "../ButtonStyles";
 
-export enum ButtonStyle {
-    Red = "Red",
-    Dark = "Dark",
-    White = "White",
-    Black = "Black",
-}
 
 
 interface Props {
@@ -20,12 +15,12 @@ interface Props {
 const ButtonIcon = (props: Props) => {
 
     let styleClass = styles.White;
-
-    if (props.style === "Red") {
+    
+    if (props.style === ButtonStyle.Red) {
         styleClass = styles.Red;
-    } else if (props.style === "Dark") {
+    } else if (props.style === ButtonStyle.Dark) {
         styleClass = styles.Dark;
-    } else if (props.style === "Black") {
+    } else if (props.style === ButtonStyle.Black) {
         styleClass = styles.Black;
     }
 
