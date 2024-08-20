@@ -1,0 +1,52 @@
+.input {
+    width: 343px; 
+    height: 48px; 
+    border-radius: 12px;
+    padding: 12px  16px;
+    gap: 10px;
+  
+    &.white {
+      &.neutral {
+        color: #808080;
+       border: #F0F0F0;
+      }
+      &.focused {
+        border: 1px solid #08ACF3;
+        color: #292929;
+      }
+      &.disabled {
+        color: #BFBFBF;
+        border: #BFBFBF;
+        cursor: not-allowed;
+      }
+      &.success {
+        border: 1px solid #6FC92B;
+        color: #6FC92B;
+      }
+      &.warning {
+        border: 1px solid #EEB100;
+        color: #EEB100;
+      }
+      &.error {
+        border: 1px solid #FF3336;
+        color: #FF3336;
+      }
+    }
+  
+    &.black {
+      &.neutral {
+        background-color: #151515;
+        color: #808080;
+      }
+      &.focused {
+        background-color: #151515;
+        border: 1px solid #08ACF3;
+        color: #F0F0F0;
+      }
+      &.disabled {
+        background-color: #151515;
+        color: #808080;
+        cursor: not-allowed;
+      }
+    }
+  }
