@@ -1,47 +1,59 @@
 "use client";
 
 import React, { useState } from "react";
-import AsideMenu from "./Components/Aside/Aside";
 import styles from "./page.module.scss";
-import Navigation from "./Components/Navigation/Nav";
-import MusicListItem from "./Components/MusicList/MusicListItem";
 import PlayerController from "./Components/PlayerController/PlayerController";
+import MusicListItem from "./Components/MusicList/MusicListItem";
+import songs from "@/public/Consts/songs"; 
 
 const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
+  const [showPlayer, setShowPlayer] = useState(true);
+  const [currentSongIndex, setCurrentSongIndex] = useState(0);
+
+  const toggleView = () => {
+    setShowPlayer((prevShowPlayer) => !prevShowPlayer);
+  };
+
+  const handleSongChange = (index: number) => {
+    setCurrentSongIndex(index);
+    setShowPlayer(true);
+  };
 
   return (
     <div className={styles.mainContent}>
-      <AsideMenu />
-      <Navigation />
-      <MusicListItem
-        image={"images/image.svg"}
-        songName={"Robbery"}
-        artistName={"Juice World"}
-        rank={"1"}
-        onPlay={function (): void { }}
-        button={"icons/playbtn.svg"}
-      />
       <div className="App">
-        <PlayerController
-          albumTitle="Born To Die"
-          dropdown="icons/arrowdown.svg"
-          image="images/musicImage.png"
-          currentTrack="Video Game"
-          currentArtist="Lana Del Rey"
-          currentTime={currentTime}
-          duration={272}
-          isPlaying={isPlaying}
-          onPlayPause={() => setIsPlaying(!isPlaying)}
-          onSkipForward={() => setCurrentTime(currentTime + 10)}
-          onSkipBackward={() => setCurrentTime(currentTime - 10)}
-          onRepeat={() => { }}
-          onShuffle={() => { }}
-          queueTrack={"Video Game"}
-          queueArtist={"Lana Del Rey"}
-          photo={"images/musicImage.png"}
-        />
+        {showPlayer ? (
+          <PlayerController
+            albumTitle="Born To Die"
+            dropdown="icons/arrowdown.svg"
+            image={songs[currentSongIndex].src}
+            currentTrack={songs[currentSongIndex].title}
+            currentArtist={songs[currentSongIndex].artist}
+            currentTime={currentTime}
+            duration={212}
+            isPlaying={isPlaying}
+            onPlayPause={() => setIsPlaying(!isPlaying)}
+            onRepeat={() => {}}
+            onShuffle={() => {}}
+            queueTrack={songs[currentSongIndex].queueSong}
+            queueArtist={songs[currentSongIndex].queueName}
+            photo={songs[currentSongIndex].src}
+            onToggleView={toggleView}
+            currentSongIndex={currentSongIndex}
+            setCurrentSongIndex={setCurrentSongIndex} 
+          />
+        ) : (
+          <MusicListItem
+            image={songs[currentSongIndex].src}
+            songName={songs[currentSongIndex].title}
+            artistName={songs[currentSongIndex].artist}
+            rank={""}
+            button={"./icons/playbtn.svg"}
+            onPlay={() => handleSongChange(currentSongIndex)}
+          />
+        )}
       </div>
     </div>
   );

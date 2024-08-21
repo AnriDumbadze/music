@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./PlayerController.module.scss";
-import songs from "@/public/Consts/songs";
+import songs from "@/public/Consts/songs"; 
 import Icon from "../Icon/Icon";
 
 type PlayerControllerProps = {
@@ -17,6 +17,9 @@ type PlayerControllerProps = {
   onSkipBackward: () => void;
   onRepeat: () => void;
   onShuffle: () => void;
+  onToggleView: () => void; 
+  currentSongIndex: number; 
+  setCurrentSongIndex: React.Dispatch<React.SetStateAction<number>>; 
 };
 
 const PlayerController = (props: PlayerControllerProps) => {
@@ -34,12 +37,16 @@ const PlayerController = (props: PlayerControllerProps) => {
     onSkipBackward,
     onRepeat,
     onShuffle,
+    onToggleView,
+    currentSongIndex,
+    setCurrentSongIndex,
   } = props;
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
-  const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [songEnded, setSongEnded] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -76,10 +83,8 @@ const PlayerController = (props: PlayerControllerProps) => {
 
   useEffect(() => {
     if (songEnded) {
-      setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
-      setCurrentTrackTime(0);
+      handleSkipForward();
       setSongEnded(false);
-      onPlayPause();
     }
   }, [songEnded]);
 
@@ -98,7 +103,15 @@ const PlayerController = (props: PlayerControllerProps) => {
   };
 
   const handleSkipForward = () => {
-    setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    if (shuffle) {
+      let nextSongIndex = Math.floor(Math.random() * songs.length);
+      while (nextSongIndex === currentSongIndex && songs.length > 1) {
+        nextSongIndex = Math.floor(Math.random() * songs.length);
+      }
+      setCurrentSongIndex(nextSongIndex);
+    } else {
+      setCurrentSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    }
     setCurrentTrackTime(0);
   };
 
@@ -109,23 +122,29 @@ const PlayerController = (props: PlayerControllerProps) => {
     setCurrentTrackTime(0);
   };
 
-  const [isActive, setIsActive] = useState(false);
+  const handleShuffle = () => {
+    setShuffle((prevShuffle) => !prevShuffle);
+  };
+
+  const handleRepeat = () => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+    }
+  };
 
   const handleIconClick = () => {
     setIsActive(!isActive);
   };
 
-
-  
   const handleIconClickQueue = () => {
     setIsActive(!isActive);
   };
-  
 
   return (
     <div className={styles.playerController}>
       <audio ref={audioRef} src={songs[currentSongIndex].url} />
-      <div className={styles.arrow}>
+      <div className={styles.arrow} onClick={onToggleView}>
         <img src={dropdown} alt="" />
       </div>
       <p className={styles.albumName}>{albumTitle}</p>
@@ -160,11 +179,11 @@ const PlayerController = (props: PlayerControllerProps) => {
           <span>{songs[currentSongIndex].songDuration}</span>
         </div>
         <div className={styles.controls}>
-          <button onClick={onRepeat} className={styles.repeat}>
-            <img src="icons/repeat.svg" alt="" />{" "}
+          <button onClick={handleRepeat} className={styles.repeat}>
+            <img src="icons/repeat.svg" alt="Repeat" />
           </button>
           <button onClick={handleSkipBackward}>
-            <img src="icons/previous.svg" alt="" />
+            <img src="icons/previous.svg" alt="Previous" />
           </button>
           <button onClick={onPlayPause}>
             {isPlaying ? (
@@ -174,10 +193,13 @@ const PlayerController = (props: PlayerControllerProps) => {
             )}
           </button>
           <button onClick={handleSkipForward}>
-            <img src="icons/next.svg" alt="" />
+            <img src="icons/next.svg" alt="Next" />
           </button>
-          <button onClick={onShuffle} className={styles.shuffle}>
-            <img src="icons/shuffle.svg" alt="" />{" "}
+          <button onClick={handleShuffle} className={styles.shuffle}>
+            <img
+              src={`icons/shuffle${shuffle ? "Active" : ""}.svg`}
+              alt="Shuffle"
+            />
           </button>
         </div>
         <div className={styles.queue}>
@@ -191,6 +213,8 @@ const PlayerController = (props: PlayerControllerProps) => {
             />
             <div className={styles.names}>
               <span className={styles.queueTrack}>
+               
+
                 {songs[currentSongIndex].queueSong}
               </span>
               <span className={styles.queueArtist}>
@@ -204,7 +228,6 @@ const PlayerController = (props: PlayerControllerProps) => {
                 onClick={handleIconClickQueue}
                 isActive={isActive}
               />
-
               <img src="icons/dots.svg" alt="" width={24} />
             </div>
           </div>

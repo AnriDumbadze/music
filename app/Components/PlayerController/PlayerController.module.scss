@@ -6,10 +6,18 @@
   color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 375px;
-  height: 812px;
   top: 395px;
 }
+
+
+
+
+@media screen and (width: 1024px) {
+  .playerController{
+    flex-direction: row;
+  }
+}
+
 
 .trackInfo {
   display: flex;
@@ -214,3 +222,8 @@
   width: 100%;
   margin-bottom: -25px;
 }
+
+
+
+
+// Responsive

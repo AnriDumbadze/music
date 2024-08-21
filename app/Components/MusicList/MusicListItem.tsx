@@ -12,7 +12,7 @@ type Props = {
 
 const MusicListItem = (props: Props) => {
   return (
-    <div className={styles.musiclistitem}>
+    <div className={styles.musiclistitem} onClick={props.onPlay}>
       <img src={props.image} alt={`${props.songName} cover`} className={styles.musicimage} />
       <div className={styles.musicinfo}>
         <h3 className={styles.songname}>{props.songName}</h3>

@@ -7,7 +7,9 @@ const AsideMenu = () => {
     <div className={styles.aside}>
       <div className={styles.siderContent}>
         <div className={styles.logo}>
-          <Icon src={"./Fazer.png"} />
+          <Icon name={"Heart"} isActive={false} onClick={function (): void {
+            throw new Error("Function not implemented.");
+          } }/>
         </div>
         <div className={styles.menuItems}>
           <MenuItem
