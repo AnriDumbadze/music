@@ -7,13 +7,17 @@ import LibraryItem from "./Components/LibraryItem/LibraryItem";
 import MobileFooter from "./Components/MobileFooter/MobileFooter";
 import TopChart from "./Components/TopChart/TopChart";
 import Search from "./Components/SearchComponent/Search";
+import Input from "./Components/Input/input";
 import ButtonIcon from "./Components/ButtonIcon/ButtonIcon";
 import ButtonArrows from "./Components/ButtonArrows/ButtonArrows";
 import { ButtonStyle } from "./Components/ButtonStyles";
 
-
 const Home = () => {
   const [query, setQuery] = useState<string>('');
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   return (
     <div className={styles.mainContent}>
@@ -33,7 +37,9 @@ const Home = () => {
         songName="SOS!"
         rank="12"
         />
+        
         <Search onChange={setQuery} />
+      
         <div>
         <ButtonIcon 
         title={""}
@@ -47,6 +53,7 @@ const Home = () => {
         onClick={function (): void {} } 
         icon="icons/leftarr.svg"
         />
+
     </div>
   );
 };
