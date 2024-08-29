@@ -1,12 +1,11 @@
-import React from 'react';
-import styles from './input.module.scss';
-
+import React, { useState } from 'react';
+import styles from './input.module.scss'
 
 interface Props {
   placeholder?: string;
   type: string;
   mode: 'white' | 'black';
-  state: 'neutral' | 'focused' | 'disabled' | 'success' | 'warning' | 'error';
+  state: 'neutral' | 'disabled' | 'success' | 'warning' | 'error';
 }
 
 export default function Input(props: Props) {
