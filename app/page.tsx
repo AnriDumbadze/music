@@ -8,7 +8,9 @@ import MobileFooter from "./Components/MobileFooter/MobileFooter";
 import TopChart from "./Components/TopChart/TopChart";
 import Search from "./Components/SearchComponent/Search";
 import Input from "./Components/Input/input";
-
+import ButtonIcon from "./Components/ButtonIcon/ButtonIcon";
+import ButtonArrows from "./Components/ButtonArrows/ButtonArrows";
+import { ButtonStyle } from "./Components/ButtonStyles";
 
 const Home = () => {
   const [query, setQuery] = useState<string>('');
@@ -37,12 +39,21 @@ const Home = () => {
         />
         
         <Search onChange={setQuery} />
-        <Input
-        type="text"
-        placeholder="Neutral"
-        mode="black"
-        state="neutral"
-      />
+      
+        <div>
+        <ButtonIcon 
+        title={""}
+        icon={"icons/music.svg"}
+        onClick={function ():void {} } 
+        style={ButtonStyle.Black} 
+        />
+        </div>
+        <ButtonArrows 
+        direction={"left"} 
+        onClick={function (): void {} } 
+        icon="icons/leftarr.svg"
+        />
+
     </div>
   );
 };
