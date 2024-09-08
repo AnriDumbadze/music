@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import styles from "./PlayerController.module.scss";
 import songs from "@/public/Consts/songs"; 
@@ -213,8 +214,6 @@ const PlayerController = (props: PlayerControllerProps) => {
             />
             <div className={styles.names}>
               <span className={styles.queueTrack}>
-               
-
                 {songs[currentSongIndex].queueSong}
               </span>
               <span className={styles.queueArtist}>

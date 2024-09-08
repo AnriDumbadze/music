@@ -1,10 +1,10 @@
 "use client";
-
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import styles from "./page.module.scss";
 import PlayerController from "./Components/PlayerController/PlayerController";
 import MusicListItem from "./Components/MusicList/MusicListItem";
 import songs from "@/public/Consts/songs"; 
+import { RecoilRoot } from "recoil";
 
 const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,6 +22,7 @@ const Home = () => {
   };
 
   return (
+    <RecoilRoot>
     <div className={styles.mainContent}>
       <div className="App">
         {showPlayer ? (
@@ -56,6 +57,7 @@ const Home = () => {
         )}
       </div>
     </div>
+    </RecoilRoot>
   );
 };
 
