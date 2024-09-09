@@ -3,7 +3,7 @@
 
 .wrapper {
   display: flex;
-  width: 100%;
+  max-width: 1135px;
 }
 
 .wrapperContent {
@@ -30,4 +30,8 @@
 .content {
   display: flex;
   gap: 24px;
+}
+
+.content::-webkit-scrollbar{
+  display: none;
 }
