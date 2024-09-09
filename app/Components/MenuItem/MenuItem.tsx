@@ -1,25 +1,25 @@
-import React from "react";
-import styles from "./MenuItem.module.scss";
-import Icon from "../Icon/Icon";
+// MenuItem.js
+import React from 'react';
+import styles from './MenuItem.module.scss';
+import Icon from '../Icon/Icon';
 
 type Props = {
-  src: string;
   name: string;
-  backgroundColor: string;
-  textColor: string;
+  isActive: boolean;
+  onClick: () => void;
 };
 
-const MenuItem = (props: Props) => {
-  const itemStyle = {
-    backgroundColor: props.backgroundColor,
-    color: props.textColor,
-  };
-
+const MenuItem = ({ name, isActive, onClick }: Props) => {
   return (
-    <div className={styles.menuItem}>
-      <div className={styles.itemContent} style={itemStyle}>
-        <Icon src={props.src} />
-        <span>{props.name}</span>
+    <div
+      className={`${styles.menuItem} ${isActive ? styles.active : ''}`}
+      onClick={onClick}
+    >
+      <div className={styles.itemContent}>
+        <Icon name={name} isActive={isActive} onClick={onClick} />
+        <span className={`${styles.menuText} ${isActive ? styles.activeText : ''}`}>
+          {name}
+        </span>
       </div>
     </div>
   );

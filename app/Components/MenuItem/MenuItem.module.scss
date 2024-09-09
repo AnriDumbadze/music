@@ -1,17 +1,42 @@
+
+
+
+
 .menuItem {
   display: flex;
   align-items: center;
-  gap: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .itemContent {
   display: flex;
   align-items: center;
-  gap: 8px;
   border-radius: 16px;
-  padding: 12px 16px;
 }
 
-.itemContent span {
-  color: #898989;
+.menuText {
+  margin-left: 10px;
+  transition: color 0.3s;
+  color: #8F93A3;
+}
+
+// Active state
+.active {
+  border-radius: 16px;
+  background: #FFEFEF;
+}
+
+.active .menuText {
+  color: #FF5F5F;
+}
+
+.icon {
+  transition: color 0.3s;
+}
+
+
+.iconActive {
+  color: #FF5F5F;
 }

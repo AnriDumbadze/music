@@ -9,7 +9,6 @@ type Props = {
   title: string;
   songQuantity: string;
   id: number;
-  onClick: (value: number) => void;
 };
 
 const LibraryItem = (props: Props) => {

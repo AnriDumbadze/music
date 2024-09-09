@@ -10,7 +10,7 @@ const ArtistCard = (props: Props) => {
   return (
     <div className={styles.artistCard}>
       <div className={styles.cardContent}>
-        <Icon src={props.artistImg} />
+        <img src={`/Images/${props.artistImg}.png`} alt="artist" />
         <div className={styles.artistInfo}>
           <div className={styles.artistName}>{props.artistName}</div>
           <div className={styles.artistType}>{props.artistType}</div>

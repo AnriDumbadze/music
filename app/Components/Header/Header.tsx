@@ -6,12 +6,18 @@ const Header = () => {
     <div className={styles.header}>
       <div className={styles.headerContent}>
         <div className={styles.arrowContainer}>
-          <Icon src={"./Icons/Arrow.svg"} height={"40px"} width={"40px"} />
-          <Icon src={"./Icons/rightArr.svg"} height={"40px"} width={"40px"} />
+          <Icon  height={"40px"} width={"40px"} name={"Arrow"} isActive={false} onClick={function (): void {
+            throw new Error("Function not implemented.");
+          } } />
+          <Icon  height={"40px"} width={"40px"} name={"rightArr"} isActive={false} onClick={function (): void {
+            throw new Error("Function not implemented.");
+          } } />
         </div>
 
         <div className={styles.searchContainer}>
-          <Icon src={"./Images/searchIcon.png"} />
+          <Icon name={"searchIcon"} isActive={false} onClick={function (): void {
+            throw new Error("Function not implemented.");
+          } }  />
           <input className={styles.noBorder} placeholder="search" />
         </div>
       </div>

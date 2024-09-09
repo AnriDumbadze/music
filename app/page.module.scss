@@ -1,3 +1,16 @@
 .mainContent {
   display: flex;
 }
+
+.default{
+  display: flex;
+  width: 100%;
+  height: fit-content;
+}
+
+.static{
+  display: flex;
+  flex-direction: column;
+  background: #F7F7F7;
+  max-width: 100%;
+}

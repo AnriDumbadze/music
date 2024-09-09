@@ -3,15 +3,17 @@
 
 .wrapper {
   display: flex;
-  width: 100%;
+  max-width: 1135px;
 }
 
 .wrapperContent {
   display: flex;
+  padding: 16px 32px;
   width: 100%;
   overflow-y: scroll;
   gap: 16px;
   flex-direction: column;
+  
 }
 
 .title {
@@ -30,4 +32,10 @@
 .content {
   display: flex;
   gap: 24px;
+  overflow-y: hidden;
+  overflow-y: scroll;
+}
+
+.content::-webkit-scrollbar{
+  display: none;
 }
