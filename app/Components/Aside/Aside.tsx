@@ -1,15 +1,20 @@
 import styles from "./Aside.module.scss";
 import Icon from "../Icon/Icon";
 import MenuItem from "../MenuItem/MenuItem";
+import { useState } from "react";
 
 const AsideMenu = () => {
+  const [isIconActive, setIsIconActive] = useState(false);
+
+  const handleIconClick = () => {
+    setIsIconActive(!isIconActive);
+  };
+
   return (
     <div className={styles.aside}>
       <div className={styles.siderContent}>
         <div className={styles.logo}>
-          <Icon name={"Heart"} isActive={false} onClick={function (): void {
-            throw new Error("Function not implemented.");
-          } }/>
+          <Icon name={"Heart"} isActive={isIconActive} onClick={handleIconClick} />
         </div>
         <div className={styles.menuItems}>
           <MenuItem
