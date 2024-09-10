@@ -1,9 +1,12 @@
+@import "../colors/Colors.scss";
+
+
 .mainContainer {
   display: flex;
   padding: 16px;
   align-items: center;
   border-radius: 20px;
-  background: #fff;
+  background: $white;
   gap: 16px;
   width: 360px;
 }
@@ -13,7 +16,7 @@
 }
 
 .song {
-    color: var(--PrimaryTextCollorWHiteMode, #292929);
+    color: $TextWhiteModeTextPrimary;
     font-family: Inter;
     font-size: 16px;
     font-style: normal;
@@ -24,7 +27,7 @@
 }
 
 .artist {
-    color: var(--lSecondaryWhiteTExtCollorMode, #8F93A3);
+    color: $TextSecondaryDarkMode;
     font-family: Inter;
     font-size: 14px;
     font-style: normal;
@@ -46,7 +49,7 @@
 }
 
 .rank {
-    color: var(--PrimaryTextCollorWHiteMode, #292929);
+    color: $TextWhiteModeTextPrimary;
     font-family: Inter;
     font-size: 24px;
     font-style: normal;
