@@ -7,6 +7,7 @@ import Header from "./Components/Header/Header";
 import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
 import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
+import Player from "./Components/ComputerPlayer/ComputerPlayer";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
@@ -50,7 +51,6 @@ const Home = () => {
         <MusicWrapper cards={artistCards} name={"Popular artists"} />
         <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
-
         
       </div>
     </div>
