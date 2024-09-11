@@ -50,6 +50,8 @@ const Home = () => {
         <MusicWrapper cards={artistCards} name={"Popular artists"} />
         <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+
+        
       </div>
     </div>
   );
