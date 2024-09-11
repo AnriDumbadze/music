@@ -15,7 +15,7 @@ import Header from "./Components/Header/Header";
 import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
 import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
-import BurgerMenuMobile from "./Components/burgermenumobile/page";
+import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 
 const Home = () => {
   const [query, setQuery] = useState<string>('');
