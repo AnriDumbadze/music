@@ -71,3 +71,15 @@
     align-items: flex-end;
     justify-content: space-between;
 }
+
+.darkMainContainer{
+  background: $DarkModeColor;
+}
+
+.darkMainContainer .song{
+  color: $white;
+}
+
+.darkMainContainer .rank{
+  color: $white ;
+}

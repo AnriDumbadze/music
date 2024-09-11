@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import Aside from "./Components/Aside/Aside";
+import Aside, { getCookie } from "./Components/Aside/Aside";
 import TopChart from "./Components/TopChart/TopChart";
 import Header from "./Components/Header/Header";
 import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
@@ -10,18 +10,32 @@ import ArtistCard from "./Components/ArtistCard/ArtistCard";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
+  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
 
+  useEffect(() => {
+    const updateTheme = () => {
+      const newTheme = getCookie("theme");
+      setThemeColor(newTheme);
+    };
+
+    updateTheme();
+
+    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
+
+    return () => clearInterval(themeInterval); 
+  }, []);
+  
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
 
   const artistCards = [
-    <ArtistCard artistImg={"popArtist"} artistName={"Travis Scott"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"popArtist"} artistName={"Billie Eilish"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"popArtist"} artistName={"Drake"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"popArtist"} artistName={"Drake"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"popArtist"} artistName={"Drake"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"popArtist"} artistName={"Drake"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Billie Eilish"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
   ];
 
   const popularHits = [
@@ -45,13 +59,11 @@ const Home = () => {
   return (
     <div className={styles.mainContent}>
       <Aside />
-      <div className={styles.static}>
+      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
         <Header />
         <MusicWrapper cards={artistCards} name={"Popular artists"} />
         <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
-
-        
       </div>
     </div>
   );

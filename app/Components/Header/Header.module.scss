@@ -1,3 +1,5 @@
+@import '../colors/Colors.scss';
+
 .header {
   padding: 16px 32px;
   width: 100%;
@@ -23,10 +25,24 @@
   gap: 8px;
   border-radius: 16px;
   background: #fbfbfb;
+  width: 1019px;
 }
 
 .noBorder {
   width: 90%;
   border: none;
   outline: none;
+  background-color: transparent;
+}
+
+.darkHeader {
+  background-color: $DarkHeaderColor;
+}
+
+.darkHeader .searchContainer {
+  background-color: $DarkInputColor;
+}
+
+.darkHeader .noBorder {
+  color: #fff;
 }

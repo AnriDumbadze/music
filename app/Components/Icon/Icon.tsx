@@ -1,3 +1,4 @@
+import styles from './icon.module.scss'
 import React, { useState } from 'react';
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 
 const Icon = ({ name, height, width, isActive, onClick }: Props) => {
   const iconSrc = isActive ? `/Icons/${name}Active.svg` : `/Icons/${name}.svg`;
-  return <img src={iconSrc} height={height} width={width} alt={name} onClick={onClick} />;
+  return <img   src={iconSrc} height={height} width={width} alt={name} onClick={onClick} />;
 };
 
 export default Icon;

@@ -1,3 +1,4 @@
+@import '../colors/Colors.scss';
 .aside {
   display: flex;
   flex-direction: column;
@@ -27,4 +28,14 @@
   .aside {
     display: none;
   }
+}
+
+.darkAside{
+  background-color: $DarkModeColor;
+  height: 100vh;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+  border:1px solid #262626;
 }
