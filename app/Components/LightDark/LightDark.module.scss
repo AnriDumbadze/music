@@ -38,18 +38,17 @@
 }
 
 .light{
-  color: white;
+  color: #898989;
 
 }
 
 .light.active{
-  color: #292929;
+  color: #898989;
 }
 
 .noContainer {
   background-color: transparent;
   border: none;
-  color: transparent; 
 }
 
 .active {
@@ -62,4 +61,8 @@
 
 .dark.active {
   border-radius: 8px;
+}
+
+.active.lightText{
+  color: #898989;
 }
