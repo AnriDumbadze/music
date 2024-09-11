@@ -1,0 +1,24 @@
+@import '../colors/Colors.scss';
+
+.logout{
+    position: absolute;
+    bottom: 9px;
+    left: 54px;
+    color: $LogoutTextColor;
+    font-family: Inter;
+    font-size: 14px;
+}
+
+.logoutContainer{
+    display: flex;
+    align-items: center;
+}
+
+.imgLogout{
+    background-image: url('../../../public/Images/Frame\ 1597881242.png');
+    width:  79px;
+    height: 24px;
+    position: absolute;
+    bottom: 9px;
+    cursor: pointer;
+}
