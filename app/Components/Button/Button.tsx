@@ -8,6 +8,7 @@ type ButtonProps = {
   borderRadius: string;
   textColor: string;
   border: string;
+  height: string;
 };
 
 const Button = (props: ButtonProps) => {
@@ -17,6 +18,10 @@ const Button = (props: ButtonProps) => {
     borderRadius: props.borderRadius,
     color: props.textColor,
     border: props.border,
+    height: props.height,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   return (
