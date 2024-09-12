@@ -66,7 +66,6 @@ const Home = () => {
         <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
 
-        
       </div>
     </div>
   );
