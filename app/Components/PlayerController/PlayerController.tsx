@@ -44,13 +44,13 @@ const PlayerController = (props: PlayerControllerProps) => {
 
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
-  const [songEnded, setSongEnded] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [isQueueHeartActive, setIsQueueHeartActive] = useState(false);
   const [shuffle, setShuffle] = useState(false);
 
   const currentSong = songs.find(song => song.id === currentSongId);
 
+  // Effect to play or pause the audio based on isPlaying state
   useEffect(() => {
     const audio = audioRef.current;
     if (audio && currentSong) {
@@ -68,31 +68,25 @@ const PlayerController = (props: PlayerControllerProps) => {
         setCurrentTrackTime(audioRef.current.currentTime);
       }
     }, 1000);
-
     return () => clearInterval(interval);
   }, [isPlaying]);
 
   useEffect(() => {
-    const handleSongEnd = () => setSongEnded(true);
+    const handleSongEnd = () => {
+      handleSkipForward(); 
+    };
     const audio = audioRef.current;
 
     if (audio) {
-      audio.addEventListener('ended', handleSongEnd);
-      return () => audio.removeEventListener('ended', handleSongEnd);
+      audio.addEventListener("ended", handleSongEnd);
+      return () => audio.removeEventListener("ended", handleSongEnd);
     }
   }, [currentSongId]);
-
-  useEffect(() => {
-    if (songEnded) {
-      handleSkipForward();
-      setSongEnded(false);
-    }
-  }, [songEnded]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +98,7 @@ const PlayerController = (props: PlayerControllerProps) => {
   };
 
   const handleSkipForward = () => {
-    setCurrentSongId((prevId) => {
+    setCurrentSongId(prevId => {
       let nextId;
       if (shuffle) {
         nextId = songs[Math.floor(Math.random() * songs.length)].id;
@@ -124,7 +118,7 @@ const PlayerController = (props: PlayerControllerProps) => {
   };
 
   const handleSkipBackward = () => {
-    setCurrentSongId((prevId) => {
+    setCurrentSongId(prevId => {
       const currentIndex = songs.findIndex(song => song.id === prevId);
       const newId = songs[(currentIndex - 1 + songs.length) % songs.length].id;
       if (audioRef.current) {
@@ -136,7 +130,7 @@ const PlayerController = (props: PlayerControllerProps) => {
   };
 
   const handleShuffle = () => {
-    setShuffle((prevShuffle) => !prevShuffle);
+    setShuffle(prevShuffle => !prevShuffle);
   };
 
   const handleRepeat = () => {
@@ -151,8 +145,9 @@ const PlayerController = (props: PlayerControllerProps) => {
   };
 
   const handleIconClickQueue = () => {
-    setIsQueueHeartActive(!isQueueHeartActive); 
+    setIsQueueHeartActive(!isQueueHeartActive);
   };
+  
 
   return (
     <div className={styles.playerController}>
