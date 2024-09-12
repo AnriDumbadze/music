@@ -3,12 +3,13 @@ import React from "react";
 import Styles from "./page.module.scss"
 import Icon from "../Components/Icon/Icon";
 import Button from "../Components/Button/Button";
+import Input from "../Components/Input/input";
 
 export default function SignUp () {
     return(
         <>
         <div className={Styles.main}> 
-            <img
+            <img className={Styles.image}
                 src="./icons/SignupImg.png"
                 height="469px"
                 width="559px" 
@@ -20,15 +21,15 @@ export default function SignUp () {
                         <div className={Styles.inputs}>
                             <div className={Styles.textinput}>
                                 <span>Email</span>
-                                <input type="email" />
+                                <Input type="email" mode={"white"} state={"neutral"} />
                             </div>
                             <div className={Styles.textinput}>
                                 <span>Password</span>
-                                <input type="password" />
+                                <Input type="password" mode={"white"} state={"neutral"} />
                             </div>
                             <div className={Styles.textinput}>
                                 <span>Verify Password</span>
-                                <input type="password" />
+                                <Input type="password" mode={"white"} state={"neutral"} />
                             </div>
                             <div >
                                 <Button text={"Sign Up"} width={"343px"} backgroundColor={"#FF5F5F"} borderRadius={"8px"} textColor={"#FFFFFF"} border={"none"} height={"48px"}></Button>

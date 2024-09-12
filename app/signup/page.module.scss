@@ -76,3 +76,26 @@
     color: #FF5F5F;
     font-size: 14px;
 }
+
+
+@media (max-width: 768px){
+    .main{
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        padding: 80px 0 0 0;
+    }
+
+    .image{
+        width: 195px;
+        height: 155px;
+    }
+
+    .border{
+        padding: 10px 0 0 0;
+    }
+
+    .inputs{
+        gap: 24px;
+    }
+}
