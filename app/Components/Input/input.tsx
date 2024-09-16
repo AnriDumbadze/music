@@ -6,6 +6,7 @@ interface Props {
   type: string;
   mode: 'white' | 'black';
   state: 'neutral' | 'disabled' | 'success' | 'warning' | 'error';
+  oncahnge?:() => void;
 }
 
 export default function Input(props: Props) {
@@ -16,6 +17,7 @@ export default function Input(props: Props) {
   return (
     <div>
     <input
+    onChange={props.oncahnge}
       type={type}
       placeholder={placeholder}
       className={inputClassName}

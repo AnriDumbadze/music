@@ -9,6 +9,7 @@ type ButtonProps = {
   textColor: string;
   border: string;
   height: string;
+  click?:() => void;
 };
 
 const Button = (props: ButtonProps) => {
@@ -25,7 +26,7 @@ const Button = (props: ButtonProps) => {
   };
 
   return (
-    <button className={styles.button} style={buttonStyle}>
+    <button onClick={props.click} className={styles.button} style={buttonStyle}>
       {props.text}
     </button>
   );
