@@ -2,12 +2,34 @@
 import React, { useState } from "react";
 import styles from "./Login.module.scss";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 type Props = {};
 
 const Login = (props: Props) => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
     const router = useRouter();
+
+    const changeEmail = (e:any) => {
+      setEmail(e.target.value)
+    }
+    const changePassword = (e:any) => {
+      setPassword(e.target.value)
+    }
+
+    const authUser = () => {
+      axios.post("https://music-back-1s59.onrender.com/auth",{
+        email:email,
+        password:password
+      })
+      .then((data) => {
+        console.log(data.data);
+     })
+     .catch(() =>{console.log('s');
+     })
+    }
 
   return (
     <div className={styles.login}>
@@ -26,6 +48,7 @@ const Login = (props: Props) => {
               <span>Email</span>
               <div className={styles.infoHolder}>
                 <input
+                onChange={changeEmail}
                   className={styles.input}
                   type="email"
                   placeholder="Email"
@@ -36,6 +59,7 @@ const Login = (props: Props) => {
               <span>Password</span>
               <div className={styles.infoHolder}>
                 <input
+                onChange={changePassword}
                   className={styles.input}
                   type="password"
                   placeholder="Password"
@@ -52,7 +76,7 @@ const Login = (props: Props) => {
 
         <div className={styles.contFooter}>
             <div className={styles.signInBTN}>
-                <span>Sign in</span>
+                <span onClick={authUser}>Sign in</span>
             </div>
             <span onClick={()=> router.push('./SignUp')}>Don’t Have An Account? <span className={styles.createAcc}>Create An Account</span></span>
         </div>

@@ -8,6 +8,7 @@ import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
 import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
 import Player from "./Components/ComputerPlayer/ComputerPlayer";
+import Login from "./Login/page";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
@@ -58,16 +59,17 @@ const Home = () => {
   ];
 
   return (
-    <div className={styles.mainContent}>
-      <Aside />
-      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-        <Header />
-        <MusicWrapper cards={artistCards} name={"Popular artists"} />
-        <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
-        <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+    // <div className={styles.mainContent}>
+    //   <Aside />
+    //   <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
+    //     <Header />
+    //     <MusicWrapper cards={artistCards} name={"Popular artists"} />
+    //     <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
+    //     <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
 
-      </div>
-    </div>
+    //   </div>
+    // </div>
+    <Login/>
   );
 };
 
