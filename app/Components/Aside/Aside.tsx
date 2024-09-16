@@ -12,7 +12,7 @@ export const getCookie = (key: string) => {
 
 const AsideMenu = () => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
+  const [themeColor, setThemeColor] = useState<string | undefined>(getCookie("theme")); // Store theme in state
 
   const handleMenuItemClick = (name: string) => {
     setActiveItem(name);
@@ -21,15 +21,16 @@ const AsideMenu = () => {
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
-      setThemeColor(newTheme)
+      setThemeColor(newTheme);
     };
 
     updateTheme();
 
-    const themeInterval = setInterval(updateTheme, 0); 
+    const themeInterval = setInterval(updateTheme, 1000); // Check every second
 
     return () => clearInterval(themeInterval);
   }, []);
+
 
   return (
     <div className={`${styles.aside} ${themeColor === 'dark' ? styles.darkAside : ''}`}>

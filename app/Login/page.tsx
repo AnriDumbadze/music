@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styles from "./Login.module.scss";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { setCookie } from "@/helper/cookie";
 
 type Props = {};
 
@@ -25,7 +26,7 @@ const Login = (props: Props) => {
         password:password
       })
       .then((data) => {
-        console.log(data.data);
+       setCookie("userToken",data.data.token,60)
      })
      .catch(() =>{console.log('s');
      })
