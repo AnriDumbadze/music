@@ -25,6 +25,7 @@ const ArtistCard = (props: Props) => {
     return () => clearInterval(themeInterval); 
   }, []);
   const cardClassName = themeColor === 'dark' ? `${styles.artistCard} ${styles.darkArtistCard}` : styles.artistCard;
+  
   return (
     <div className={cardClassName}>
       <div className={styles.cardContent}>

@@ -59,17 +59,16 @@ const Home = () => {
   ];
 
   return (
-    // <div className={styles.mainContent}>
-    //   <Aside />
-    //   <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-    //     <Header />
-    //     <MusicWrapper cards={artistCards} name={"Popular artists"} />
-    //     <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
-    //     <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+    <div className={styles.mainContent}>
+      <Aside />
+      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
+        <Header />
+        <MusicWrapper cards={artistCards} name={"Popular artists"} />
+        <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
+        <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
 
-    //   </div>
-    // </div>
-    <Login/>
+      </div>
+    </div>
   );
 };
 
