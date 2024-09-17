@@ -1,6 +1,6 @@
 "use client"
 import { useState } from 'react'
-import styles from './page.module.scss'
+import styles from './burgermobile.module.scss'
 import LightDark from '../LightDark/LightDark'
 
 export default function BurgerMenuMobile() {
@@ -23,7 +23,7 @@ export default function BurgerMenuMobile() {
             {showBurger && (
                 <div className={styles.overlay}>
                     <div className={styles.burgerMenu}>
-                        <LightDark/>
+                        {/* <LightDark/> */}
                         <div onClick={closeBurger} className={styles.logoutImg}></div>
                     </div>
                 </div>

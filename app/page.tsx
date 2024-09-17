@@ -58,7 +58,6 @@ const Home = () => {
         onClick={function (): void {} } 
         icon="icons/leftarr.svg"
         />
-
     </div>
   );
 };
