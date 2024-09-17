@@ -11,6 +11,11 @@ import Input from "./Components/Input/input";
 import ButtonIcon from "./Components/ButtonIcon/ButtonIcon";
 import ButtonArrows from "./Components/ButtonArrows/ButtonArrows";
 import { ButtonStyle } from "./Components/ButtonStyles";
+import Header from "./Components/Header/Header";
+import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
+import MusicCard from "./Components/MusicCard/Musiccard";
+import ArtistCard from "./Components/ArtistCard/ArtistCard";
+import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 
 const Home = () => {
   const [query, setQuery] = useState<string>('');
@@ -53,7 +58,6 @@ const Home = () => {
         onClick={function (): void {} } 
         icon="icons/leftarr.svg"
         />
-
     </div>
   );
 };
