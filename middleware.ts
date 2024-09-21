@@ -9,7 +9,7 @@ export default async function  middleware(req:NextRequest) {
 
 
 
-    if ((path === '/Login' || path === '/signup') && token) {
+    if ((path === '/Login' || path === '/SignUp') && token) {
         return NextResponse.redirect(new URL('/', req.url));
     }
 
