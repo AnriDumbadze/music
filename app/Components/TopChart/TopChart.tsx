@@ -1,10 +1,12 @@
 "use client"
+import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { getCookie } from "../Aside/Aside";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ButtonStyle } from "../ButtonStyles";
 import styles from "./TopChart.module.scss";
 import Image from "next/image";
+import axios from "axios";
 
 interface Props {
   image: string;
@@ -15,6 +17,7 @@ interface Props {
 
 const TopChart = (props: Props) => {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
+  const [getData, setGetData] = useState([])
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
@@ -28,6 +31,18 @@ const TopChart = (props: Props) => {
     return () => clearInterval(themeInterval); 
   }, []);
   const containerClassName = themeColor === 'dark' ? `${styles.mainContainer} ${styles.darkMainContainer}` : styles.mainContainer;
+
+  useEffect(() => {
+    const userToken = Cookies.get("userToken")
+
+    axios.get('https://music-back-1s59.onrender.com/music', {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    }).then((r) => {
+      setGetData(r.data)
+    })
+  }, [])
   return (
     <div className={containerClassName}>
       <div className={styles.imageContainer}>
