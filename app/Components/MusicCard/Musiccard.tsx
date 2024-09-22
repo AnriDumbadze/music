@@ -13,6 +13,7 @@ interface Props {
 }
 
 function MusicCard(props: Props) {
+  const [getData, setGetData] = useState([])
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
 
   useEffect(() => {
