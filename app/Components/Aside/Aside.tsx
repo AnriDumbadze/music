@@ -41,6 +41,7 @@ const AsideMenu = () => {
         <div className={styles.menuItems}>
           <MenuItem name={"home"} isActive={activeItem === "home"} onClick={() => handleMenuItemClick("home")} />
           <MenuItem  name={"search"} isActive={activeItem === "settings"} onClick={() => handleMenuItemClick("settings")} />
+          <MenuItem name={"library"} isActive={activeItem === "library"} onClick={() => handleMenuItemClick("library")} />
         </div>
       </div>
       

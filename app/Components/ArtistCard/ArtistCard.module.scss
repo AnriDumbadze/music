@@ -9,13 +9,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  width: 168px;
+  gap: 6px;
 }
 
 .artistInfo {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   align-items: center;
   justify-content: center;
 }
@@ -41,4 +41,15 @@
 
 .darkArtistCard .artistName{
   color: #fff;
+}
+
+@media (max-width: 768px){
+  .cardContent img{
+    width: 103px !important;
+    height: 103px !important;
+  }
+  .cardContent{
+    width: 103px;
+    height: 168px;
+  }
 }

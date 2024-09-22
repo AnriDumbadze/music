@@ -11,7 +11,7 @@ interface Props {
 }
 
 function MusicCard(props: Props) {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
+  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); 
 
   useEffect(() => {
     const updateTheme = () => {
@@ -21,7 +21,7 @@ function MusicCard(props: Props) {
 
     updateTheme();
 
-    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
+    const themeInterval = setInterval(updateTheme, 0); 
 
     return () => clearInterval(themeInterval); 
   }, []);
