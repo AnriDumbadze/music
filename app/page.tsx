@@ -32,44 +32,29 @@ const Home = () => {
   };
 
   const artistCards = [
-    <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"artist"} artistName={"Billie Eilish"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-    <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
+    <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
   ];
 
   const popularHits = [
     <MusicCard albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
-    <MusicCard albumCover={"popHit"} author={"The Weeknd"} songTitle={"Blinding Lights"} />,
-    <MusicCard albumCover={"popHit"} author={"Doja Cat"} songTitle={"Say So"} />,
-    <MusicCard albumCover={"popHit"} author={"Doja Cat"} songTitle={"Say So"} />,
-    <MusicCard albumCover={"popHit"} author={"Doja Cat"} songTitle={"Say So"} />,
-    <MusicCard albumCover={"popHit"} author={"Doja Cat"} songTitle={"Say So"} />,
   ];
 
   const popularCharts = [
     <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
-    <TopChart image={"topChart"} songName={"Montero"} artistName={"Lil Nas X"} rank={"2"} />,
-    <TopChart image={"topChart"} songName={"Montero"} artistName={"Lil Nas X"} rank={"2"} />,
-    <TopChart image={"topChart"} songName={"Montero"} artistName={"Lil Nas X"} rank={"2"} />,
-    <TopChart image={"topChart"} songName={"Montero"} artistName={"Lil Nas X"} rank={"2"} />,
-    <TopChart image={"topChart"} songName={"Montero"} artistName={"Lil Nas X"} rank={"2"} />,
+
   ];
 
   return (
-    // <div className={styles.mainContent}>
-    //   <Aside />
-    //   <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-    //     <Header />
-    //     <MusicWrapper cards={artistCards} name={"Popular artists"} />
-    //     <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
-    //     <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+    <div className={styles.mainContent}>
+      <Aside />
+      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
+        <Header />
+        <MusicWrapper cards={artistCards} name={"Popular artists"} />
+        <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
+        <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
 
-    //   </div>
-    // </div>
-    <Login/>
+      </div>
+    </div>
   );
 };
 

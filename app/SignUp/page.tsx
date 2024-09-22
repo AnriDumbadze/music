@@ -1,13 +1,46 @@
 "use client"
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SignUp.module.scss";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { setCookie } from "@/helper/cookie";
 
 
 const SignUp = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confPass, setConfPass] = useState('')
 
   const router = useRouter();
+
+  const emailchange =(e:any) => {
+    setEmail(e.target.value)
+  }
+
+  const passwordChange =(e:any) => {
+    setPassword(e.target.value)
+  }
+
+  const ConfChnage =(e:any) => {
+    setConfPass(e.target.value)
+  }
+
+  const sendinfo = () => {
+    axios.post("https://music-back-1s59.onrender.com/users",{
+      name:"anonymous",
+      email:email,
+      password:password,
+      confirmPassowrd:confPass
+    })
+    .then((data) => {
+      setCookie("userToken",data.data.token,60)
+      router.replace("http://localhost:3000")
+    })
+    .catch(() => {
+      console.log('error')
+    })
+  }
 
   return (
     <div className={styles.login}>
@@ -26,6 +59,7 @@ const SignUp = () => {
               <span>Email</span>
               <div className={styles.infoHolder}>
                 <input
+                onChange={emailchange}
                   className={styles.input}
                   type="email"
                   placeholder="Email"
@@ -36,6 +70,7 @@ const SignUp = () => {
               <span>Password</span>
               <div className={styles.infoHolder}>
                 <input
+                onChange={passwordChange}
                   className={styles.input}
                   type="password"
                   placeholder="Password"
@@ -47,9 +82,10 @@ const SignUp = () => {
               <span>Verify Password</span>
               <div className={styles.infoHolder}>
                 <input
+                onChange={ConfChnage}
                   className={styles.input}
                   type="password"
-                  placeholder="Password"
+                  placeholder="Confirm Password"
                 />
               </div>
             </div>
@@ -58,12 +94,7 @@ const SignUp = () => {
         </div>
 
         <div className={styles.contFooter}>
-            <div className={styles.signInBTN}>
-                <span>Sign up</span>
-                <span>hello</span>
-                <span>123
-                </span>
-            </div>
+            <button onClick={sendinfo} className={styles.signInBTN}>Sign up</button>
             <span onClick={()=> router.push('./Login') }>Already Have An Account?  <span className={styles.createAcc}>Sign In</span></span>
         </div>
       </div>

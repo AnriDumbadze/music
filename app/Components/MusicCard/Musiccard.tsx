@@ -1,8 +1,10 @@
 "use client"
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import styles from "./MusicCard.module.scss";
 import Icon from "../Icon/Icon";
 import { getCookie } from "../Aside/Aside";
+import axios from "axios";
 
 interface Props {
   albumCover: string;
@@ -11,7 +13,7 @@ interface Props {
 }
 
 function MusicCard(props: Props) {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); 
+  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
 
   useEffect(() => {
     const updateTheme = () => {
@@ -26,15 +28,30 @@ function MusicCard(props: Props) {
     return () => clearInterval(themeInterval); 
   }, []);
   const cardClassName = themeColor === 'dark' ? `${styles.musicCard} ${styles.darkMusicCard}` : styles.musicCard;
+
+  useEffect(() => {
+    const userToken = Cookies.get("userToken");
+
+    axios.get('https://music-back-1s59.onrender.com/music', {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    }).then((r) => {
+      setGetData(r.data)
+    })
+  }, [])
   return (
     <div className={cardClassName}>
-      <div className={styles.musicPhoto}>
-        <img src={`/Images/${props.albumCover}.png`} alt="artist" height={"176px"} width={"168px"}/>
-
-        <div className={styles.musicInfo}>
-          <p className={styles.songTitle}>{props.songTitle}</p>
-          <p className={styles.author}>{props.author}</p>
-        </div>
+      <div className={styles.musicPhoto1}>
+      {getData.map((music) => (
+          <div key={music.id} className={styles.musicPhoto}>
+             <img src={`/Images/${props.albumCover}.png`} alt="artist" height={"176px"} width={"168px"}/>
+            <div className={styles.musicInfo}>
+              <p className={styles.songTitle}>{music.name}</p>
+              <p className={styles.author}>{music.artist.firstName}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

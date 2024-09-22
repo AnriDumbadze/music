@@ -27,6 +27,7 @@ const Login = (props: Props) => {
       })
       .then((data) => {
        setCookie("userToken",data.data.token,60)
+       router.replace("http://localhost:3000")
      })
      .catch(() =>{console.log('s');
      })
@@ -76,9 +77,7 @@ const Login = (props: Props) => {
         </div>
 
         <div className={styles.contFooter}>
-            <div className={styles.signInBTN}>
-                <span onClick={authUser}>Sign in</span>
-            </div>
+        <button className={styles.signInBTN} onClick={authUser}>signin</button>
             <span onClick={()=> router.push('./SignUp')}>Don’t Have An Account? <span className={styles.createAcc}>Create An Account</span></span>
         </div>
       </div>
@@ -86,4 +85,4 @@ const Login = (props: Props) => {
   );
 };
 
-export default Login;
+export default Login; 

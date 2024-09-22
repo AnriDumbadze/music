@@ -26,7 +26,7 @@ const AsideMenu = () => {
 
     updateTheme();
 
-    const themeInterval = setInterval(updateTheme, 1000); // Check every second
+    const themeInterval = setInterval(updateTheme, 0); 
 
     return () => clearInterval(themeInterval);
   }, []);
