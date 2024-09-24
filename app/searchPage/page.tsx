@@ -20,7 +20,7 @@ export default function SearchPage(){
   
       updateTheme();
   
-      const themeInterval = setInterval(updateTheme, 0);
+      const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
   
       return () => clearInterval(themeInterval); 
     }, []);

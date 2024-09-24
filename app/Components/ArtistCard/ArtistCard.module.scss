@@ -8,8 +8,9 @@
 .cardContent {
   display: flex;
   align-items: center;
-  width: 168px;
   gap: 6px;
+  max-width: 1135px;
+  flex-wrap: wrap;
 }
 
 .artistInfo {
