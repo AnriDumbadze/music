@@ -33,6 +33,7 @@ export default function SearchPage(){
         <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
     
       ];
+  
     return(
         <>
     <div className={styles.mainContent}>
