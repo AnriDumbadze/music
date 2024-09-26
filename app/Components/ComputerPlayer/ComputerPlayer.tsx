@@ -18,7 +18,7 @@ export default function Player() {
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
   const [songEnded, setSongEnded] = useState(false);
   const [isActive, setIsActive] = useState(false);
-
+  const [data, setData] = useState<[]>([]);
   const currentSong = songs.find((song) => song.id === currentSongId);
 
   useEffect(() => {
@@ -156,6 +156,25 @@ export default function Player() {
       
     })
   };
+  useEffect(() => {
+    const userToken = Cookies.get("userToken");
+
+    axios.get('https://music-back-1s59.onrender.com/users/me', {
+        headers: {
+            Authorization: `Bearer ${userToken}`,
+        },
+    }).then((r) => {
+        if (Array.isArray(r.data.playlists)) {
+            setData(r.data.playlists);
+        } else {
+            console.warn('Unexpected data structure:', r.data);
+            setData([]);
+        }
+    })
+    .catch(() => {
+        console.log('Error fetching user data');
+    });
+}, []);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
