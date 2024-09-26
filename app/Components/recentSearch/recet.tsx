@@ -1,4 +1,5 @@
-"use client"
+"use client"; // Add this line at the very top
+
 import { useEffect, useState } from 'react';
 import styles from './recent.module.scss';
 import Icon from '../Icon/Icon';
@@ -8,8 +9,9 @@ import axios from 'axios';
 export default function RecentSearch() {
     // State for active icons
     const [activeStates, setActiveStates] = useState([false, false, false]);
-    const [data, setData] = useState([])
-    // State for recent items
+    const [data, setData] = useState<[]>([]);
+    
+    // State for recent items (if needed)
     const [recentItems, setRecentItems] = useState([
         { id: 1, name: "Robby", songName: "Juice world" },
         { id: 2, name: "Robby", songName: "Juice world" },
@@ -26,38 +28,42 @@ export default function RecentSearch() {
     // Remove a recent item
     const handleRemove = (id) => {
         const userToken = Cookies.get("userToken");
-    
+
         // Send delete request to API with the specific ID
-        axios.delete(`https://music-back-1s59.onrender.com/music/${id}`, {
+        axios.delete(`https://music-back-1s59.onrender.com/playlist/${id}`, {
             headers: {
                 Authorization: `Bearer ${userToken}`,
             },
         })
         .then(() => {
-            // Remove the item from the local state only if the API request is successful
             setRecentItems((prevItems) => prevItems.filter(item => item.id !== id));
         })
         .catch((error) => {
             console.error('Error deleting item:', error);
         });
     };
-    
 
     useEffect(() => {
         const userToken = Cookies.get("userToken");
 
-        axios.get('https://music-back-1s59.onrender.com/artist', {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
+        axios.get('https://music-back-1s59.onrender.com/users/me', {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
         }).then((r) => {
-          setData(r.data)
+            if (Array.isArray(r.data.playlists)) {
+                setData(r.data.playlists);
+            } else {
+                console.warn('Unexpected data structure:', r.data);
+                setData([]);
+            }
         })
         .catch(() => {
-            console.log('sdasdasd');
-            
-        })
-    },[])
+            console.log('Error fetching user data');
+        });
+    }, []);
+
+   
 
     return (
         <div className={styles.Recent}>
@@ -65,17 +71,15 @@ export default function RecentSearch() {
                 <h2 className={styles.TitleRecent}>Recent Searches</h2>
                 <p className={styles.clearTitle}>Clear All</p>
             </div>
-            {recentItems.length === 0 ? (
-                <p className={styles.noItems}>No recent searches</p>
-            ) : (
+            {
                 data.map((item, index) => (
-                    <div key={item.id} className={styles.RecentItems}>
+                    <div     className={styles.RecentItems}>
                         <div className={styles.RecentItemsGroup}>
                             <div className={styles.flexGroup}>
                                 <div className={styles.ImgRecent}></div>
                                 <div className={styles.text}>
-                                    <p className={styles.name}>{item.firstName}</p>
-                                    <p className={styles.songName}>{item.biography}</p>
+                                    <p className={styles.name}>{'dasdas'}</p>
+                                    <p className={styles.songName}>{item.id}</p>
                                 </div>
                             </div>
                             <div className={styles.iconGroup}>
@@ -94,7 +98,7 @@ export default function RecentSearch() {
                         </div>
                     </div>
                 ))
-            )}
+            }
         </div>
     );
 }

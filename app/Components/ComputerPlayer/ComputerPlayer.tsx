@@ -5,7 +5,8 @@ import { Slider } from "antd";
 import songs from "@/public/Consts/songs"; // Assuming you have a songs array
 import Icon from "../Icon/Icon";
 import { getCookie } from "../Aside/Aside";
-
+import axios from "axios";
+import Cookies from "js-cookie";
 export default function Player() {
   const [disabled, setDisabled] = useState(false);
   const [musicVolume, setMusicVolume] = useState(50); // Music volume state
@@ -136,6 +137,24 @@ export default function Player() {
 
   const handleIconClick = () => {
     setIsActive(!isActive);
+    const userToken = Cookies.get("userToken");
+    axios.post(
+      "https://music-back-1s59.onrender.com/playlist",
+      {
+        name: "s",
+        description: "s",
+        musicIds:[1,2]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,  // Headers should be passed in this third parameter
+        },
+      }
+    )
+    .catch(() => {
+      console.log('sdsada');
+      
+    })
   };
 
   const formatTime = (seconds: number) => {
