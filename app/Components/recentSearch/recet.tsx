@@ -107,7 +107,6 @@ export default function RecentSearch() {
                                     className={styles.remove}
                                     onClick={() => handleRemove(item.id)}
                                 >
-                                    ✖
                                 </div>
                             </div>
                         </div>
