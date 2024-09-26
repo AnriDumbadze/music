@@ -41,6 +41,21 @@ export default function RecentSearch() {
         .catch((error) => {
             console.error('Error deleting item:', error);
         });
+        axios.get('https://music-back-1s59.onrender.com/users/me', {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then((r) => {
+            if (Array.isArray(r.data.playlists)) {
+                setData(r.data.playlists);
+            } else {
+                console.warn('Unexpected data structure:', r.data);
+                setData([]);
+            }
+        })
+        .catch(() => {
+            console.log('Error fetching user data');
+        });
     };
 
     useEffect(() => {
