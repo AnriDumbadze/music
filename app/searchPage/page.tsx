@@ -5,11 +5,9 @@ import MusicWrapper from '../Components/MusicWrapper/MusicWrapper'
 import styles from './searchPage.module.scss'
 import { useState, useEffect } from 'react'
 import ArtistCard from '../Components/ArtistCard/ArtistCard'
-import MusicCard from '../Components/MusicCard/Musiccard'
 import TopChart from '../Components/TopChart/TopChart'
 import RecentSearch from "../Components/recentSearch/recet";
 import axios from "axios";
-import Cookies from "js-cookie";
 export default function SearchPage(){
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
     const [search,setSearch] = useState('')
@@ -43,8 +41,8 @@ export default function SearchPage(){
       useEffect(() => {
         const userToken = localStorage.getItem("token");
     
-        if (userToken && search) { // Only trigger when token and search are available
-          axios.get(`https://music-back-1s59.onrender.com/search/artist?search=${search}`, {
+        if (userToken && search) { 
+          axios.get(`https://music-back-1s59.onrender.com/search/music?search=${search}`, {
             headers: {
               Authorization: `Bearer ${userToken}`,
             },
@@ -61,23 +59,23 @@ export default function SearchPage(){
             });
         }
       }, [search]); 
-      const firstNames = data.map((item) => item.firstName);
 
-      // Store first names in localStorage
-      localStorage.setItem("searchName", JSON.stringify(firstNames));
-
-      const id = data.map((item) => item.id);
-
-      // Store first names in localStorage
-      localStorage.setItem("searchId", JSON.stringify(id));
+      const allSearchInfo = data.map((item) => item);
+      localStorage.setItem("searchData", JSON.stringify(allSearchInfo));
   
+      const firstResultName = data.length > 0 ? data[0].name : ''
+
+      const idSearch = data.length > 0 ? data[0].id : null;
+
+      const descriptionSearch = data.length > 0 ? data[0].description : '';
+
     return(
         <>
     <div className={styles.mainContent}>
       <Aside />
       <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
         <Header onchange={onchange1} />
-        <RecentSearch name={firstNames.join(", ")} more={id.join(", ")} data={[firstNames]}/>
+        <RecentSearch name={firstResultName} id={idSearch}  description={descriptionSearch} data={[allSearchInfo]}/>
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
 
       </div>

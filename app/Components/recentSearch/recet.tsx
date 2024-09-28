@@ -6,23 +6,45 @@ import Icon from '../Icon/Icon';
 import Cookies from "js-cookie";
 import axios from 'axios';
 
-export default function RecentSearch() {
+interface Props{
+    data:[]
+    name:string
+    id:number
+    description:string
+}
+
+export default function RecentSearch(props:Props) {
     // State for active icons
     const [activeStates, setActiveStates] = useState([false, false, false]);
     const [data, setData] = useState<[]>([]);
     
-    // State for recent items (if needed)
-    const [recentItems, setRecentItems] = useState([
-        { id: 1, name: "Robby", songName: "Juice world" },
-        { id: 2, name: "Robby", songName: "Juice world" },
-        { id: 3, name: "Robby", songName: "Juice world" },
-    ]);
+console.log(props.data);
 
+
+    
     // Toggle the icon's active state
     const handleIconClick = (index) => {
         setActiveStates((prev) =>
             prev.map((state, i) => (i === index ? !state : state))
         );
+        const userToken = Cookies.get("userToken");
+    axios.post(
+      "https://music-back-1s59.onrender.com/playlist",
+      {
+        name:  props.name,
+        description:'ss',
+        musicIds:[props.id]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,  // Headers should be passed in this third parameter
+        },
+      }
+    )
+    .catch(() => {
+      console.log('sdsada');
+      
+    })
     };
 
     // Remove a recent item
@@ -78,6 +100,7 @@ export default function RecentSearch() {
         });
     }, []);
 
+
    
 
     return (
@@ -86,33 +109,31 @@ export default function RecentSearch() {
                 <h2 className={styles.TitleRecent}>Recent Searches</h2>
                 <p className={styles.clearTitle}>Clear All</p>
             </div>
-            {
-                data.map((item, index) => (
-                    <div     className={styles.RecentItems}>
-                        <div className={styles.RecentItemsGroup}>
-                            <div className={styles.flexGroup}>
-                                <div className={styles.ImgRecent}></div>
-                                <div className={styles.text}>
-                                    <p className={styles.name}>{'dasdas'}</p>
-                                    <p className={styles.songName}>{item.id}</p>
-                                </div>
-                            </div>
-                            <div className={styles.iconGroup}>
-                                <Icon
-                                    name={"heart"}
-                                    onClick={() => handleIconClick(index)}
-                                    isActive={activeStates[index]}
-                                />
-                                <div
-                                    className={styles.remove}
-                                    onClick={() => handleRemove(item.id)}
-                                >
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ))
-            }
+            {props.data[0]?.map((item, index) => (
+    <div className={styles.RecentItems} key={index}>
+        <div className={styles.RecentItemsGroup}>
+            <div className={styles.flexGroup}>
+                <div className={styles.ImgRecent}></div>
+                <div className={styles.text}>
+                    <p className={styles.name}>{item.name}</p>
+                    <p className={styles.songName}>{item.id}</p>
+                </div>
+            </div>
+            <div className={styles.iconGroup}>
+                <Icon
+                    name={"heart"}
+                    onClick={() => handleIconClick(index)}
+                    isActive={activeStates[index]}
+                />
+                <div
+                    className={styles.remove}
+                    onClick={() => handleRemove(item.id)}
+                >
+                </div>
+            </div>
+        </div>
+    </div>
+))}
         </div>
     );
 }
