@@ -51,18 +51,10 @@ console.log(props.data);
     const handleRemove = (id) => {
         const userToken = Cookies.get("userToken");
 
-        // Send delete request to API with the specific ID
-        axios.delete(`https://music-back-1s59.onrender.com/playlist/${id}`, {
-            headers: {
-                Authorization: `Bearer ${userToken}`,
-            },
-        })
-        .then(() => {
-            setRecentItems((prevItems) => prevItems.filter(item => item.id !== id));
-        })
-        .catch((error) => {
-            console.error('Error deleting item:', error);
-        });
+        if(props.id == id) {
+            localStorage.removeItem("searchData")
+        }
+
         axios.get('https://music-back-1s59.onrender.com/users/me', {
             headers: {
                 Authorization: `Bearer ${userToken}`,

@@ -138,6 +138,7 @@ export default function Player() {
   const handleIconClick = () => {
     setIsActive(!isActive);
     const userToken = Cookies.get("userToken");
+  if(isActive){
     axios.post(
       "https://music-back-1s59.onrender.com/playlist",
       {
@@ -155,6 +156,7 @@ export default function Player() {
       console.log('sdsada');
       
     })
+  }
   };
   useEffect(() => {
     const userToken = Cookies.get("userToken");
