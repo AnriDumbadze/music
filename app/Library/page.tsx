@@ -1,4 +1,4 @@
-"use client"
+qq"use client"
 import React, { useState, useEffect } from "react";
 import styles from './page.module.scss';
 import AsideMenu, { getCookie } from "../Components/Aside/Aside";
@@ -32,7 +32,7 @@ export default function Library() {
         setQuery(newQuery);
     };
 
-    
+
     const cards = [
         <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
         <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,
@@ -52,33 +52,33 @@ export default function Library() {
         <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
         <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
 
-        
+
     ];
 
-   
-    // const groupCards = (cards: any[], cardsPerRow: number) => {
-    //     const grouped = [];
-    //     for (let i = 0; i < cards.length; i += cardsPerRow) {
-    //         grouped.push(cards.slice(i, i + cardsPerRow));
-    //     }
-    //     return grouped;
-    // };
 
-    // useEffect(() => {
-        
-    //     const handleResize = () => {
-    //         if (window.innerWidth <= 768) {
-    //             setCardsPerRow(3); 
-    //         } else {
-    //             setCardsPerRow(6);
-    //         }
-    //     };
+    const groupCards = (cards: any[], cardsPerRow: number) => {
+        const grouped = [];
+        for (let i = 0; i < cards.length; i += cardsPerRow) {
+            grouped.push(cards.slice(i, i + cardsPerRow));
+        }
+        return grouped;
+    };
+
+    useEffect(() => {
+
+        const handleResize = () => {
+            if (window.innerWidth <= 768) {
+                setCardsPerRow(3); 
+            } else {
+                setCardsPerRow(6);
+            }
+        };
 
     //     window.addEventListener('resize', handleResize);
     //     handleResize(); 
 
-    
-    //     // setGroupedCards(groupCards(cards, cardsPerRow));
+
+        setGroupedCards(groupCards(cards, cardsPerRow));
 
     //     return () => {
     //         window.removeEventListener('resize', handleResize);
@@ -96,13 +96,36 @@ export default function Library() {
       
     return (
         <>
-  <div className={styles.mainContent}>
-      <Aside />
-      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-        <Header />
-        <MusicWrapper cards={artistCards} name={""} />  
-      </div>
-    </div>
+        <div className={styles.background}>
+            <div className={styles.mainpage}>
+                <div>
+                    <div>
+                        <div>
+                            <Search onChange={handleSearchChange} />
+                        </div>
+
+                        <div className={styles.librarytext}>
+                            <span>Your Library</span>
+                        </div>
+
+                        <div className={styles.mainContent}>
+
+                            {groupedCards.map((group, index) => (
+                                <div key={index} className={styles.container}>
+                                    {group.map((card: any, i: number) => (
+                                        <div key={i} className={styles.cardWrapper}>
+                                            {card}
+                                        </div>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+                <AsideMenu />
+            </div>
+        </div>
         </>
     );
 }
