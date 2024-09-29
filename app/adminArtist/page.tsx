@@ -93,6 +93,10 @@ const suggest =() => {
   });
 }
 
+const biographyChange = (e:any) => {
+  setArtistBiography(e.target.value)
+}
+ 
   return (
     <>
       {contextHolder}
@@ -148,7 +152,7 @@ const suggest =() => {
               state="neutral"
             />
             <span>Biography</span>
-        <textarea disabled={switchChecked}  className={styles.BiographyText} name="" id="" cols="30" rows="60"></textarea>
+        <textarea onChange={biographyChange} disabled={switchChecked}  className={styles.BiographyText} name="" id="" cols="30" rows="60"></textarea>
                <Switch    onChange={onChange} />
             <div className={styles.img}>
             <ArtistForm/>
