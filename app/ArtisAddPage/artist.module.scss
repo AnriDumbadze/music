@@ -1,0 +1,40 @@
+.mainContent {
+    display: flex;
+  }
+  
+  .default{
+    display: flex;
+    height: fit-content;
+  }
+  
+  .static{
+    background: #F7F7F7;
+    width: 100%;
+  }
+  .darkStatic{
+    background-color: #0E0E0E;
+  }
+
+  .headerAdmin{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-top:34px;
+    position: relative;
+    left: 33px;
+  }
+
+  .HeaderTitle{
+    position: relative;
+    font-size: 24px;
+    color: #292929;
+  }
+
+  .line{
+    width: 1134px;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.031372549);
+    position: relative;
+    top: 10px;
+    left: 33px;
+  }

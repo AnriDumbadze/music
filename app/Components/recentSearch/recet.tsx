@@ -8,9 +8,9 @@ import axios from 'axios';
 
 interface Props{
     data:[]
-    name:string
-    id:number
-    description:string
+    name?:string
+    id?:number
+    description?:string
 }
 
 export default function RecentSearch(props:Props) {
@@ -101,7 +101,7 @@ console.log(props.data);
                 <h2 className={styles.TitleRecent}>Recent Searches</h2>
                 <p className={styles.clearTitle}>Clear All</p>
             </div>
-            {props.data[0]?.map((item, index) => (
+            {props.data?.length > 0 && props.data[0].map((item, index) => (
     <div className={styles.RecentItems} key={index}>
         <div className={styles.RecentItemsGroup}>
             <div className={styles.flexGroup}>
