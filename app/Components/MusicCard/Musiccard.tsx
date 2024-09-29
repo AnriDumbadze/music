@@ -45,11 +45,13 @@ function MusicCard(props: Props) {
     <div className={cardClassName}>
       <div className={styles.musicPhoto1}>
       {getData.map((music) => (
+        <div className={styles.musicWrap}> 
           <div key={music.id} className={styles.musicPhoto}>
              <img src={`/Images/${props.albumCover}.png`} alt="artist" height={"176px"} width={"168px"}/>
             <div className={styles.musicInfo}>
               <p className={styles.songTitle}>{music.name}</p>
               <p className={styles.author}>{music.artist.firstName}</p>
+            </div>
             </div>
           </div>
         ))}
