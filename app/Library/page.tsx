@@ -15,7 +15,7 @@ export default function Library() {
         setQuery(newQuery);
     };
 
-    
+
     const cards = [
         <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
         <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,
@@ -35,10 +35,10 @@ export default function Library() {
         <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
         <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
 
-        
+
     ];
 
-   
+
     const groupCards = (cards: any[], cardsPerRow: number) => {
         const grouped = [];
         for (let i = 0; i < cards.length; i += cardsPerRow) {
@@ -48,7 +48,7 @@ export default function Library() {
     };
 
     useEffect(() => {
-        
+
         const handleResize = () => {
             if (window.innerWidth <= 768) {
                 setCardsPerRow(3); 
@@ -60,7 +60,7 @@ export default function Library() {
         window.addEventListener('resize', handleResize);
         handleResize(); 
 
-    
+
         setGroupedCards(groupCards(cards, cardsPerRow));
 
         return () => {
@@ -83,7 +83,7 @@ export default function Library() {
                         </div>
 
                         <div className={styles.mainContent}>
-                            
+
                             {groupedCards.map((group, index) => (
                                 <div key={index} className={styles.container}>
                                     {group.map((card: any, i: number) => (
