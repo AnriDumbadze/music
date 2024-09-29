@@ -1,5 +1,7 @@
 .mainContent {
     display: flex;
+    overflow: hidden;
+    overflow-y: scroll;
   }
   
   .default{
