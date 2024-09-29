@@ -38,3 +38,74 @@
     top: 10px;
     left: 33px;
   }
+
+  .text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    gap: 16px;
+    width: 557px;
+    height: 48px;
+  }
+
+  .bio{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 557px;
+    height: 264px;
+    gap: 16px;
+  }
+
+  .head{
+    font-size: 24px;
+    font-weight: 500;
+
+  }
+
+  .album{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 557px;
+    height: 48px;
+  }
+
+  .img{
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  }
+
+  .imageText{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 32px;
+align-self: stretch;
+color: var(--SecondaryDarkModeTExtCollor, #898989);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 150% */
+letter-spacing: -0.32px;
+  }
+
+  .iimg{
+    color: var(--PrimaryTextCollorWHiteMode, #292929);
+font-family: Inter;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; /* 100% */
+letter-spacing: -0.48px;
+  }
+
+  .buttons{
+    display: flex;
+align-items: flex-start;
+gap: 12px;
+  }

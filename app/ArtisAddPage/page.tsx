@@ -9,6 +9,7 @@ import Header from '../Components/Header/Header'
 import { ST } from 'next/dist/shared/lib/utils'
 import Icon from '../Components/Icon/Icon'
 import ArtistForm from '../Components/AddArtistForm/artistForm'
+import { Button, Input } from 'antd'
 
 export default function ArtistAdd() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
@@ -45,6 +46,113 @@ export default function ArtistAdd() {
             <p className={styles.HeaderTitle}>Add Artists</p>
         </div>
         <div className={styles.line}></div>
+        <div className={styles.text}>
+          <span>First Name</span>
+        <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <span>Last Name</span>
+      <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <span>Email</span>
+      <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <span>User</span>
+      <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <div className={styles.img}>
+      <img src="../Images/image22.svg" alt="" />
+      <div className={styles.imageText}>
+      <span className={styles.iimg}>Trakis Scott</span>
+      <span>Profile Photo</span>
+      <div className={styles.buttons}>
+      <Button
+        text="Add"
+        width="31px"
+        backgroundColor="red"
+        borderRadius="5px"
+        textColor="white"
+        border="2px solid black"
+      />
+      <Button
+        text="view"
+        width="31px"
+        backgroundColor="white"
+        borderRadius="5px"
+        textColor="white"
+        border="2px solid black"
+      />
+      </div>
+      </div>
+      </div>
+
+          <span>Biography</span>
+        <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <span className={styles.head}>Add Album</span>
+      <div className={styles.line}></div>
+      <div className={styles.album}>
+        <span>Album name</span>
+      <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <span>Album date</span>
+      <Input
+        type="text"
+        placeholder=""
+        mode="white" 
+        state="neutral" 
+      />
+      <div className={styles.img}>
+      <img src="../Images/image22.svg" alt="" />
+      <div className={styles.imageText}>
+      <span className={styles.iimg}>Trakis Scott</span>
+      <span>Profile Photo</span>
+      <div className={styles.buttons}>
+      <Button
+        text="Add"
+        width="31px"
+        backgroundColor="red"
+        borderRadius="5px"
+        textColor="white"
+        border="2px solid black"
+      />
+      <Button
+        text="view"
+        width="31px"
+        backgroundColor="white"
+        borderRadius="5px"
+        textColor="white"
+        border="2px solid black"
+      />
+      </div>
+      </div>
+      </div>
+      </div>
+        </div>
+        
         <ArtistForm/>
       </div>
     </div>
