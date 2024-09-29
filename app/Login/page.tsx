@@ -27,6 +27,7 @@ const Login = (props: Props) => {
       })
       .then((data) => {
        setCookie("userToken",data.data.token,60)
+       setCookie("isAdmin",data.data.forToken.role,60)
        localStorage.setItem("token",data.data.token)
        router.replace("http://localhost:3000")
      })

@@ -12,6 +12,8 @@
   .static{
     background: #F7F7F7;
     width: 100%;
+    overflow: scroll;
+    padding: 30px;
   }
   .darkStatic{
     background-color: #0E0E0E;
@@ -21,9 +23,7 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    padding-top:34px;
-    position: relative;
-    left: 33px;
+    padding: 30px;
   }
 
   .HeaderTitle{
@@ -110,4 +110,12 @@ letter-spacing: -0.48px;
     display: flex;
 align-items: flex-start;
 gap: 12px;
+  }
+
+  .BiographyText{
+    width: 557px;
+    height: 224px;
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: none;
   }

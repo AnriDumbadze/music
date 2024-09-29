@@ -7,8 +7,6 @@ import Header from "./Components/Header/Header";
 import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
 import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
-import Player from "./Components/ComputerPlayer/ComputerPlayer";
-import Login from "./Login/page";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");

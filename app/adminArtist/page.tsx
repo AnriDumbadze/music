@@ -1,18 +1,27 @@
 "use client"
 import Aside, { getCookie } from '../Components/Aside/Aside'
-import MusicWrapper from '../Components/MusicWrapper/MusicWrapper'
-import RecentSearch from '../Components/recentSearch/recet'
 import styles from './artist.module.scss'
 import { useState, useEffect } from 'react'
 import TopChart from '../Components/TopChart/TopChart'
-import Header from '../Components/Header/Header'
-import { ST } from 'next/dist/shared/lib/utils'
 import Icon from '../Components/Icon/Icon'
 import ArtistForm from '../Components/AddArtistForm/artistForm'
-import { Button, Input } from 'antd'
-
+import Input from '../Components/Input/input'
+import Button from '../Components/Button/Button'
+import { Switch } from 'antd';
+import axios from 'axios'
+import { message, Space } from 'antd';
 export default function ArtistAdd() {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
+  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); 
+  const [artistName, setArtistName] = useState("")
+  const [artistLastname, setArtistLastname] = useState("")
+  const [artistMusicIds, setArtistMusicIds] = useState("")
+  const [artistAlbumId, setArtistAlbumId] = useState("")
+  const [artistBiography, setArtistBiography] = useState("")
+  const [emails, setEmails] = useState("")
+  const [albumTitle, setAlbumTitle] = useState('')
+  const [releaseDate, setReleaseDate] = useState('')
+  const [switchChecked, setSwitchChecked] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
@@ -27,10 +36,66 @@ export default function ArtistAdd() {
   }, []);
   const popularCharts = [
     <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
-
   ];
+  const firstname = (e:any) => {
+    setArtistName(e.target.value)
+  }
+
+  const lastname = (e:any) => {
+    setArtistLastname(e.target.value)
+  }
+
+  const email = (e:any) => {
+    setEmails(e.target.value)
+  }
+
+  const albumname = (e:any) => {
+    setAlbumTitle(e.target.value)
+  }
+
+  const realseChange = (e:any) => {
+    setReleaseDate(e.target.value)
+  }
+
+  const onChange = (checked: boolean) => {
+  setSwitchChecked(checked)
+  };
+  
+console.log(artistName);
+
+const suggest =() => {
+  const userToken = localStorage.getItem("token");
+  axios.post(
+    "https://music-back-1s59.onrender.com/artist", 
+    {
+      firstName: artistName,
+      lastName: artistLastname,
+      biography: artistBiography
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    }
+  )
+  .then((data) => {
+    console.log(data);
+    messageApi.open({
+      type: 'success',
+      content: 'წარმატებით შექიმნა!',
+    });
+  })
+  .catch((error) => {
+    messageApi.error({
+      type: 'error',
+      content: 'რატომ გავიხადე?',
+    });;
+  });
+}
+
   return (
     <>
+      {contextHolder}
       <div className={styles.mainContent}>
         <Aside />
         <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
@@ -49,6 +114,8 @@ export default function ArtistAdd() {
           <div className={styles.text}>
             <span>First Name</span>
             <Input
+            disabled={switchChecked}
+            onchange={firstname}
               type="text"
               placeholder=""
               mode="white"
@@ -56,6 +123,8 @@ export default function ArtistAdd() {
             />
             <span>Last Name</span>
             <Input
+             disabled={switchChecked}
+              onchange={lastname}
               type="text"
               placeholder=""
               mode="white"
@@ -63,6 +132,8 @@ export default function ArtistAdd() {
             />
             <span>Email</span>
             <Input
+             disabled={switchChecked}
+              onchange={email}
               type="text"
               placeholder=""
               mode="white"
@@ -70,49 +141,49 @@ export default function ArtistAdd() {
             />
             <span>User</span>
             <Input
+             disabled={switchChecked}
               type="text"
               placeholder=""
               mode="white"
               state="neutral"
             />
+            <span>Biography</span>
+        <textarea disabled={switchChecked}  className={styles.BiographyText} name="" id="" cols="30" rows="60"></textarea>
+               <Switch    onChange={onChange} />
             <div className={styles.img}>
-              <img src="../Images/image22.svg" alt="" />
+            <ArtistForm/>
               <div className={styles.imageText}>
                 <span className={styles.iimg}>Trakis Scott</span>
                 <span>Profile Photo</span>
                 <div className={styles.buttons}>
                   <Button
                     text="Add"
-                    width="31px"
-                    backgroundColor="red"
+                    width="63px"
+                    backgroundColor="#FF5F5F"
                     borderRadius="5px"
-                    textColor="white"
-                    border="2px solid black"
+                    textColor="#FFFFFF"
+                    border="none"
+                    padding='4px 16px'
                   />
                   <Button
                     text="view"
-                    width="31px"
+                    width="63px"
                     backgroundColor="white"
                     borderRadius="5px"
-                    textColor="white"
-                    border="2px solid black"
+                    textColor="#898989"
+                    border="none"
+                    padding='4px 16px'
                   />
                 </div>
               </div>
             </div>
 
-            <span>Biography</span>
-            <Input
-              type="text"
-              placeholder=""
-              mode="white"
-              state="neutral"
-            />
             <span className={styles.head}>Add Album</span>
             <div className={styles.line}></div>
             <div className={styles.album}>
               <span>Album name</span>
               <Input
+               onchange={albumname}
                 type="text"
                 placeholder=""
                 mode="white"
@@ -120,34 +191,49 @@ export default function ArtistAdd() {
               />
               <span>Album date</span>
               <Input
+               onchange={realseChange}
                 type="text"
                 placeholder=""
                 mode="white"
                 state="neutral"
               />
               <div className={styles.img}>
-                <img src="../Images/image22.svg" alt="" />
+               <ArtistForm/>
                 <div className={styles.imageText}>
                   <span className={styles.iimg}>Trakis Scott</span>
                   <span>Profile Photo</span>
                   <div className={styles.buttons}>
-                    <Button
-                      text="Add"
-                      width="31px"
-                      backgroundColor="red"
-                      borderRadius="5px"
-                      textColor="white"
-                      border="2px solid black"
-                    />
-                    <Button
-                      text="view"
-                      width="31px"
-                      backgroundColor="white"
-                      borderRadius="5px"
-                      textColor="white"
-                      border="2px solid black"
-                    />
+                  <Button
+                    text="Add"
+                    width="63px"
+                    backgroundColor="#FF5F5F"
+                    borderRadius="5px"
+                    textColor="#FFFFFF"
+                    border="none"
+                    padding='4px 16px'
+                  />
+                  <Button
+                    text="view"
+                    width="63px"
+                    backgroundColor="white"
+                    borderRadius="5px"
+                    textColor="#898989"
+                    border="none"
+                    padding='4px 16px'
+                  />
                   </div>
+                  <Space>
+                  <Button
+                  click={suggest}
+                    text="Suggest"
+                    width="90px"
+                    backgroundColor="#FF5F5F"
+                    borderRadius="5px"
+                    textColor="#FFFFFF"
+                    border="none"
+                    padding='4px 16px'
+                  />
+                  </Space>
                 </div>
               </div>
             </div>
