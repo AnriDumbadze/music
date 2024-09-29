@@ -5,6 +5,7 @@ import Icon from '../Icon/Icon';
 import MenuItem from '../MenuItem/MenuItem';
 import LightDark from '../LightDark/LightDark';
 import Cookie from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export const getCookie = (key: string) => {
   return Cookie.get(key);
@@ -13,11 +14,21 @@ export const getCookie = (key: string) => {
 const AsideMenu = () => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [themeColor, setThemeColor] = useState<string | undefined>(getCookie("theme")); // Store theme in state
+  const router = useRouter()
 
   const handleMenuItemClick = (name: string) => {
     setActiveItem(name);
+    router.replace('http://localhost:3000')
   };
 
+  const handleMenuItemClick2 = (name: string) => {
+    setActiveItem(name);
+    router.replace("http://localhost:3000/searchPage")
+  };
+  const handleMenuItemClick3 = (name: string) => {
+    setActiveItem(name);
+    router.replace("http://localhost:3000/Library")
+  };
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
@@ -40,8 +51,8 @@ const AsideMenu = () => {
         </div>
         <div className={styles.menuItems}>
           <MenuItem name={"home"} isActive={activeItem === "home"} onClick={() => handleMenuItemClick("home")} />
-          <MenuItem  name={"search"} isActive={activeItem === "settings"} onClick={() => handleMenuItemClick("settings")} />
-          <MenuItem name={"library"} isActive={activeItem === "library"} onClick={() => handleMenuItemClick("library")} />
+          <MenuItem  name={"search"} isActive={activeItem === "settings"} onClick={() => handleMenuItemClick2("settings")} />
+          <MenuItem name={"library"} isActive={activeItem === "library"} onClick={() => handleMenuItemClick3("library")} />
         </div>
       </div>
       

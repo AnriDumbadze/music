@@ -3,8 +3,10 @@ import { useState, useEffect } from "react";
 import { getCookie } from "../Aside/Aside";
 import Icon from "../Icon/Icon";
 import styles from "./Header.module.scss";
-
-const Header = () => {
+interface Props{
+  onchange?:() => void
+}
+const Header = (props:Props) => {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); 
   useEffect(() => {
     const updateTheme = () => {
@@ -34,7 +36,7 @@ const Header = () => {
           <Icon name={"searchIcon"} isActive={false} onClick={function (): void {
             throw new Error("Function not implemented.");
           } }  />
-          <input className={styles.noBorder} placeholder="search" />
+          <input onChange={props.onchange} className={styles.noBorder} placeholder="search" />
         </div>
       </div>
     </div>

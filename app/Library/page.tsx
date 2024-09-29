@@ -1,15 +1,32 @@
-"use client"
+qq"use client"
 import React, { useState, useEffect } from "react";
 import styles from './page.module.scss';
 import AsideMenu, { getCookie } from "../Components/Aside/Aside";
 import Search from "../Components/SearchComponent/Search";
 import MusicCard from "../Components/MusicCard/Musiccard";
 import ArtistCard from "../Components/ArtistCard/ArtistCard";
+import MusicWrapper from "../Components/MusicWrapper/MusicWrapper";
+import Header from "../Components/Header/Header";
+import Aside from "../Components/Aside/Aside";
 
 export default function Library() {
     const [query, setQuery] = useState<string>('');
     const [cardsPerRow, setCardsPerRow] = useState<number>(6); // Default for desktop
     const [groupedCards, setGroupedCards] = useState<any[]>([]);
+    const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
+
+    useEffect(() => {
+      const updateTheme = () => {
+        const newTheme = getCookie("theme");
+        setThemeColor(newTheme);
+      };
+  
+      updateTheme();
+  
+      const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
+  
+      return () => clearInterval(themeInterval); 
+    }, []);
 
     const handleSearchChange = (newQuery: string) => {
         setQuery(newQuery);
@@ -57,17 +74,26 @@ export default function Library() {
             }
         };
 
-        window.addEventListener('resize', handleResize);
-        handleResize(); 
+    //     window.addEventListener('resize', handleResize);
+    //     handleResize(); 
 
 
         setGroupedCards(groupCards(cards, cardsPerRow));
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [cardsPerRow]);
-
+    //     return () => {
+    //         window.removeEventListener('resize', handleResize);
+    //     };
+    // }, [cardsPerRow]);
+    const artistCards = [
+        <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
+      ];
+    
+      const popularHits = [
+        <MusicCard albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
+      ];
+    
+      
+      
     return (
         <>
         <div className={styles.background}>

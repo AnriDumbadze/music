@@ -1,62 +1,131 @@
-"use client"
-import { ST } from 'next/dist/shared/lib/utils'
-import styles from './recent.module.scss'
+"use client"; // Add this line at the very top
+
+import { useEffect, useState } from 'react';
+import styles from './recent.module.scss';
+import Icon from '../Icon/Icon';
+import Cookies from "js-cookie";
+import axios from 'axios';
+
+interface Props{
+    data:[]
+    name:string
+    id:number
+    description:string
+}
+
+export default function RecentSearch(props:Props) {
+    // State for active icons
+    const [activeStates, setActiveStates] = useState([false, false, false]);
+    const [data, setData] = useState<[]>([]);
+    
+console.log(props.data);
 
 
-export default function RecentSearch() {
-    return(
-        <>
+    
+    // Toggle the icon's active state
+    const handleIconClick = (index) => {
+        setActiveStates((prev) =>
+            prev.map((state, i) => (i === index ? !state : state))
+        );
+        const userToken = Cookies.get("userToken");
+    axios.post(
+      "https://music-back-1s59.onrender.com/playlist",
+      {
+        name:  props.name,
+        description:'ss',
+        musicIds:[props.id]
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${userToken}`,  // Headers should be passed in this third parameter
+        },
+      }
+    )
+    .catch(() => {
+      console.log('sdsada');
+      
+    })
+    };
+
+    // Remove a recent item
+    const handleRemove = (id) => {
+        const userToken = Cookies.get("userToken");
+
+        if(props.id == id) {
+            localStorage.removeItem("searchData")
+        }
+
+        axios.get('https://music-back-1s59.onrender.com/users/me', {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then((r) => {
+            if (Array.isArray(r.data.playlists)) {
+                setData(r.data.playlists);
+            } else {
+                console.warn('Unexpected data structure:', r.data);
+                setData([]);
+            }
+        })
+        .catch(() => {
+            console.log('Error fetching user data');
+        });
+    };
+
+    useEffect(() => {
+        const userToken = Cookies.get("userToken");
+
+        axios.get('https://music-back-1s59.onrender.com/users/me', {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then((r) => {
+            if (Array.isArray(r.data.playlists)) {
+                setData(r.data.playlists);
+            } else {
+                console.warn('Unexpected data structure:', r.data);
+                setData([]);
+            }
+        })
+        .catch(() => {
+            console.log('Error fetching user data');
+        });
+    }, []);
+
+
+   
+
+    return (
         <div className={styles.Recent}>
             <div className={styles.RecentTitleGroup}>
-                <h2 className={styles.TitleRecent}>Recents Searches</h2>
+                <h2 className={styles.TitleRecent}>Recent Searches</h2>
                 <p className={styles.clearTitle}>Clear All</p>
             </div>
-            <div className={styles.RecentItems}>
-                <div className={styles.RecentItemsGroup}>
-                    <div className={styles.flexGroup}>
-                    <div className={styles.ImgRecent}></div>
-                    <div className={styles.text}>
-                         <p className={styles.name}>Robby</p>
-                         <p className={styles.songName}>Juice world</p>
-                    </div>
-                    </div>
-                    <div className={styles.iconGroup}>
-                        <div className={styles.heart}></div>
-                        <div className={styles.remove}></div>
-                    </div>
+            {props.data[0]?.map((item, index) => (
+    <div className={styles.RecentItems} key={index}>
+        <div className={styles.RecentItemsGroup}>
+            <div className={styles.flexGroup}>
+                <div className={styles.ImgRecent}></div>
+                <div className={styles.text}>
+                    <p className={styles.name}>{item.name}</p>
+                    <p className={styles.songName}>{item.id}</p>
                 </div>
             </div>
-            <div className={styles.RecentItems}>
-                <div className={styles.RecentItemsGroup}>
-                    <div className={styles.flexGroup}>
-                    <div className={styles.ImgRecent}></div>
-                    <div className={styles.text}>
-                         <p className={styles.name}>Robby</p>
-                         <p className={styles.songName}>Juice world</p>
-                    </div>
-                    </div>
-                    <div className={styles.iconGroup}>
-                        <div className={styles.heart}></div>
-                        <div className={styles.remove}></div>
-                    </div>
-                </div>
-            </div>
-            <div className={styles.RecentItems}>
-                <div className={styles.RecentItemsGroup}>
-                    <div className={styles.flexGroup}>
-                    <div className={styles.ImgRecent}></div>
-                    <div className={styles.text}>
-                         <p className={styles.name}>Robby</p>
-                         <p className={styles.songName}>Juice world</p>
-                    </div>
-                    </div>
-                    <div className={styles.iconGroup}>
-                        <div className={styles.heart}></div>
-                        <div className={styles.remove}></div>
-                    </div>
+            <div className={styles.iconGroup}>
+                <Icon
+                    name={"heart"}
+                    onClick={() => handleIconClick(index)}
+                    isActive={activeStates[index]}
+                />
+                <div
+                    className={styles.remove}
+                    onClick={() => handleRemove(item.id)}
+                >
                 </div>
             </div>
         </div>
-        </>
-    )
+    </div>
+))}
+        </div>
+    );
 }
