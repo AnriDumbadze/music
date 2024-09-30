@@ -1,6 +1,7 @@
 "use client";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
+import Image from "next/image"; // Import Image from next/image
 import Icon from "../Icon/Icon";
 import styles from "./ArtistCard.module.scss";
 import axios from "axios";
@@ -55,7 +56,13 @@ const ArtistCard = (props: Props) => {
       <div className={styles.cardContent}>
         {getData.map((artist) => (
           <div key={artist.firstName} className={styles.artistInfo}>
-            <img src={`/Images/${props.artistImg}.png`} alt={props.artistName} />
+            <Image
+              src={`/Images/${props.artistImg}.png`} // Use next/image for images
+              alt={props.artistName}
+              width={150} 
+              height={150} 
+              className={styles.artistImage} // Add a class for styling if needed
+            />
             <div className={styles.artistName}>{artist.firstName}</div>
             <div className={styles.artistType}>{artist.biography}</div>
           </div>
