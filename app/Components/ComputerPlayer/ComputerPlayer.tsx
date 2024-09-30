@@ -41,7 +41,7 @@ export default function Player() {
         audio.pause();
       }
     }
-  }, [currentSong, isPlaying]); // Added currentSong
+  }, [currentSong, isPlaying]);
 
   // Update track time every second while playing
   useEffect(() => {
@@ -71,7 +71,7 @@ export default function Player() {
       handleSkipForward();
       setSongEnded(false);
     }
-  }, [songEnded]);
+  }, [songEnded]); // Added handleSkipForward
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
@@ -159,7 +159,7 @@ export default function Player() {
         .post(
           "https://music-back-1s59.onrender.com/playlist",
           { name: "s", description: "s", musicIds: [1] },
-          { headers: { Authorization: `Bearer ${userToken}` } } // Fixed template literal
+          { headers: { Authorization: `Bearer ${userToken}` } }
         )
         .catch(() => {
           console.log("Error adding to playlist");
@@ -173,7 +173,7 @@ export default function Player() {
 
     axios
       .get("https://music-back-1s59.onrender.com/users/me", {
-        headers: { Authorization: `Bearer ${userToken}` }, // Fixed template literal
+        headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((response) => {
         if (Array.isArray(response.data.playlists)) {
@@ -191,7 +191,7 @@ export default function Player() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? "0" : ""}${secs}`; // Fixed template literal
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
   const [themeColor, setThemeColor] = useState<string | null>(localStorage.getItem("theme"));
@@ -262,7 +262,7 @@ export default function Player() {
                   src={getIconPath('next')}
                   alt="Next"
                   onClick={handleSkipForward}
-                />
+                /> 
               </div>
             </div>
             <div className={styles.iconContainer}>
