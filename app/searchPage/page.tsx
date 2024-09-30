@@ -10,6 +10,8 @@ import RecentSearch from "../Components/recentSearch/recet";
 import axios from "axios";
 
 interface SearchData {
+    artistName: string;
+    rank: string;
     id: number; // Assuming ID is a number based on the expected type
     name: string;
     description: string;
@@ -34,13 +36,25 @@ export default function SearchPage() {
         return () => clearInterval(themeInterval); 
     }, []);
 
-    const artistCards = [
-        <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,
-    ];
+    // Update artistCards and popularCharts to use unique keys
+    const artistCards = data.map((artist) => (
+        <ArtistCard 
+            key={artist.id} // Unique key for each ArtistCard
+            artistImg={"artist"} 
+            artistName={artist.name} 
+            artistType={"Artist"} 
+        />
+    ));
 
-    const popularCharts = [
-        <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
-    ];
+    const popularCharts = data.map((chart) => (
+        <TopChart 
+            key={chart.id} // Unique key for each TopChart
+            image={"topChart"} 
+            songName={chart.name} 
+            artistName={chart.artistName} // Make sure these properties exist in your data
+            rank={chart.rank} // Make sure this property exists in your data
+        />
+    ));
 
     const onchange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -72,6 +86,7 @@ export default function SearchPage() {
     const firstResultName = data.length > 0 ? data[0].name : '';
     const idSearch = data.length > 0 ? data[0].id : undefined; // Change to undefined if no ID
     const descriptionSearch = data.length > 0 ? data[0].description : '';
+    
     return (
         <>
             <div className={styles.mainContent}>
@@ -80,6 +95,8 @@ export default function SearchPage() {
                     <Header onchange={onchange1} />
                     <RecentSearch name={firstResultName} id={idSearch} description={descriptionSearch} data={data} />
                     <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+                    {/* Render artistCards if necessary */}
+                    <MusicWrapper cards={artistCards} name={"Artists"} />
                 </div>
             </div>
         </>
