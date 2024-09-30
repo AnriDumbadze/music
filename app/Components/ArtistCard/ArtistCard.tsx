@@ -1,7 +1,6 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
 import { useState, useEffect } from "react";
-import { getCookie } from "../Aside/Aside";
 import Icon from "../Icon/Icon";
 import styles from "./ArtistCard.module.scss";
 import axios from "axios";
@@ -11,42 +10,52 @@ type Props = {
   artistName: string;
   artistType: string;
 };
+
+type ArtistData = {
+  firstName: string;
+  biography: string;
+};
+
 const ArtistCard = (props: Props) => {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
-  const [getData, setGetData] = useState([])
+  const [themeColor, setThemeColor] = useState<string | null>(Cookies.get("theme")); // Get initial theme from cookies
+  const [getData, setGetData] = useState<ArtistData[]>([]);
+
   useEffect(() => {
     const updateTheme = () => {
-      const newTheme = getCookie("theme");
+      const newTheme = Cookies.get("theme");
       setThemeColor(newTheme);
     };
 
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
+    const themeInterval = setInterval(updateTheme, 1000); // Adjust interval to 1 second or suitable value
 
     return () => clearInterval(themeInterval);
   }, []);
 
-  const cardClassName = themeColor === 'dark' ? `${styles.artistCard} ${styles.darkArtistCard}` : styles.artistCard;
+  const cardClassName = themeColor === "dark" ? `${styles.artistCard} ${styles.darkArtistCard}` : styles.artistCard;
 
   useEffect(() => {
     const userToken = Cookies.get("userToken");
 
-    axios.get('https://music-back-1s59.onrender.com/artist', {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    }).then((r) => {
-      setGetData(r.data)
-    })
-  }, [])
+    axios
+      .get("https://music-back-1s59.onrender.com/artist", {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+      .then((r) => {
+        setGetData(r.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching artist data:", error);
+      });
+  }, []);
 
   return (
     <div className={cardClassName}>
       <div className={styles.cardContent}>
         {getData.map((artist) => (
-          <div className={styles.artistInfo}>
-            <img src={`/Images/${props.artistImg}.png`} alt="artist" />
+          <div key={artist.firstName} className={styles.artistInfo}>
+            <img src={`/Images/${props.artistImg}.png`} alt={props.artistName} />
             <div className={styles.artistName}>{artist.firstName}</div>
             <div className={styles.artistType}>{artist.biography}</div>
           </div>
