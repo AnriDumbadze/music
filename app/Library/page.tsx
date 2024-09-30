@@ -4,9 +4,9 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import Aside, { getCookie } from "../Components/Aside/Aside";
 import Icon from "../Components/Icon/Icon";
-import styles from "./userList.module.scss";
+import styles from "./page.module.scss";
 import { message } from "antd";
-import TopChart from "../Components/TopChart/TopChart";
+
 
 export default function UserList() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null);

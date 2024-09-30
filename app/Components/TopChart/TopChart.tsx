@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getCookie } from "../Aside/Aside";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ButtonStyle } from "../ButtonStyles";
-import styles from "./TopChart.module.css"; // Change to .css
+import styles from "./TopChart.module.scss"; // Change to .css
 import axios from "axios";
 
 interface Props {
