@@ -72,7 +72,8 @@ export default function Player() {
       handleSkipForward();
       setSongEnded(false);
     }
-  }, [songEnded]); // Added handleSkipForward
+  }, [songEnded, handleSkipForward]); // Include handleSkipForward here
+  ; // Added handleSkipForward
 
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
