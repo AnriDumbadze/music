@@ -2,7 +2,6 @@
 import { message, Switch, Space } from 'antd';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import ArtistForm from '../Components/AddArtistForm/artistForm';
 import Aside, { getCookie } from '../Components/Aside/Aside';
 import Icon from '../Components/Icon/Icon';
 import TopChart from '../Components/TopChart/TopChart';
@@ -164,7 +163,7 @@ export default function AdminMusic() {
                                     />
                                     
                                     <div className={styles.img}>
-                                        <ArtistForm />
+                                       
                                         <div className={styles.imageText}>
                                             <span className={styles.iimg}>Trakis Scott</span>
                                             <span>Profile Photo</span>
