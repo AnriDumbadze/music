@@ -18,12 +18,13 @@ type ArtistData = {
 };
 
 const ArtistCard = (props: Props) => {
-  const [themeColor, setThemeColor] = useState<string | null>(Cookies.get("theme")); // Get initial theme from cookies
+  // Initialize themeColor to a string or null
+  const [themeColor, setThemeColor] = useState<string | null>(Cookies.get("theme") || null); // Get initial theme from cookies
   const [getData, setGetData] = useState<ArtistData[]>([]);
 
   useEffect(() => {
     const updateTheme = () => {
-      const newTheme = Cookies.get("theme");
+      const newTheme = Cookies.get("theme") || null; // Ensure it falls back to null
       setThemeColor(newTheme);
     };
 
