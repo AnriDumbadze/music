@@ -10,23 +10,26 @@ type Props = {
 };
 
 const Badge = (props: Props) => {
+  const { badgeItem, id, onClick, isActive } = props;
+
+  // Ensure image source is defined and valid
+  const imgSrc = isActive ? badgeItem.activePhoto : badgeItem.photo;
+  const altText = `${badgeItem.name} badge`;
+
   return (
     <div
-      className={props.isActive ? styles.active : styles.badgeContent}
-      onClick={() => props.onClick(props.id)}
+      className={isActive ? styles.active : styles.badgeContent}
+      onClick={() => onClick(id)}
     >
-      {props.badgeItem.name}
-
-      <img
-        width={"24px"}
-        height={"24px"}
-        src={
-          props.isActive
-            ? `${props.badgeItem.activePhoto}`
-            : `${props.badgeItem.photo}`
-        }
-        alt={`${props.badgeItem.name} badge`}
-      />
+      {badgeItem.name}
+      {imgSrc && (
+        <img
+          width={"24px"}
+          height={"24px"}
+          src={imgSrc}
+          alt={altText}
+        />
+      )}
     </div>
   );
 };
