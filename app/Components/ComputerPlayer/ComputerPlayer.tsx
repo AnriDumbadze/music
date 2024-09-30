@@ -8,6 +8,7 @@ import { getCookie } from "../Aside/Aside";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useCallback } from "react";
+import Image from 'next/image';
 
 export default function Player() {
   const [disabled, setDisabled] = useState(false);
@@ -67,12 +68,7 @@ export default function Player() {
   }, [currentSongId]);
 
   // Skip to the next song if the current one ends
-  useEffect(() => {
-    if (songEnded) {
-      handleSkipForward();
-      setSongEnded(false);
-    }
-  }, [songEnded, handleSkipForward]); // Include handleSkipForward here
+  // Include handleSkipForward here
   ; // Added handleSkipForward
 
   const handlePlayPause = () => {
@@ -109,6 +105,13 @@ export default function Player() {
       return newId;
     });
   };
+
+  useEffect(() => {
+    if (songEnded) {
+      handleSkipForward();
+      setSongEnded(false);
+    }
+  }, [songEnded, handleSkipForward]);
 
   // Debounce function to handle slider changes efficiently
   const debounce = (func: Function, delay: number) => {
@@ -226,79 +229,81 @@ export default function Player() {
 
   return (
     <div className={`${styles.computerPlayer} ${themeColor === 'light' ? styles.lightPlayer : ''}`}>
-      <audio ref={audioRef} />
-      <div className={styles.Player}>
-        <div className={styles.container}>
-          <div className={styles.textContainer}>
-            <div className={styles.textGrid}>
-              <img className={styles.img} />
-              <div className={styles.artistInfo}>
-                <h3 className={`${styles.Text} ${themeColor === 'light' ? styles.lightText : ''}`}>Sour!</h3>
-                <p className={styles.Text2}>Olivia Rodrigo</p>
-              </div>
-              <div className={styles.icon}>
-              <Icon
-                name={"heart"}
-                onClick={handleIconClick}
-                isActive={isActive}
+  <audio ref={audioRef} />
+  <div className={styles.Player}>
+    <div className={styles.container}>
+      <div className={styles.textContainer}>
+        <div className={styles.textGrid}>
+          {/* Add the src attribute to the img element */}
+          <img className={styles.img} src={currentSong?.coverUrl || '/path/to/default/image.png'} alt={currentSong?.title} />
+          <div className={styles.artistInfo}>
+            <h3 className={`${styles.Text} ${themeColor === 'light' ? styles.lightText : ''}`}>{currentSong?.title || 'Unknown Title'}</h3>
+            <p className={styles.Text2}>{currentSong?.artist || 'Unknown Artist'}</p>
+          </div>
+          <div className={styles.icon}>
+            <Icon
+              name={"heart"}
+              onClick={handleIconClick}
+              isActive={isActive}
+            />
+          </div>
+        </div>
+        <div className={styles.controls}>
+          <div className={styles.controlBTN}>
+            <img
+              src={getIconPath('previous')}
+              alt="Previous"
+              onClick={handleSkipBackward}
+            />
+          </div>
+          <div className={styles.controlBTN} onClick={handlePlayPause}>
+            {isPlaying ? (
+              <img src={getIconPath('pause')} alt="Pause" />
+            ) : (
+              <img src={getIconPath('play')} alt="Play" />
+            )}
+          </div>
+          <div className={styles.controlBTN}>
+            <img
+              src={getIconPath('next')}
+              alt="Next"
+              onClick={handleSkipForward}
+            />
+          </div>
+        </div>
+        <div className={styles.iconContainer}>
+          <div className={styles.scroll}>
+            <div className={`${styles.current} ${themeColor === 'light' ? styles.lightCurrent : ''}`}>
+              <span>{formatTime(currentTrackTime)}</span>
+            </div>
+            <input
+              type="range"
+              className={styles.playInput}
+              min="0"
+              value={currentTrackTime}
+              onChange={handleTimeChange}
+            />
+          </div>
+          <div className={styles.voiceControl}>
+            <div className={styles.volume}>
+              <div className={styles.voice}></div>
+              <Slider
+                onChange={handleMusicVolumeChange}
+                className={styles.inputRadio2}
+                value={musicVolume}
+                disabled={disabled}
               />
-              </div>
             </div>
-            <div className={styles.controls}>
-              <div className={styles.controlBTN}>
-                <img
-                  src={getIconPath('previous')}
-                  alt="Previous"
-                  onClick={handleSkipBackward}
-                />
-              </div>
-              <div className={styles.controlBTN} onClick={handlePlayPause}>
-                {isPlaying ? (
-                  <img src={getIconPath('pause')} alt="Pause" />
-                ) : (
-                  <img src={getIconPath('play')} alt="Play" />
-                )}
-              </div>
-              <div className={styles.controlBTN} onClick={handleSkipForward}>
-                <img
-                  src={getIconPath('next')}
-                  alt="Next"
-                  onClick={handleSkipForward}
-                /> 
-              </div>
-            </div>
-            <div className={styles.iconContainer}>
-              <div className={styles.scroll}>
-                <div className={`${styles.current} ${themeColor === 'light' ? styles.lightCurrent : ''}`}>
-                  <span>{formatTime(currentTrackTime)}</span>
-                </div>
-                <input
-                  type="range"
-                  className={styles.playInput}
-                  min="0"
-                  value={currentTrackTime}
-                  onChange={handleTimeChange}
-                />
-              </div>
-              <div className={styles.voiceControl}>
-                <div className={styles.volume}>
-                  <div className={styles.voice}></div>
-                  <Slider
-                    onChange={handleMusicVolumeChange}
-                    className={styles.inputRadio2}
-                    value={musicVolume}
-                    disabled={disabled}
-                  />
-                </div>
-                <div className={styles.switchBox}>
-                  <div className={styles.refresh}></div>
-                  <div className={styles.shuffle}></div>
-                </div>
-              </div>
+            <div className={styles.switchBox}>
+              <div className={styles.refresh}></div>
+              <div className={styles.shuffle}></div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
   );
 }
