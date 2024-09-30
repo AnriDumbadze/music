@@ -30,16 +30,15 @@ const Home = () => {
   };
 
   const artistCards = [
-    <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
+    <ArtistCard key={"artist-1"} artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
   ];
 
   const popularHits = [
-    <MusicCard albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
+    <MusicCard key={"music-1"} albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
   ];
 
   const popularCharts = [
-    <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
-
+    <TopChart key={"chart-1"} image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
   ];
 
   return (
