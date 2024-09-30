@@ -17,14 +17,16 @@ const Badge = (props: Props) => {
     >
       {props.badgeItem.name}
 
-      <img width={"24px"} height={"24px"}
+      <img
+        width={"24px"}
+        height={"24px"}
         src={
-            props.isActive
-              ? `${props.badgeItem.activePhoto}`
-              : `${props.badgeItem.photo}`
-            } 
+          props.isActive
+            ? `${props.badgeItem.activePhoto}`
+            : `${props.badgeItem.photo}`
+        }
+        alt={`${props.badgeItem.name} badge`}
       />
-
     </div>
   );
 };

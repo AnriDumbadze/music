@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
 import styles from './Aside.module.scss';
 import Icon from '../Icon/Icon';
@@ -6,7 +6,6 @@ import MenuItem from '../MenuItem/MenuItem';
 import LightDark from '../LightDark/LightDark';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
-import { cookies } from 'next/headers';
 
 export const getCookie = (key: string) => {
   return Cookie.get(key);
@@ -15,43 +14,13 @@ export const getCookie = (key: string) => {
 const AsideMenu = () => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [themeColor, setThemeColor] = useState<string | undefined>(getCookie("theme")); // Store theme in state
-  const [isAdmin, setIsadmin] = useState(false)
-  const router = useRouter()
+  const [isAdmin, setIsAdmin] = useState(false);
+  const router = useRouter();
 
-  const handleMenuItemClick = (name: string) => {
+  const handleMenuItemClick = (name: string, route: string) => {
     setActiveItem(name);
-    router.replace('http://localhost:3000')
+    router.replace(route);
   };
-
-  const handleMenuItemClick2 = (name: string) => {
-    setActiveItem(name);
-    router.replace("http://localhost:3000/searchPage")
-  };
-  const handleMenuItemClick3 = (name: string) => {
-    setActiveItem(name);
-    router.replace("http://localhost:3000/Library")
-  };
-
-  const handleMenuItemClick4 = (name: string) => {
-    setActiveItem(name);
-    router.replace("http://localhost:3000/adminArtist")
-  };
-
-  const handleMenuItemClick5 = (name: string) => {
-    setActiveItem(name);
-    router.replace("http://localhost:3000/userList")
-  };
-
-  const handleMenuItemClick6 = (name: string) => {
-    setActiveItem(name);
-    router.replace("http://localhost:3000/adminAlbum")
-  };
-
-  const handleMenuItemClick7 = (name: string) => {
-    setActiveItem(name);
-    router.replace("http://localhost:3000/adminMusic")
-  };
-
 
   useEffect(() => {
     const updateTheme = () => {
@@ -60,21 +29,17 @@ const AsideMenu = () => {
     };
 
     updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0); 
+    const themeInterval = setInterval(updateTheme, 1000); // Set reasonable interval (1 second)
 
     return () => clearInterval(themeInterval);
   }, []);
 
-  const isAdminCookie = Cookie.get("isAdmin")
-
   useEffect(() => {
     const isAdminCookie = Cookie.get("isAdmin");
     if (isAdminCookie === 'admin') {
-      setIsadmin(true); // Move this inside useEffect
+      setIsAdmin(true);
     }
   }, []);
-
 
   return (
     <div className={`${styles.aside} ${themeColor === 'dark' ? styles.darkAside : ''}`}>
@@ -83,17 +48,45 @@ const AsideMenu = () => {
           <Icon name={"FAZER"} isActive={false} onClick={() => {}} />
         </div>
         <div className={styles.menuItems}>
-          <MenuItem name={"home"} isActive={activeItem === "home"} onClick={() => handleMenuItemClick("home")} />
-          <MenuItem  name={"search"} isActive={activeItem === "settings"} onClick={() => handleMenuItemClick2("settings")} />
-          <MenuItem name={"library"} isActive={activeItem === "library"} onClick={() => handleMenuItemClick3("library")} />
-        {isAdmin &&
-           <>
-            <MenuItem name={"artists"} isActive={activeItem === "artists"} onClick={() => handleMenuItemClick4("artists")} />
-            <MenuItem name={"Users"} isActive={activeItem === "Users"} onClick={() => handleMenuItemClick5("Users")} />
-            <MenuItem name={"Album"} isActive={activeItem === "Album"} onClick={() => handleMenuItemClick6("Album")} />
-            <MenuItem name={"Music"} isActive={activeItem === "Music"} onClick={() => handleMenuItemClick7("Music")} />
-           </>
-        }
+          <MenuItem
+            name={"home"}
+            isActive={activeItem === "home"}
+            onClick={() => handleMenuItemClick("home", "http://localhost:3000")}
+          />
+          <MenuItem
+            name={"search"}
+            isActive={activeItem === "search"}
+            onClick={() => handleMenuItemClick("search", "http://localhost:3000/searchPage")}
+          />
+          <MenuItem
+            name={"library"}
+            isActive={activeItem === "library"}
+            onClick={() => handleMenuItemClick("library", "http://localhost:3000/Library")}
+          />
+          {isAdmin && (
+            <>
+              <MenuItem
+                name={"artists"}
+                isActive={activeItem === "artists"}
+                onClick={() => handleMenuItemClick("artists", "http://localhost:3000/adminArtist")}
+              />
+              <MenuItem
+                name={"Users"}
+                isActive={activeItem === "Users"}
+                onClick={() => handleMenuItemClick("Users", "http://localhost:3000/userList")}
+              />
+              <MenuItem
+                name={"Album"}
+                isActive={activeItem === "Album"}
+                onClick={() => handleMenuItemClick("Album", "http://localhost:3000/adminAlbum")}
+              />
+              <MenuItem
+                name={"Music"}
+                isActive={activeItem === "Music"}
+                onClick={() => handleMenuItemClick("Music", "http://localhost:3000/adminMusic")}
+              />
+            </>
+          )}
         </div>
       </div>
       
