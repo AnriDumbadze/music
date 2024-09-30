@@ -4,7 +4,7 @@ import { getCookie } from "../Aside/Aside";
 import Icon from "../Icon/Icon";
 import styles from "./Header.module.scss";
 interface Props{
-  onchange?:() => void
+  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void; 
 }
 const Header = (props:Props) => {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); 

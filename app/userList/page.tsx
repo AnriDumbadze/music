@@ -41,29 +41,7 @@ export default function UserList() {
     const popularCharts = [
       <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
     ];
-    const firstname = (e: any) => {
-      setArtistName(e.target.value)
-    }
-  
-    const lastname = (e: any) => {
-      setArtistLastname(e.target.value)
-    }
-  
-    const email = (e: any) => {
-      setEmails(e.target.value)
-    }
-  
-    const albumname = (e: any) => {
-      setAlbumTitle(e.target.value)
-    }
-  
-    const realseChange = (e: any) => {
-      setReleaseDate(e.target.value)
-    }
-  
-    const onChange = (checked: boolean) => {
-      setSwitchChecked(checked)
-    };
+
   
     console.log(artistName);
   
