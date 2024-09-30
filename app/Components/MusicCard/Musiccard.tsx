@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./MusicCard.module.scss";
 import { getCookie } from "../Aside/Aside";
 import axios from "axios";
+import Image from 'next/image'; // Import Image from next/image
 
 interface Music {
   id: number; // or string based on your API response
@@ -59,7 +60,13 @@ function MusicCard({ albumCover }: Props) {
         {getData.map((music) => (
           <div key={music.id} className={styles.musicWrap}> 
             <div className={styles.musicPhoto}>
-              <img src={`/Images/${albumCover}.png`} alt={music.name} height={"176px"} width={"168px"} />
+              <Image 
+                src={`/Images/${albumCover}.png`} 
+                alt={music.name} 
+                height={176} // Use numbers for height
+                width={168} // Use numbers for width
+                layout="intrinsic" // Use layout for better handling
+              />
               <div className={styles.musicInfo}>
                 <p className={styles.songTitle}>{music.name}</p>
                 <p className={styles.author}>{music.artist.firstName}</p>

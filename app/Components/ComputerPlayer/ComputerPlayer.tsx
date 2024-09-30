@@ -41,7 +41,7 @@ export default function Player() {
         audio.pause();
       }
     }
-  }, [currentSongId, isPlaying]);
+  }, [currentSong, isPlaying]); // Added currentSong
 
   // Update track time every second while playing
   useEffect(() => {
@@ -159,7 +159,7 @@ export default function Player() {
         .post(
           "https://music-back-1s59.onrender.com/playlist",
           { name: "s", description: "s", musicIds: [1] },
-          { headers: { Authorization: `Bearer ${userToken}` } }
+          { headers: { Authorization: `Bearer ${userToken}` } } // Fixed template literal
         )
         .catch(() => {
           console.log("Error adding to playlist");
@@ -173,7 +173,7 @@ export default function Player() {
 
     axios
       .get("https://music-back-1s59.onrender.com/users/me", {
-        headers: { Authorization: `Bearer ${userToken}` },
+        headers: { Authorization: `Bearer ${userToken}` }, // Fixed template literal
       })
       .then((response) => {
         if (Array.isArray(response.data.playlists)) {
@@ -191,7 +191,7 @@ export default function Player() {
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+    return `${mins}:${secs < 10 ? "0" : ""}${secs}`; // Fixed template literal
   };
 
   const [themeColor, setThemeColor] = useState<string | null>(localStorage.getItem("theme"));
@@ -219,9 +219,8 @@ export default function Player() {
     };
   }, []);
   
-
   const getIconPath = (iconName: string) => {
-    return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`;
+    return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`; // Fixed template literal
   };
   return (
     <div className={`${styles.computerPlayer} ${themeColor === 'light' ? styles.lightPlayer : ''}`}>

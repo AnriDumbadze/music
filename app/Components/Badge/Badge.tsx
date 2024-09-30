@@ -1,6 +1,7 @@
 import styles from "./Badge.module.scss";
 import React from "react";
 import { BadgeItem } from "@/public/Interfaces/inter";
+import Image from "next/image"; // Import the Image component from next/image
 
 type Props = {
   badgeItem: BadgeItem;
@@ -23,11 +24,12 @@ const Badge = (props: Props) => {
     >
       {badgeItem.name}
       {imgSrc && (
-        <img
-          width={"24px"}
-          height={"24px"}
+        <Image
+          width={24} // Set width directly as a number
+          height={24} // Set height directly as a number
           src={imgSrc}
           alt={altText}
+          layout="fixed" // Use fixed layout to maintain size
         />
       )}
     </div>

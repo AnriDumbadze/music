@@ -6,6 +6,7 @@ import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ButtonStyle } from "../ButtonStyles";
 import styles from "./TopChart.module.scss"; // Change to .css
 import axios from "axios";
+import Image from 'next/image'; // Import Image from next/image
 
 interface Props {
   image: string;
@@ -49,10 +50,13 @@ const TopChart = (props: Props) => {
   return (
     <div className={containerClassName}>
       <div className={styles.imageContainer}>
-        <img
+        <Image
           src={`/Images/${props.image}.png`}
           alt="image"
           className={styles.topImage}
+          height={176} // Set appropriate height
+          width={168}  // Set appropriate width
+          layout="intrinsic" // Maintain aspect ratio
         />
       </div>
       <div className={styles.chartInfo}>

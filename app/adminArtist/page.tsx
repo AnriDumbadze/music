@@ -11,6 +11,7 @@ import { Switch } from 'antd';
 import Cookies from "js-cookie";
 import axios from 'axios'
 import { message, Space } from 'antd';
+import Image from 'next/image';
 export default function ArtistAdd() {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
   const [artistName, setArtistName] = useState("");
@@ -280,20 +281,19 @@ export default function ArtistAdd() {
                 </div>
 
                 {
-                  getData.filter((items) =>
-                    items.firstName.toLowerCase().includes(search.toLowerCase()) // Case-insensitive search
-                  ).map((items, index) => (
-                    <div className={styles.ArtistInfo}>
-                      <div className={styles.items} key={index}>
-                        <p>{items.firstName}</p>
-                        <p>{`${items.lastName}@gmail.com`}</p>
-                        <p>{items.id}</p>
-                        <p>{items.biography}</p>
-                        <p className={styles.Active}>{'Active'}</p>
-                        {/* Add more artist details if needed */}
-                      </div>
-                    </div>
-                  ))
+                 getData.filter((items) =>
+                 items.firstName.toLowerCase().includes(search.toLowerCase()) // Case-insensitive search
+               ).map((items, index) => (
+                 <div className={styles.ArtistInfo} key={index}> {/* Add key here */}
+                   <div className={styles.items}>
+                     <p>{items.firstName}</p>
+                     <p>{`${items.lastName}@gmail.com`}</p>
+                     <p>{items.id}</p>
+                     <p>{items.biography}</p>
+                     <p className={styles.Active}>{'Active'}</p>
+                   </div>
+                 </div>
+               ))
                 }
 
 

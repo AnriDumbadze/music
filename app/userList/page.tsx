@@ -82,7 +82,7 @@ export default function UserList() {
                             {getData.filter(item => 
                                 item.name.toLowerCase().includes(search.toLowerCase())
                             ).map((item, index) => (
-                                <div className={styles.ArtistInfo} key={index}>
+                                 <div className={styles.ArtistInfo} key={index}>
                                     <div className={styles.items}>
                                         <p>{item.name}</p>
                                         <p>{item.email}</p>
