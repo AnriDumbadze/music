@@ -66,7 +66,9 @@ export default function UserList() {
                             />
                         </div>
                     </div>
-                    <div className={styles.listArtist}>
+        
+                </div>
+                <div className={styles.listArtist}>
                         <div className={styles.list}>
                             <div className={styles.listInfo}>
                                 <div className={styles.items}>
@@ -92,8 +94,8 @@ export default function UserList() {
                             ))}
                         </div>
                     </div>
-                </div>
             </div>
+            
         </div>
     );
 }

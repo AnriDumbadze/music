@@ -13,21 +13,22 @@ import axios from 'axios'
 import { message, Space } from 'antd';
 export default function ArtistAdd() {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
-  const [artistName, setArtistName] = useState("")
-  const [artistLastname, setArtistLastname] = useState("")
-  const [artistMusicIds, setArtistMusicIds] = useState("")
-  const [artistAlbumId, setArtistAlbumId] = useState("")
-  const [artistBiography, setArtistBiography] = useState("")
-  const [emails, setEmails] = useState("")
-  const [albumTitle, setAlbumTitle] = useState('')
-  const [releaseDate, setReleaseDate] = useState('')
+  const [artistName, setArtistName] = useState("");
+  const [artistLastname, setArtistLastname] = useState("");
+  const [artistMusicIds, setArtistMusicIds] = useState("");
+  const [artistAlbumId, setArtistAlbumId] = useState("");
+  const [artistBiography, setArtistBiography] = useState("");
+  const [emails, setEmails] = useState("");
+  const [albumTitle, setAlbumTitle] = useState('');
+  const [releaseDate, setReleaseDate] = useState('');
   const [switchChecked, setSwitchChecked] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-  const [showAddArtist, setShowaddArtist] = useState(false)
-  const [listArtist, setListArtist] = useState(true)
-  const [getData, setGetData] = useState([])
-  const [search, setSearch] = useState('')
-  const [searchData, setSearchData] = useState([])
+  const [showAddArtist, setShowAddArtist] = useState(false);
+  const [listArtist, setListArtist] = useState(true);
+  const [getData, setGetData] = useState([]);
+  const [search, setSearch] = useState('');
+  const [searchData, setSearchData] = useState([]);
+
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
@@ -40,34 +41,30 @@ export default function ArtistAdd() {
 
     return () => clearInterval(themeInterval);
   }, []);
-  const popularCharts = [
-    <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
-  ];
+
   const firstname = (e: any) => {
-    setArtistName(e.target.value)
+    setArtistName(e.target.value);
   }
 
   const lastname = (e: any) => {
-    setArtistLastname(e.target.value)
+    setArtistLastname(e.target.value);
   }
 
   const email = (e: any) => {
-    setEmails(e.target.value)
+    setEmails(e.target.value);
   }
 
   const albumname = (e: any) => {
-    setAlbumTitle(e.target.value)
+    setAlbumTitle(e.target.value);
   }
 
-  const realseChange = (e: any) => {
-    setReleaseDate(e.target.value)
+  const releaseChange = (e: any) => {
+    setReleaseDate(e.target.value);
   }
 
   const onChange = (checked: boolean) => {
-    setSwitchChecked(checked)
+    setSwitchChecked(checked);
   };
-
-  console.log(artistName);
 
   const suggest = () => {
     const userToken = localStorage.getItem("token");
@@ -83,37 +80,32 @@ export default function ArtistAdd() {
           Authorization: `Bearer ${userToken}`
         }
       }
-
     )
-      .then((data) => {
-        console.log(data);
-        messageApi.open({
-          type: 'success',
-          content: 'წარმატებით შექიმნა!',
-        });
-        setTimeout(() => {
-          setShowaddArtist(false)
-          setListArtist(true)
-        }, 2000);
-      })
-      .catch((error) => {
-        messageApi.error({
-          type: 'error',
-          content: 'რატომ გავიხადე?',
-        });;
+    .then((data) => {
+      messageApi.open({
+        type: 'success',
+        content: 'წარმატებით შექიმნა!',
       });
+      setTimeout(() => {
+        setShowAddArtist(false);
+        setListArtist(true);
+      }, 2000);
+    })
+    .catch((error) => {
+      messageApi.error({
+        type: 'error',
+        content: 'რატომ გავიხადე?',
+      });
+    });
   }
 
   const biographyChange = (e: any) => {
-    setArtistBiography(e.target.value)
+    setArtistBiography(e.target.value);
   }
 
   const searchArtist = (e: any) => {
-    setSearch(e.target.value)
+    setSearch(e.target.value);
   }
-
-  console.log(search);
-
 
   useEffect(() => {
     const userToken = Cookies.get("userToken");
@@ -123,13 +115,13 @@ export default function ArtistAdd() {
         Authorization: `Bearer ${userToken}`,
       },
     }).then((r) => {
-      setGetData(r.data)
-    })
-  }, [])
+      setGetData(r.data);
+    });
+  }, []);
 
   const click = () => {
-    setShowaddArtist(true)
-    setListArtist(false)
+    setShowAddArtist(true);
+    setListArtist(false);
   }
 
   useEffect(() => {
@@ -141,19 +133,19 @@ export default function ArtistAdd() {
           Authorization: `Bearer ${userToken}`,
         },
       })
-        .then((response) => {
-          setSearchData(response.data)
-
-        })
-        .catch((error) => {
-          if (error.response && error.response.status === 401) {
-            console.log('Unauthorized: Invalid token');
-          } else {
-            console.log('Error:', error.message);
-          }
-        });
+      .then((response) => {
+        setSearchData(response.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 401) {
+          console.log('Unauthorized: Invalid token');
+        } else {
+          console.log('Error:', error.message);
+        }
+      });
     }
   }, [search]);
+
   return (
     <>
       {contextHolder}
