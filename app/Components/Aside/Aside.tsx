@@ -44,7 +44,7 @@ const AsideMenu = () => {
 
   const handleMenuItemClick6 = (name: string) => {
     setActiveItem(name);
-    router.replace("http://localhost:3000/userList")
+    router.replace("http://localhost:3000/adminAlbum")
   };
 
   const handleMenuItemClick7 = (name: string) => {

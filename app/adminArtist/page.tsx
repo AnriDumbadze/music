@@ -26,7 +26,7 @@ export default function ArtistAdd() {
   const [showAddArtist, setShowaddArtist] = useState(false)
   const [listArtist, setListArtist] = useState(true)
   const [getData, setGetData] = useState([])
-  const [search,setSearch] = useState('')
+  const [search, setSearch] = useState('')
   const [searchData, setSearchData] = useState([])
   useEffect(() => {
     const updateTheme = () => {
@@ -91,10 +91,10 @@ export default function ArtistAdd() {
           type: 'success',
           content: 'წარმატებით შექიმნა!',
         });
-      setTimeout(() => {
-        setShowaddArtist(false)
-        setListArtist(true)
-      }, 2000);
+        setTimeout(() => {
+          setShowaddArtist(false)
+          setListArtist(true)
+        }, 2000);
       })
       .catch((error) => {
         messageApi.error({
@@ -108,12 +108,12 @@ export default function ArtistAdd() {
     setArtistBiography(e.target.value)
   }
 
-  const searchArtist = (e:any) =>{
+  const searchArtist = (e: any) => {
     setSearch(e.target.value)
   }
 
   console.log(search);
-  
+
 
   useEffect(() => {
     const userToken = Cookies.get("userToken");
@@ -130,12 +130,12 @@ export default function ArtistAdd() {
   const click = () => {
     setShowaddArtist(true)
     setListArtist(false)
-  } 
+  }
 
   useEffect(() => {
     const userToken = localStorage.getItem("token");
 
-    if (userToken && search) { 
+    if (userToken && search) {
       axios.get(`https://music-back-1s59.onrender.com/search/artist?search=${search}`, {
         headers: {
           Authorization: `Bearer ${userToken}`,
@@ -143,7 +143,7 @@ export default function ArtistAdd() {
       })
         .then((response) => {
           setSearchData(response.data)
-          
+
         })
         .catch((error) => {
           if (error.response && error.response.status === 401) {
@@ -153,7 +153,7 @@ export default function ArtistAdd() {
           }
         });
     }
-  }, [search]); 
+  }, [search]);
   return (
     <>
       {contextHolder}
@@ -209,7 +209,7 @@ export default function ArtistAdd() {
               <textarea onChange={biographyChange} disabled={switchChecked} className={styles.BiographyText} cols="30" rows="60"></textarea>
               <Switch onChange={onChange} />
               <div className={styles.img}>
-               <input type="file" />
+                <input type="file" />
                 <div className={styles.imageText}>
                   <span className={styles.iimg}>Trakis Scott</span>
                   <span>Profile Photo</span>
@@ -233,131 +233,20 @@ export default function ArtistAdd() {
                       padding='4px 16px'
                     />
                   </div>
+                  <Space>
+                    <Button
+                      click={suggest}
+                      text="Suggest"
+                      width="90px"
+                      backgroundColor="#FF5F5F"
+                      borderRadius="5px"
+                      textColor="#FFFFFF"
+                      border="none"
+                      padding='4px 16px'
+                    />
+                  </Space>
                 </div>
               </div>
-              <span className={styles.head}>Add Album</span>
-              <div className={styles.line}></div>
-<div className={styles.containerMusic}>
-
-              <div className={styles.album}>
-                <span>Album name</span>
-                <Input
-                  onchange={albumname}
-                  type="text"
-                  placeholder=""
-                  mode="white"
-                  state="neutral"
-                />
-                <span>Album date</span>
-                <Input
-                  onchange={realseChange}
-                  type="text"
-                  placeholder=""
-                  mode="white"
-                  state="neutral"
-                />
-                <div className={styles.img}>
-                  <ArtistForm />
-                  <div className={styles.imageText}>
-                    <span className={styles.iimg}>Trakis Scott</span>
-                    <span>Profile Photo</span>
-                    <div className={styles.buttons}>
-                      <Button
-                        text="Add"
-                        width="63px"
-                        backgroundColor="#FF5F5F"
-                        borderRadius="5px"
-                        textColor="#FFFFFF"
-                        border="none"
-                        padding='4px 16px'
-                      />
-                      <Button
-                        text="view"
-                        width="63px"
-                        backgroundColor="white"
-                        borderRadius="5px"
-                        textColor="#898989"
-                        border="none"
-                        padding='4px 16px'
-                      />
-                      <Space>
-                        <Button
-                          click={suggest}
-                          text="Suggest"
-                          width="90px"
-                          backgroundColor="#FF5F5F"
-                          borderRadius="5px"
-                          textColor="#FFFFFF"
-                          border="none"
-                          padding='4px 16px'
-                        />
-                      </Space>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-
-            
-              <div className={styles.album}>
-                <span>Music name</span>
-                <Input
-                  onchange={albumname}
-                  type="text"
-                  placeholder=""
-                  mode="white"
-                  state="neutral"
-                />
-                <span>music url</span>
-                <Input
-                  onchange={realseChange}
-                  type="text"
-                  placeholder=""
-                  mode="white"
-                  state="neutral"
-                />
-                <div className={styles.img}>
-                  <ArtistForm />
-                  <div className={styles.imageText}>
-                    <span className={styles.iimg}>Trakis Scott</span>
-                    <span>Profile Photo</span>
-                    <div className={styles.buttons}>
-                      <Button
-                        text="Add"
-                        width="63px"
-                        backgroundColor="#FF5F5F"
-                        borderRadius="5px"
-                        textColor="#FFFFFF"
-                        border="none"
-                        padding='4px 16px'
-                      />
-                      <Button
-                        text="view"
-                        width="63px"
-                        backgroundColor="white"
-                        borderRadius="5px"
-                        textColor="#898989"
-                        border="none"
-                        padding='4px 16px'
-                      />
-                      <Space>
-                        <Button
-                          click={suggest}
-                          text="Suggest"
-                          width="90px"
-                          backgroundColor="#FF5F5F"
-                          borderRadius="5px"
-                          textColor="#FFFFFF"
-                          border="none"
-                          padding='4px 16px'
-                        />
-                      </Space>
-                    </div>
-                  </div>
-                </div>
-              </div>
-</div>
             </div>
           </div>
         </div>
@@ -366,58 +255,58 @@ export default function ArtistAdd() {
         <div className={styles.mainContent}>
           <Aside />
           <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-           <div className={styles.container}>
-           <div className={styles.headerAdmin}>
-              <div className={styles.containerIcon}>
-                <Icon height={"32px"} width={"32px"} name={"Arrow"} isActive={false} onClick={() => { }} />
-                <Icon height={"32px"} width={"32px"} name={"rightArr"} isActive={false} onClick={() => { }} />
+            <div className={styles.container}>
+              <div className={styles.headerAdmin}>
+                <div className={styles.containerIcon}>
+                  <Icon height={"32px"} width={"32px"} name={"Arrow"} isActive={false} onClick={() => { }} />
+                  <Icon height={"32px"} width={"32px"} name={"rightArr"} isActive={false} onClick={() => { }} />
+                </div>
+                <p className={styles.HeaderTitle}>Artists</p>
               </div>
-              <p className={styles.HeaderTitle}>Artists</p>
-            </div>
-            <div className={styles.contaienrGroup}>
-              <button onClick={click} className={styles.btn1}>   <Icon height={"24px"} width={"24px"} name={"add"} isActive={false} onClick={() => { }} />Add Artists</button>
-           <div className={styles.search}>
-        <div className={styles.icon}>
-        <Icon  name={"searchIcon"} isActive={false} onClick={function (): void {
-            throw new Error("Function not implemented.");
-          } }  />
-        </div>
-          <input onChange={searchArtist} placeholder='Search' type="text" className={styles.artistSearch} />
-           </div>
-            </div>
-           </div>
-           <div className={styles.listArtist}>
-            <div className={styles.list}>
-              <div className={styles.listInfo}>
-                <div className={styles.items}>
-                <p>Name</p>
-                <p>Email</p>
-                <p>User</p>
-                <p>Profile</p>
-                 <p>Status</p>
+              <div className={styles.contaienrGroup}>
+                <button onClick={click} className={styles.btn1}>   <Icon height={"24px"} width={"24px"} name={"add"} isActive={false} onClick={() => { }} />Add Artists</button>
+                <div className={styles.search}>
+                  <div className={styles.icon}>
+                    <Icon name={"searchIcon"} isActive={false} onClick={function (): void {
+                      throw new Error("Function not implemented.");
+                    }} />
+                  </div>
+                  <input onChange={searchArtist} placeholder='Search' type="text" className={styles.artistSearch} />
                 </div>
               </div>
-        
-              {
-                getData.filter((items) =>
-                items.firstName.toLowerCase().includes(search.toLowerCase()) // Case-insensitive search
-              ).map((items, index) => (
-                  <div className={styles.ArtistInfo}>
-                  <div className={styles.items} key={index}>
-                    <p>{items.firstName}</p>
-                    <p>{`${items.lastName}@gmail.com`}</p>
-                    <p>{items.id}</p>
-                    <p>{items.biography}</p>
-                    <p className={styles.Active}>{'Active'}</p>
-                    {/* Add more artist details if needed */}
-                  </div>
-                  </div>
-                ))
-              }
-             
-             
             </div>
-           </div>
+            <div className={styles.listArtist}>
+              <div className={styles.list}>
+                <div className={styles.listInfo}>
+                  <div className={styles.items}>
+                    <p>Name</p>
+                    <p>Email</p>
+                    <p>User</p>
+                    <p>Profile</p>
+                    <p>Status</p>
+                  </div>
+                </div>
+
+                {
+                  getData.filter((items) =>
+                    items.firstName.toLowerCase().includes(search.toLowerCase()) // Case-insensitive search
+                  ).map((items, index) => (
+                    <div className={styles.ArtistInfo}>
+                      <div className={styles.items} key={index}>
+                        <p>{items.firstName}</p>
+                        <p>{`${items.lastName}@gmail.com`}</p>
+                        <p>{items.id}</p>
+                        <p>{items.biography}</p>
+                        <p className={styles.Active}>{'Active'}</p>
+                        {/* Add more artist details if needed */}
+                      </div>
+                    </div>
+                  ))
+                }
+
+
+              </div>
+            </div>
           </div>
         </div>
       )}
