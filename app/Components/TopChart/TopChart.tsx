@@ -1,11 +1,10 @@
-"use client"
+"use client";
 import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import { getCookie } from "../Aside/Aside";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
 import { ButtonStyle } from "../ButtonStyles";
-import styles from "./TopChart.module.scss";
-import Image from "next/image";
+import styles from "./TopChart.module.css"; // Change to .css
 import axios from "axios";
 
 interface Props {
@@ -16,33 +15,37 @@ interface Props {
 }
 
 const TopChart = (props: Props) => {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
-  const [getData, setGetData] = useState([])
+  // Set themeColor to null by default; provide fallback to null for undefined
+  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null);
+  const [getData, setGetData] = useState([]);
+
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
-      setThemeColor(newTheme);
+      setThemeColor(newTheme ?? null); // Set to null if undefined
     };
 
     updateTheme();
 
     const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
 
-    return () => clearInterval(themeInterval); 
+    return () => clearInterval(themeInterval);
   }, []);
+
   const containerClassName = themeColor === 'dark' ? `${styles.mainContainer} ${styles.darkMainContainer}` : styles.mainContainer;
 
   useEffect(() => {
-    const userToken = Cookies.get("userToken")
+    const userToken = Cookies.get("userToken");
 
     axios.get('https://music-back-1s59.onrender.com/music', {
       headers: {
         Authorization: `Bearer ${userToken}`,
       },
     }).then((r) => {
-      setGetData(r.data)
-    })
-  }, [])
+      setGetData(r.data);
+    });
+  }, []);
+
   return (
     <div className={containerClassName}>
       <div className={styles.imageContainer}>
