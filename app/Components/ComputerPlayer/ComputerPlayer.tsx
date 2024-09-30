@@ -7,6 +7,7 @@ import Icon from "../Icon/Icon";
 import { getCookie } from "../Aside/Aside";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useCallback } from "react";
 
 export default function Player() {
   const [disabled, setDisabled] = useState(false);
@@ -76,8 +77,7 @@ export default function Player() {
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
-
-  const handleSkipForward = () => {
+  const handleSkipForward = useCallback(() => {
     setCurrentSongId((prevId) => {
       let nextId;
       if (shuffle) {
@@ -95,7 +95,7 @@ export default function Player() {
       }
       return nextId;
     });
-  };
+  }, [shuffle]); 
 
   const handleSkipBackward = () => {
     setCurrentSongId((prevId) => {
