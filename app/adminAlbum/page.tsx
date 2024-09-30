@@ -10,7 +10,7 @@ import styles from './adminAlbum.module.scss'
 import Cookies from "js-cookie";
 import Input from '../Components/Input/input'
 import Button from '../Components/Button/Button'
-export default function adminAlbum() {
+export default function AdminAlbum() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
     const [artistName, setArtistName] = useState("")
     const [artistLastname, setArtistLastname] = useState("")
