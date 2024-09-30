@@ -222,6 +222,7 @@ export default function Player() {
   const getIconPath = (iconName: string) => {
     return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`; // Fixed template literal
   };
+
   return (
     <div className={`${styles.computerPlayer} ${themeColor === 'light' ? styles.lightPlayer : ''}`}>
       <audio ref={audioRef} />
