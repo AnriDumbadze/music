@@ -7,6 +7,7 @@ import Icon from "../Icon/Icon";
 import { getCookie } from "../Aside/Aside";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 export default function Player() {
   const [disabled, setDisabled] = useState(false);
   const [musicVolume, setMusicVolume] = useState(50); // Music volume state
@@ -21,6 +22,7 @@ export default function Player() {
   const [data, setData] = useState<[]>([]);
   const currentSong = songs.find((song) => song.id === currentSongId);
 
+  // Load saved music and voice volume from local storage
   useEffect(() => {
     const savedMusicVolume = localStorage.getItem("music");
     const savedVoiceVolume = localStorage.getItem("voice");
@@ -28,6 +30,7 @@ export default function Player() {
     if (savedVoiceVolume) setVoiceVolume(Number(savedVoiceVolume));
   }, []);
 
+  // Load and play the current song
   useEffect(() => {
     const audio = audioRef.current;
     if (audio && currentSong) {
@@ -40,6 +43,7 @@ export default function Player() {
     }
   }, [currentSongId, isPlaying]);
 
+  // Update track time every second while playing
   useEffect(() => {
     const interval = setInterval(() => {
       if (audioRef.current && isPlaying) {
@@ -50,6 +54,7 @@ export default function Player() {
     return () => clearInterval(interval);
   }, [isPlaying]);
 
+  // Handle when the song ends
   useEffect(() => {
     const handleSongEnd = () => setSongEnded(true);
     const audio = audioRef.current;
@@ -60,6 +65,7 @@ export default function Player() {
     }
   }, [currentSongId]);
 
+  // Skip to the next song if the current one ends
   useEffect(() => {
     if (songEnded) {
       handleSkipForward();
@@ -103,13 +109,22 @@ export default function Player() {
     });
   };
 
-  const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Debounce function to handle slider changes efficiently
+  const debounce = (func: Function, delay: number) => {
+    let timer: NodeJS.Timeout;
+    return (...args: any) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => func(...args), delay);
+    };
+  };
+
+  const handleTimeChange = debounce((e: React.ChangeEvent<HTMLInputElement>) => {
     const time = Number(e.target.value);
     setCurrentTrackTime(time);
     if (audioRef.current) {
       audioRef.current.currentTime = time;
     }
-  };
+  }, 300); // 300ms delay
 
   const handleShuffle = () => {
     setShuffle(!shuffle);
@@ -138,45 +153,40 @@ export default function Player() {
   const handleIconClick = () => {
     setIsActive(!isActive);
     const userToken = Cookies.get("userToken");
-  if(isActive){
-    axios.post(
-      "https://music-back-1s59.onrender.com/playlist",
-      {
-        name: "s",
-        description: "s",
-        musicIds:[1]
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${userToken}`,  // Headers should be passed in this third parameter
-        },
-      }
-    )
-    .catch(() => {
-      console.log('sdsada');
-      
-    })
-  }
+
+    if (!isActive && userToken) {
+      axios
+        .post(
+          "https://music-back-1s59.onrender.com/playlist",
+          { name: "s", description: "s", musicIds: [1] },
+          { headers: { Authorization: `Bearer ${userToken}` } }
+        )
+        .catch(() => {
+          console.log("Error adding to playlist");
+        });
+    }
   };
+
+  // Fetch user playlists from the backend
   useEffect(() => {
     const userToken = Cookies.get("userToken");
 
-    axios.get('https://music-back-1s59.onrender.com/users/me', {
-        headers: {
-            Authorization: `Bearer ${userToken}`,
-        },
-    }).then((r) => {
-        if (Array.isArray(r.data.playlists)) {
-            setData(r.data.playlists);
+    axios
+      .get("https://music-back-1s59.onrender.com/users/me", {
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
+      .then((response) => {
+        if (Array.isArray(response.data.playlists)) {
+          setData(response.data.playlists);
         } else {
-            console.warn('Unexpected data structure:', r.data);
-            setData([]);
+          console.warn("Unexpected data structure:", response.data);
+          setData([]);
         }
-    })
-    .catch(() => {
-        console.log('Error fetching user data');
-    });
-}, []);
+      })
+      .catch(() => {
+        console.log("Error fetching user data");
+      });
+  }, []);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -184,24 +194,35 @@ export default function Player() {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
+  const [themeColor, setThemeColor] = useState<string | null>(localStorage.getItem("theme"));
+
   useEffect(() => {
     const updateTheme = () => {
-      const newTheme = getCookie("theme");
+      const newTheme = localStorage.getItem("theme");
       setThemeColor(newTheme);
     };
-
+  
+    // Initial theme setup
     updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0);
-
-    return () => clearInterval(themeInterval);
+  
+    // Event listener for storage changes
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === "theme") {
+        updateTheme();
+      }
+    };
+  
+    window.addEventListener("storage", handleStorageChange);
+  
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
+  
 
   const getIconPath = (iconName: string) => {
-    return `icons/${iconName}${themeColor === 'light' ? 'Light' : ''}.svg`;
+    return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`;
   };
-
   return (
     <div className={`${styles.computerPlayer} ${themeColor === 'light' ? styles.lightPlayer : ''}`}>
       <audio ref={audioRef} />

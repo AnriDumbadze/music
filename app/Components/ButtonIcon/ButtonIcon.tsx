@@ -10,8 +10,9 @@ interface Props {
 }
 
 const ButtonIcon = (props: Props) => {
-  let styleClass = styles.White; 
+  let styleClass = styles.White;  // Default style
 
+  // Determine the button style based on the ButtonStyle enum
   if (props.style === ButtonStyle.Red) {
     styleClass = styles.Red;
   } else if (props.style === ButtonStyle.Dark) {
@@ -20,13 +21,15 @@ const ButtonIcon = (props: Props) => {
     styleClass = styles.Black;
   }
 
-  const classes = [styles.button, styleClass].join(" ").trim();
+  const classes = [styles.button, styleClass].join(" ").trim(); // Combine the base button class and style-specific class
 
   return (
     <button className={classes} onClick={props.onClick}>
-      <img src={`./Icons/${props.icon}.svg`} alt="artist" />
-
-      {props.title && <span>{props.title}</span>}  
+      {/* Icon */}
+      <Image src={`/Icons/${props.icon}.svg`} alt="icon" width={24} height={24} />
+      
+      {/* Display title if provided */}
+      {props.title && <span>{props.title}</span>}
     </button>
   );
 };

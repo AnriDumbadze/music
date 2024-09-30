@@ -8,8 +8,8 @@ type ButtonProps = {
   borderRadius: string;
   textColor: string;
   border: string;
-  padding:string
-  click?:() => void;
+  padding: string;
+  click?: () => void;
 };
 
 const Button = (props: ButtonProps) => {
@@ -19,11 +19,15 @@ const Button = (props: ButtonProps) => {
     borderRadius: props.borderRadius,
     color: props.textColor,
     border: props.border,
-    padding:props.padding,
+    padding: props.padding,
   };
 
   return (
-    <button onClick={props.click} className={styles.button} style={buttonStyle}>
+    <button
+      onClick={props.click}
+      className={styles.button}
+      style={buttonStyle}
+    >
       {props.text}
     </button>
   );
