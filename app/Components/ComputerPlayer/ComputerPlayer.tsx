@@ -144,7 +144,7 @@ export default function Player() {
       {
         name: "s",
         description: "s",
-        musicIds:[1,2]
+        musicIds:[1]
       },
       {
         headers: {

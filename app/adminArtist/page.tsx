@@ -26,6 +26,8 @@ export default function ArtistAdd() {
   const [showAddArtist, setShowaddArtist] = useState(false)
   const [listArtist, setListArtist] = useState(true)
   const [getData, setGetData] = useState([])
+  const [search,setSearch] = useState('')
+  const [searchData, setSearchData] = useState([])
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
@@ -105,6 +107,14 @@ export default function ArtistAdd() {
   const biographyChange = (e: any) => {
     setArtistBiography(e.target.value)
   }
+
+  const searchArtist = (e:any) =>{
+    setSearch(e.target.value)
+  }
+
+  console.log(search);
+  
+
   useEffect(() => {
     const userToken = Cookies.get("userToken");
 
@@ -121,6 +131,29 @@ export default function ArtistAdd() {
     setShowaddArtist(true)
     setListArtist(false)
   } 
+
+  useEffect(() => {
+    const userToken = localStorage.getItem("token");
+
+    if (userToken && search) { 
+      axios.get(`https://music-back-1s59.onrender.com/search/artist?search=${search}`, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+        .then((response) => {
+          setSearchData(response.data)
+          
+        })
+        .catch((error) => {
+          if (error.response && error.response.status === 401) {
+            console.log('Unauthorized: Invalid token');
+          } else {
+            console.log('Error:', error.message);
+          }
+        });
+    }
+  }, [search]); 
   return (
     <>
       {contextHolder}
@@ -176,7 +209,7 @@ export default function ArtistAdd() {
               <textarea onChange={biographyChange} disabled={switchChecked} className={styles.BiographyText} cols="30" rows="60"></textarea>
               <Switch onChange={onChange} />
               <div className={styles.img}>
-                <ArtistForm />
+               <input type="file" />
                 <div className={styles.imageText}>
                   <span className={styles.iimg}>Trakis Scott</span>
                   <span>Profile Photo</span>
@@ -202,9 +235,10 @@ export default function ArtistAdd() {
                   </div>
                 </div>
               </div>
-
               <span className={styles.head}>Add Album</span>
               <div className={styles.line}></div>
+<div className={styles.containerMusic}>
+
               <div className={styles.album}>
                 <span>Album name</span>
                 <Input
@@ -262,6 +296,68 @@ export default function ArtistAdd() {
                   </div>
                 </div>
               </div>
+
+
+
+            
+              <div className={styles.album}>
+                <span>Music name</span>
+                <Input
+                  onchange={albumname}
+                  type="text"
+                  placeholder=""
+                  mode="white"
+                  state="neutral"
+                />
+                <span>music url</span>
+                <Input
+                  onchange={realseChange}
+                  type="text"
+                  placeholder=""
+                  mode="white"
+                  state="neutral"
+                />
+                <div className={styles.img}>
+                  <ArtistForm />
+                  <div className={styles.imageText}>
+                    <span className={styles.iimg}>Trakis Scott</span>
+                    <span>Profile Photo</span>
+                    <div className={styles.buttons}>
+                      <Button
+                        text="Add"
+                        width="63px"
+                        backgroundColor="#FF5F5F"
+                        borderRadius="5px"
+                        textColor="#FFFFFF"
+                        border="none"
+                        padding='4px 16px'
+                      />
+                      <Button
+                        text="view"
+                        width="63px"
+                        backgroundColor="white"
+                        borderRadius="5px"
+                        textColor="#898989"
+                        border="none"
+                        padding='4px 16px'
+                      />
+                      <Space>
+                        <Button
+                          click={suggest}
+                          text="Suggest"
+                          width="90px"
+                          backgroundColor="#FF5F5F"
+                          borderRadius="5px"
+                          textColor="#FFFFFF"
+                          border="none"
+                          padding='4px 16px'
+                        />
+                      </Space>
+                    </div>
+                  </div>
+                </div>
+              </div>
+</div>
             </div>
           </div>
         </div>
@@ -286,7 +382,7 @@ export default function ArtistAdd() {
             throw new Error("Function not implemented.");
           } }  />
         </div>
-          <input placeholder='Search' type="text" className={styles.artistSearch} />
+          <input onChange={searchArtist} placeholder='Search' type="text" className={styles.artistSearch} />
            </div>
             </div>
            </div>
@@ -303,12 +399,15 @@ export default function ArtistAdd() {
               </div>
         
               {
-                getData.map((items, index) => (
+                getData.filter((items) =>
+                items.firstName.toLowerCase().includes(search.toLowerCase()) // Case-insensitive search
+              ).map((items, index) => (
                   <div className={styles.ArtistInfo}>
                   <div className={styles.items} key={index}>
                     <p>{items.firstName}</p>
                     <p>{`${items.lastName}@gmail.com`}</p>
                     <p>{items.id}</p>
+                    <p>{items.biography}</p>
                     <p className={styles.Active}>{'Active'}</p>
                     {/* Add more artist details if needed */}
                   </div>

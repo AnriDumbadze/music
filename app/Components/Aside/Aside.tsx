@@ -36,6 +36,23 @@ const AsideMenu = () => {
     setActiveItem(name);
     router.replace("http://localhost:3000/adminArtist")
   };
+
+  const handleMenuItemClick5 = (name: string) => {
+    setActiveItem(name);
+    router.replace("http://localhost:3000/userList")
+  };
+
+  const handleMenuItemClick6 = (name: string) => {
+    setActiveItem(name);
+    router.replace("http://localhost:3000/userList")
+  };
+
+  const handleMenuItemClick7 = (name: string) => {
+    setActiveItem(name);
+    router.replace("http://localhost:3000/adminMusic")
+  };
+
+
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
@@ -70,7 +87,12 @@ const AsideMenu = () => {
           <MenuItem  name={"search"} isActive={activeItem === "settings"} onClick={() => handleMenuItemClick2("settings")} />
           <MenuItem name={"library"} isActive={activeItem === "library"} onClick={() => handleMenuItemClick3("library")} />
         {isAdmin &&
+           <>
             <MenuItem name={"artists"} isActive={activeItem === "artists"} onClick={() => handleMenuItemClick4("artists")} />
+            <MenuItem name={"Users"} isActive={activeItem === "Users"} onClick={() => handleMenuItemClick5("Users")} />
+            <MenuItem name={"Album"} isActive={activeItem === "Album"} onClick={() => handleMenuItemClick6("Album")} />
+            <MenuItem name={"Music"} isActive={activeItem === "Music"} onClick={() => handleMenuItemClick7("Music")} />
+           </>
         }
         </div>
       </div>

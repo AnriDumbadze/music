@@ -11,6 +11,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confPass, setConfPass] = useState('')
+  const [username,setUsername] = useState('')
 
   const router = useRouter();
 
@@ -26,15 +27,21 @@ const SignUp = () => {
     setConfPass(e.target.value)
   }
 
+  const usernameChnage =(e:any) =>{
+    setUsername(e.target.value)
+  }
+
+
   const sendinfo = () => {
     axios.post("https://music-back-1s59.onrender.com/users",{
-      name:"anonymous",
+      name:username,
       email:email,
       password:password,
       confirmPassowrd:confPass
     })
     .then((data) => {
       setCookie("userToken",data.data.token,60)
+      setCookie("isAdmin",data.data.forToken.role,60)
       router.replace("http://localhost:3000")
     })
     .catch(() => {
@@ -55,6 +62,17 @@ const SignUp = () => {
 
         <div className={styles.contBody}>
           <div className={styles.loginBody}>
+          <div className={styles.emailCont}>
+              <span>username</span>
+              <div className={styles.infoHolder}>
+                <input
+                onChange={usernameChnage}
+                  className={styles.input}
+                  type="text"
+                  placeholder="username"
+                />
+              </div>
+            </div>
             <div className={styles.emailCont}>
               <span>Email</span>
               <div className={styles.infoHolder}>
