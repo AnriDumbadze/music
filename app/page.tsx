@@ -10,12 +10,12 @@ import ArtistCard from "./Components/ArtistCard/ArtistCard";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
+  const [themeColor, setThemeColor] = useState(getCookie("theme") || "");
 
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
-      setThemeColor(newTheme);
+      setThemeColor(String(newTheme));
     };
 
     updateTheme();
