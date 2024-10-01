@@ -6,7 +6,7 @@ interface Props {
   type: string;
   mode: 'white' | 'black';
   state: 'neutral' | 'disabled' | 'success' | 'warning' | 'error';
-  onchange?:() => void
+  onchange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?:boolean
 }
 
