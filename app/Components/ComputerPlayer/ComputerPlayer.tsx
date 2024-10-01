@@ -10,21 +10,28 @@ import Cookies from "js-cookie";
 import { useCallback } from "react";
 import Image from 'next/image';
 
+interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  url: string;
+  coverUrl: string;
+}
+
 export default function Player() {
   const [disabled, setDisabled] = useState(false);
-  const [musicVolume, setMusicVolume] = useState(50); // Music volume state
-  const [voiceVolume, setVoiceVolume] = useState(50); // Voice volume state
+  const [musicVolume, setMusicVolume] = useState(50);
+  const [voiceVolume, setVoiceVolume] = useState(50);
   const [isPlaying, setIsPlaying] = useState(false);
   const [shuffle, setShuffle] = useState(false);
-  const [currentSongId, setCurrentSongId] = useState(1); // Current song ID
+  const [currentSongId, setCurrentSongId] = useState(1);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
   const [songEnded, setSongEnded] = useState(false);
   const [isActive, setIsActive] = useState(false);
-  const [data, setData] = useState<[]>([]);
+  const [data, setData] = useState<Song[]>([]);
   const currentSong = songs.find((song) => song.id === currentSongId);
 
-  // Load saved music and voice volume from local storage
   useEffect(() => {
     const savedMusicVolume = localStorage.getItem("music");
     const savedVoiceVolume = localStorage.getItem("voice");
@@ -32,48 +39,36 @@ export default function Player() {
     if (savedVoiceVolume) setVoiceVolume(Number(savedVoiceVolume));
   }, []);
 
-  // Load and play the current song
   useEffect(() => {
     const audio = audioRef.current;
     if (audio && currentSong) {
       audio.src = currentSong.url;
-      if (isPlaying) {
-        audio.play();
-      } else {
-        audio.pause();
-      }
+      isPlaying ? audio.play() : audio.pause();
     }
   }, [currentSong, isPlaying]);
 
-  // Update track time every second while playing
   useEffect(() => {
     const interval = setInterval(() => {
       if (audioRef.current && isPlaying) {
         setCurrentTrackTime(audioRef.current.currentTime);
       }
     }, 1000);
-
     return () => clearInterval(interval);
   }, [isPlaying]);
 
-  // Handle when the song ends
   useEffect(() => {
     const handleSongEnd = () => setSongEnded(true);
     const audio = audioRef.current;
-
     if (audio) {
       audio.addEventListener("ended", handleSongEnd);
       return () => audio.removeEventListener("ended", handleSongEnd);
     }
   }, [currentSongId]);
 
-  // Skip to the next song if the current one ends
-  // Include handleSkipForward here
-  ; // Added handleSkipForward
-
   const handlePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
+
   const handleSkipForward = useCallback(() => {
     setCurrentSongId((prevId) => {
       let nextId;
@@ -92,7 +87,7 @@ export default function Player() {
       }
       return nextId;
     });
-  }, [shuffle]); 
+  }, [shuffle]);
 
   const handleSkipBackward = () => {
     setCurrentSongId((prevId) => {
@@ -113,7 +108,6 @@ export default function Player() {
     }
   }, [songEnded, handleSkipForward]);
 
-  // Debounce function to handle slider changes efficiently
   const debounce = (func: Function, delay: number) => {
     let timer: NodeJS.Timeout;
     return (...args: any) => {
@@ -128,18 +122,7 @@ export default function Player() {
     if (audioRef.current) {
       audioRef.current.currentTime = time;
     }
-  }, 300) 
-
-  const handleShuffle = () => {
-    setShuffle(!shuffle);
-  };
-
-  const handleRepeat = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    }
-  };
+  }, 300);
 
   const handleMusicVolumeChange = (value: number) => {
     setMusicVolume(value);
@@ -147,11 +130,6 @@ export default function Player() {
     if (audioRef.current) {
       audioRef.current.volume = value / 100;
     }
-  };
-
-  const handleVoiceVolumeChange = (value: number) => {
-    setVoiceVolume(value);
-    localStorage.setItem("voice", value.toString());
   };
 
   const handleIconClick = () => {
@@ -171,7 +149,6 @@ export default function Player() {
     }
   };
 
-  // Fetch user playlists from the backend
   useEffect(() => {
     const userToken = Cookies.get("userToken");
 
@@ -206,30 +183,24 @@ export default function Player() {
       setThemeColor(newTheme);
     };
   
-    // Initial theme setup
     updateTheme();
   
-    // Event listener for storage changes
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === "theme") {
         updateTheme();
       }
     };
   
-  
-  
     if (typeof window !== 'undefined') {
       window.addEventListener("storage", handleStorageChange);
       return () => {
         window.removeEventListener("storage", handleStorageChange);
       };
-  }
-  
-   
+    }
   }, []);
   
   const getIconPath = (iconName: string) => {
-    return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`; // Fixed template literal
+    return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`;
   };
 
   return (
