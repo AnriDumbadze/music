@@ -8,13 +8,16 @@ const LightDark = () => {
     if (typeof window !== "undefined") {
       return localStorage.getItem('theme') === 'dark';
     }
-    return false;
+    return false; // Default to light mode if no theme is set
   });
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Set the HTML data attribute based on the current theme
       document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+      // Store the theme preference in localStorage
       localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      // Set the cookie for the theme
       setCookie("theme", isDarkMode ? 'dark' : 'light', 6);
     }
   }, [isDarkMode]);
@@ -26,8 +29,8 @@ const LightDark = () => {
   return (
     <div className={`${styles.container} ${isDarkMode ? styles.darkModeActive : styles.lightModeActive}`}>
       <div
-        className={`${styles.light} ${isDarkMode ? styles.noContainer : styles.active}`}
-        onClick={() => handleToggle('light')}
+        className={`${styles.light} ${!isDarkMode ? styles.active : ''}`}
+        onClick={() => handleToggle("light")}
       >
         <Icon name={'light'} isActive={!isDarkMode} />
         <span className={styles.lightText}>Light</span>

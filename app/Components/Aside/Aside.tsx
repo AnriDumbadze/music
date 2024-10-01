@@ -45,7 +45,7 @@ const AsideMenu = () => {
     <div className={`${styles.aside} ${themeColor === 'dark' ? styles.darkAside : ''}`}>
       <div className={styles.siderContent}>
         <div className={styles.logo}>
-          <Icon name={"FAZER"} isActive={false} onClick={() => {}} />
+          <Icon width='72px' name={"FAZER"} isActive={false} onClick={() => {}} />
         </div>
         <div className={styles.menuItems}>
         <MenuItem
