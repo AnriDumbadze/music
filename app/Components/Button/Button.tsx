@@ -8,6 +8,8 @@ type ButtonProps = {
   borderRadius: string;
   textColor: string;
   border: string;
+  height: string;
+  click?:() => void;
 };
 
 const Button = (props: ButtonProps) => {
@@ -17,10 +19,14 @@ const Button = (props: ButtonProps) => {
     borderRadius: props.borderRadius,
     color: props.textColor,
     border: props.border,
+    height: props.height,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
   return (
-    <button className={styles.button} style={buttonStyle}>
+    <button onClick={props.click} className={styles.button} style={buttonStyle}>
       {props.text}
     </button>
   );

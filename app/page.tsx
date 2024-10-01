@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./page.module.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navigation from "./Components/Navigation/Nav";
 import Aside from "./Components/Aside/Aside";
 import LibraryItem from "./Components/LibraryItem/LibraryItem";
@@ -25,6 +26,8 @@ const Home = () => {
   };
 
   return (
+    
+
     <div className={styles.mainContent}>
       <Aside />
       <Navigation />
@@ -36,6 +39,7 @@ const Home = () => {
         }} 
         id={0}
       />
+     
       <TopChart 
         image={"images/topImage.png"}
         artistName="SZA"

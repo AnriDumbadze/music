@@ -1,0 +1,101 @@
+.main{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+    height: 100vh;
+}
+
+.border{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    width: 471px;
+    height: 628px;
+    background-color: #FFFFFF;
+    padding: 64px 0px 0px 0px;
+    gap: 32px;
+    border-radius: 24px;
+    background-color: #FFFFFF;
+}
+
+.h1{
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.provide{
+    display: flex;
+    gap: 12px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #8F93A3;
+}
+
+.signup{
+    width: 256px;
+    height: 100px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.textinput{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 343px;
+    height: 74px;
+    gap: 8px;
+}
+
+.textinput > input {
+    width: 343px;
+    height: 48px;
+    background-color: #F7F7F7;
+    border-radius: 8px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+}
+
+.foottext{
+    font-size: 14px;
+    color: #8F93A3;
+}
+
+.footred{
+    color: #FF5F5F;
+    font-size: 14px;
+}
+
+
+@media (max-width: 768px){
+    .main{
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
+        padding: 80px 0 0 0;
+    }
+
+    .image{
+        width: 195px;
+        height: 155px;
+    }
+
+    .border{
+        padding: 10px 0 0 0;
+    }
+
+    .inputs{
+        gap: 24px;
+    }
+}

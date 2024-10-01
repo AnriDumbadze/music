@@ -4,8 +4,8 @@ type Props = {
   name: string;
   height?: string;
   width?: string;
-  isActive: boolean;
-  onClick: () => void; 
+  isActive?: boolean;
+  onClick?: () => void; 
 };
 
 const Icon = ({ name, height, width, isActive, onClick }: Props) => {
