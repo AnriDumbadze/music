@@ -12,7 +12,7 @@ import axios from 'axios'
 import { message, Space } from 'antd';
 import Image from 'next/image';
 type Artist = {
-  id: string;
+  id: number;
   firstName: string;
   lastName: string;
   biography: string;
