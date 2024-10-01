@@ -3,9 +3,7 @@ import React, { useState } from "react";
 import styles from './page.module.scss';
 import AsideMenu, { getCookie } from "../Components/Aside/Aside";
 import LibraryItem from "../Components/LibraryItem/LibraryItem";
-import MusicCard from "../Components/MusicCard/Musiccard";
-import ArtistCard from "../Components/ArtistCard/ArtistCard";
-import MusicWrapper from "../Components/MusicWrapper/MusicWrapper";
+
 
 export default function Library() {
     const [query, setQuery] = useState<string>('');

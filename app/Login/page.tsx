@@ -4,7 +4,7 @@ import styles from "./Login.module.scss";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { setCookie } from "@/helper/cookie";
-import Image from 'next/image'; // Import Image component
+import Image from 'next/image';
 
 type Props = {};
 

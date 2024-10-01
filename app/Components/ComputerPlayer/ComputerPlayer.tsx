@@ -198,7 +198,7 @@ export default function Player() {
       };
     }
   }, []);
-  
+
   const getIconPath = (iconName: string) => {
     return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`;
   };
