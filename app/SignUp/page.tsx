@@ -57,8 +57,8 @@ const SignUp = () => {
 
   return (
     <div className={styles.login}>
-      <div>
-        <Image src="/Images/Login.png" alt="Login" width={300} height={200} />
+      <div className={styles.image}>
+        <Image src="/Images/Login.png" alt="Login" width={559} height={469} className={styles.image}/>
       </div>
       <div className={styles.loginContainer}>
         <div className={styles.contHeader}>
