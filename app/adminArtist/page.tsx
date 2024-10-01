@@ -38,7 +38,7 @@ export default function ArtistAdd() {
 
   useEffect(() => {
     const updateTheme = () => {
-      const newTheme = getCookie("theme");
+      const newTheme = getCookie("theme") || null; // Provide fallback value
       setThemeColor(newTheme);
     };
 
