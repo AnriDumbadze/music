@@ -19,7 +19,7 @@ type Artist = {
 };
 
 export default function ArtistAdd() {
-  const [themeColor, setThemeColor] = useState(getCookie("theme") || null); // Fallback to null
+  const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
   const [artistName, setArtistName] = useState("");
   const [artistLastname, setArtistLastname] = useState("");
   const [artistMusicIds, setArtistMusicIds] = useState("");
@@ -294,7 +294,7 @@ export default function ArtistAdd() {
                    <div className={styles.items}>
                      <p>{items.firstName}</p>
                      <p>{`${items.lastName}@gmail.com`}</p>
-                     <p>{items.id}</p>
+                     <p>{parseInt(items.id)}</p>
                      <p>{items.biography}</p>
                      <p className={styles.Active}>{'Active'}</p>
                    </div>
