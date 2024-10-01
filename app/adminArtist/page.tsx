@@ -294,7 +294,7 @@ export default function ArtistAdd() {
                    <div className={styles.items}>
                      <p>{items.firstName}</p>
                      <p>{`${items.lastName}@gmail.com`}</p>
-                     <p>{parseInt(items.id)}</p>
+                     <p>{String(items.id)}</p>
                      <p>{items.biography}</p>
                      <p className={styles.Active}>{'Active'}</p>
                    </div>
