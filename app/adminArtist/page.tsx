@@ -49,23 +49,23 @@ export default function ArtistAdd() {
     return () => clearInterval(themeInterval);
   }, []);
 
-  const firstname = (e: any) => {
+  const firstname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArtistName(e.target.value);
   }
 
-  const lastname = (e: any) => {
+  const lastname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArtistLastname(e.target.value);
   }
 
-  const email = (e: any) => {
+  const email = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmails(e.target.value);
   }
 
-  const albumname = (e: any) => {
+  const albumname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAlbumTitle(e.target.value);
   }
 
-  const releaseChange = (e: any) => {
+  const releaseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReleaseDate(e.target.value);
   }
 
