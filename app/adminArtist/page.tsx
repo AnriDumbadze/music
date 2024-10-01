@@ -205,7 +205,14 @@ export default function ArtistAdd() {
                 state="neutral"
               />
               <span>Biography</span>
-              <textarea onChange={biographyChange} disabled={switchChecked} className={styles.BiographyText} cols="30" rows="60"></textarea>
+              <textarea 
+  onChange={biographyChange} 
+  disabled={switchChecked} 
+  className={styles.BiographyText} 
+  cols={30} 
+  rows={60}
+/>
+
               <Switch onChange={onChange} />
               <div className={styles.img}>
                 <input type="file" />
