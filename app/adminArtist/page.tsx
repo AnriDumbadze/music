@@ -19,7 +19,7 @@ type Artist = {
 };
 
 export default function ArtistAdd() {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
+  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null); // Fallback to null
   const [artistName, setArtistName] = useState("");
   const [artistLastname, setArtistLastname] = useState("");
   const [artistMusicIds, setArtistMusicIds] = useState("");
@@ -51,23 +51,23 @@ export default function ArtistAdd() {
 
   const firstname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArtistName(e.target.value);
-  }
+  };
 
   const lastname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setArtistLastname(e.target.value);
-  }
+  };
 
   const email = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmails(e.target.value);
-  }
+  };
 
   const albumname = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAlbumTitle(e.target.value);
-  }
+  };
 
   const releaseChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setReleaseDate(e.target.value);
-  }
+  };
 
   const onChange = (checked: boolean) => {
     setSwitchChecked(checked);
@@ -104,15 +104,15 @@ export default function ArtistAdd() {
         content: 'რატომ გავიხადე?',
       });
     });
-  }
+  };
 
-  const biographyChange = (e: any) => {
+  const biographyChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setArtistBiography(e.target.value);
-  }
+  };
 
-  const searchArtist = (e: any) => {
+  const searchArtist = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
-  }
+  };
 
   useEffect(() => {
     const userToken = Cookies.get("userToken");
@@ -129,7 +129,7 @@ export default function ArtistAdd() {
   const click = () => {
     setShowAddArtist(true);
     setListArtist(false);
-  }
+  };
 
   useEffect(() => {
     const userToken = localStorage.getItem("token");
