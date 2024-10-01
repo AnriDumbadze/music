@@ -9,13 +9,25 @@ import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
 import { RecoilRoot } from "recoil";
 import axios from "axios";
+interface Artist {
+  id: number;
+  firstName: string;
+  lastName: string;
+  biography: string;
+}
+
+interface Music {
+  id: number;
+  name: string;
+  artist: Artist; // Assuming each music item has an artist
+}
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
-  const [themeColor, setThemeColor] = useState(getCookie("theme") || "");
-  const [artistData, setArtistData] = useState([]);
-  const [topChatData, setTopChatData] = useState([])
-  const [data1, setData1] = useState([])
+  const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
+  const [artistData, setArtistData] = useState<Artist[]>([]); // Specify type as Artist[]
+  const [topChatData, setTopChatData] = useState([]); // You may want to specify a type for this as well
+  const [data1, setData1] = useState<Music[]>([]); // Specify type as Music[]
 
   useEffect(() => {
     const updateTheme = () => {
