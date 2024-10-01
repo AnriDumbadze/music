@@ -19,7 +19,7 @@ type Artist = {
 };
 
 export default function ArtistAdd() {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null); // Fallback to null
+  const [themeColor, setThemeColor] = useState(getCookie("theme") || null); // Fallback to null
   const [artistName, setArtistName] = useState("");
   const [artistLastname, setArtistLastname] = useState("");
   const [artistMusicIds, setArtistMusicIds] = useState("");
