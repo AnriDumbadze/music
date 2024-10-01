@@ -4,89 +4,58 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Aside, { getCookie } from '../Components/Aside/Aside';
 import Icon from '../Components/Icon/Icon';
-import TopChart from '../Components/TopChart/TopChart';
 import styles from './adminAlbum.module.scss';
-import Cookies from "js-cookie";
 import Input from '../Components/Input/input';
 import Button from '../Components/Button/Button';
 
 export default function AdminAlbum() {
-    // Ensure that getCookie returns a valid string or null
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null);
-    const [artistName, setArtistName] = useState("");
-    const [artistLastname, setArtistLastname] = useState("");
-    const [artistBiography, setArtistBiography] = useState("");
-    const [emails, setEmails] = useState("");
-    const [albumTitle, setAlbumTitle] = useState('');
-    const [releaseDate, setReleaseDate] = useState('');
-    const [switchChecked, setSwitchChecked] = useState(false);
+    const [albumTitle, setAlbumTitle] = useState<string>('');
+    const [releaseDate1, setReleaseDate1] = useState<string>('');
+    const [artistId, setArtistId] = useState<string>('');
+    const [musicId, setMusicId] = useState<string>('');
     const [messageApi, contextHolder] = message.useMessage();
-    const [showAddArtist, setShowaddArtist] = useState(false);
-    const [listArtist, setListArtist] = useState(true);
-    const [getData, setGetData] = useState([]);
-    const [search, setSearch] = useState('');
-    const [searchData, setSearchData] = useState([]);
-    const [releaseDate1, setReleaseDate1] = useState('');
-    const [artistId, setArtistId] = useState('');
-    const [musicId, setMusicId] = useState('');
 
     useEffect(() => {
         const updateTheme = () => {
             const newTheme = getCookie("theme");
-            setThemeColor(newTheme ?? null);  // Set null if undefined
+            setThemeColor(newTheme ?? null);
         };
 
         updateTheme();
-
-        const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
-
+        const themeInterval = setInterval(updateTheme, 1000); // Adjust interval as needed
         return () => clearInterval(themeInterval);
     }, []);
 
-    const albumname = (e: any) => {
-        setAlbumTitle(e.target.value);
-    };
-
-    const albumurl = (e: any) => {
-        setReleaseDate1(e.target.value);
-    };
-
-    const artistIdChange = (e: any) => {
-        setArtistId(e.target.value);
-    };
-
-    const musicChange1 = (e: any) => {
-        setMusicId(e.target.value);
-    };
-
-    const suggest = () => {
+    const suggest = async () => {
         const userToken = localStorage.getItem("token");
-        axios.post(
-            "https://music-back-1s59.onrender.com/album",
-            {
-                title: albumTitle,
-                releaseDate: releaseDate1,
-                musicIds: [Number(musicId)],
-                artistId: Number(artistId)
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${userToken}`
+        try {
+            await axios.post(
+                "https://music-back-1s59.onrender.com/album",
+                {
+                    title: albumTitle,
+                    releaseDate: releaseDate1,
+                    musicIds: [Number(musicId)],
+                    artistId: Number(artistId),
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${userToken}`,
+                    },
                 }
-            }
-        )
-        .then((data) => {
+            );
+
             messageApi.open({
                 type: 'success',
                 content: 'წარმატებით შექიმნა!',
             });
-        })
-        .catch((error) => {
+        } catch (error) {
+            const errorMessage =  'რატომ გავიხადე?';
             messageApi.error({
                 type: 'error',
-                content: 'რატომ გავიხადე?',
+                content: errorMessage,
             });
-        });
+        }
     };
 
     return (
@@ -110,7 +79,7 @@ export default function AdminAlbum() {
                             <div className={styles.album}>
                                 <span>Albums name</span>
                                 <Input
-                                    onchange={albumname}
+                                    onchange={(e) => setAlbumTitle(e.target.value)}
                                     type="text"
                                     placeholder=""
                                     mode="white"
@@ -118,7 +87,7 @@ export default function AdminAlbum() {
                                 />
                                 <span>Albums releaseDate</span>
                                 <Input
-                                    onchange={albumurl}
+                                    onchange={(e) => setReleaseDate1(e.target.value)}
                                     type="text"
                                     placeholder=""
                                     mode="white"
@@ -126,7 +95,7 @@ export default function AdminAlbum() {
                                 />
                                 <span>Albums artistId</span>
                                 <Input
-                                    onchange={artistIdChange}
+                                    onchange={(e) => setArtistId(e.target.value)}
                                     type="number"
                                     placeholder=""
                                     mode="white"
@@ -134,7 +103,7 @@ export default function AdminAlbum() {
                                 />
                                 <span>Albums musicIds</span>
                                 <Input
-                                    onchange={musicChange1}
+                                    onchange={(e) => setMusicId(e.target.value)}
                                     type="number"
                                     placeholder=""
                                     mode="white"
@@ -142,7 +111,7 @@ export default function AdminAlbum() {
                                 />
                                 <div className={styles.img}>
                                     <div className={styles.imageText}>
-                                        <span className={styles.iimg}>Trakis Scott</span>
+                                        <span className={styles.iimg}>Travis Scott</span>
                                         <span>Profile Photo</span>
                                         <div className={styles.buttons}>
                                             <Button
@@ -155,7 +124,7 @@ export default function AdminAlbum() {
                                                 padding='4px 16px'
                                             />
                                             <Button
-                                                text="view"
+                                                text="View"
                                                 width="63px"
                                                 backgroundColor="white"
                                                 borderRadius="5px"
