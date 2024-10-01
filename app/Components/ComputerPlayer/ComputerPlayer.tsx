@@ -128,7 +128,7 @@ export default function Player() {
     if (audioRef.current) {
       audioRef.current.currentTime = time;
     }
-  }, 300); // 300ms delay
+  }, 300)
 
   const handleShuffle = () => {
     setShuffle(!shuffle);
