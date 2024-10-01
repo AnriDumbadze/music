@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import axios from 'axios'
 import { message, Space } from 'antd';
 import Image from 'next/image';
+import { cookies } from 'next/headers'
 type Artist = {
   id: number;
   firstName: string;
@@ -74,7 +75,7 @@ export default function ArtistAdd() {
   };
 
   const suggest = () => {
-    const userToken = localStorage.getItem("token");
+    const userToken = getCookie("userToken")
     axios.post(
       "https://music-back-1s59.onrender.com/artist",
       {

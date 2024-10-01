@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./SignUp.module.scss";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -12,10 +12,11 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [confPass, setConfPass] = useState('');
   const [username, setUsername] = useState('');
+  const [error, setError] = useState(''); // State to handle error messages
 
   const router = useRouter();
 
-  const emailchange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const emailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
@@ -23,41 +24,49 @@ const SignUp = () => {
     setPassword(e.target.value);
   };
 
-  const ConfChnage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const confChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfPass(e.target.value);
   };
 
-  const usernameChnage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const usernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(e.target.value);
   };
 
-  const sendinfo = () => {
-    axios.post("https://music-back-1s59.onrender.com/users", {
-      name: username,
-      email: email,
-      password: password,
-      confirmPassword: confPass // Corrected the spelling here
-    })
-      .then((data) => {
-        setCookie("userToken", data.data.token, 60);
-        setCookie("isAdmin", data.data.forToken.role, 60);
-        router.replace("http://localhost:3000");
-      })
-      .catch(() => {
-        console.log('error');
+  const sendInfo = async () => {
+    if (password !== confPass) {
+      setError("Passwords do not match."); // Check if passwords match
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://music-back-1s59.onrender.com/users", {
+        name: username,
+        email: email,
+        password: password,
+        confirmPassword: confPass,
       });
+
+      setCookie("userToken", response.data.token, 60);
+      setCookie("isAdmin", response.data.forToken.role, 60);
+      router.replace("http://localhost:3000");
+    } catch (error) {
+      setError("Error signing up. Please try again."); // Set error message
+      console.error('Sign-up error:', error);
+    }
   };
 
   return (
     <div className={styles.login}>
       <div>
-        <Image src="/Images/Login.png" alt="Login" width={300} height={200} /> {/* Use Image from next/image */}
+        <Image src="/Images/Login.png" alt="Login" width={300} height={200} />
       </div>
       <div className={styles.loginContainer}>
         <div className={styles.contHeader}>
-          <h1>Log In to Your Account</h1>
-          <span>Enter The email and password you used to register</span>
+          <h1>Create Your Account</h1> {/* Updated heading to reflect sign-up */}
+          <span>Enter your details to register</span>
         </div>
+
+        {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
 
         <div className={styles.contBody}>
           <div className={styles.loginBody}>
@@ -65,7 +74,7 @@ const SignUp = () => {
               <span>Username</span>
               <div className={styles.infoHolder}>
                 <input
-                  onChange={usernameChnage}
+                  onChange={usernameChange}
                   className={styles.input}
                   type="text"
                   placeholder="Username"
@@ -76,7 +85,7 @@ const SignUp = () => {
               <span>Email</span>
               <div className={styles.infoHolder}>
                 <input
-                  onChange={emailchange}
+                  onChange={emailChange}
                   className={styles.input}
                   type="email"
                   placeholder="Email"
@@ -94,12 +103,11 @@ const SignUp = () => {
                 />
               </div>
             </div>
-
             <div className={styles.passCont}>
               <span>Verify Password</span>
               <div className={styles.infoHolder}>
                 <input
-                  onChange={ConfChnage}
+                  onChange={confChange}
                   className={styles.input}
                   type="password"
                   placeholder="Confirm Password"
@@ -110,8 +118,10 @@ const SignUp = () => {
         </div>
 
         <div className={styles.contFooter}>
-          <button onClick={sendinfo} className={styles.signInBTN}>Sign up</button>
-          <span onClick={() => router.push('./Login')}>Already Have An Account? <span className={styles.createAcc}>Sign In</span></span>
+          <button onClick={sendInfo} className={styles.signInBTN}>Sign Up</button>
+          <span onClick={() => router.push('./Login')}>
+            Already Have An Account? <span className={styles.createAcc}>Sign In</span>
+          </span>
         </div>
       </div>
     </div>

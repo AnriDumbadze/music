@@ -1,5 +1,5 @@
-"use client"
-import { message, Switch, Space } from 'antd';
+"use client";
+import { message, Space } from 'antd';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Aside, { getCookie } from '../Components/Aside/Aside';
@@ -28,33 +28,36 @@ export default function AdminAlbum() {
     }, []);
 
     const suggest = async () => {
-        const userToken = localStorage.getItem("token");
-        try {
-            await axios.post(
-                "https://music-back-1s59.onrender.com/album",
-                {
-                    title: albumTitle,
-                    releaseDate: releaseDate1,
-                    musicIds: [Number(musicId)],
-                    artistId: Number(artistId),
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${userToken}`,
+        // Check if we are in the browser before accessing localStorage
+        if (typeof window !== "undefined") {
+            const userToken = localStorage.getItem("token");
+            try {
+                await axios.post(
+                    "https://music-back-1s59.onrender.com/album",
+                    {
+                        title: albumTitle,
+                        releaseDate: releaseDate1,
+                        musicIds: [Number(musicId)],
+                        artistId: Number(artistId),
                     },
-                }
-            );
+                    {
+                        headers: {
+                            Authorization: `Bearer ${userToken}`,
+                        },
+                    }
+                );
 
-            messageApi.open({
-                type: 'success',
-                content: 'წარმატებით შექიმნა!',
-            });
-        } catch (error) {
-            const errorMessage =  'რატომ გავიხადე?';
-            messageApi.error({
-                type: 'error',
-                content: errorMessage,
-            });
+                messageApi.open({
+                    type: 'success',
+                    content: 'წარმატებით შექიმნა!',
+                });
+            } catch (error) {
+                const errorMessage = 'რატომ გავიხადე?';
+                messageApi.error({
+                    type: 'error',
+                    content: errorMessage,
+                });
+            }
         }
     };
 

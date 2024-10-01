@@ -11,6 +11,7 @@ type Props = {};
 const Login = (props: Props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // State to handle error messages
 
   const router = useRouter();
 
@@ -22,33 +23,38 @@ const Login = (props: Props) => {
     setPassword(e.target.value);
   };
 
-  const authUser = () => {
-    axios.post("https://music-back-1s59.onrender.com/auth", {
-      email: email,
-      password: password
-    })
-    .then((data) => {
-      setCookie("userToken", data.data.token, 60);
-      setCookie("isAdmin", data.data.forToken.role, 60);
-      setCookie("lastLogin", data.data.lastLogin, 60);
-      localStorage.setItem("token", data.data.token);
+  const authUser = async () => {
+    try {
+      const response = await axios.post("https://music-back-1s59.onrender.com/auth", {
+        email: email,
+        password: password,
+      });
+      
+      setCookie("userToken", response.data.token, 60);
+      setCookie("isAdmin", response.data.forToken.role, 60);
+      setCookie("lastLogin", response.data.lastLogin, 60);
+      localStorage.setItem("token", response.data.token);
+
+      // Redirect after successful login
       router.replace("http://localhost:3000");
-    })
-    .catch(() => {
-      console.log('s');
-    });
+    } catch (error) {
+      setError('Login failed. Please check your email and password.'); // Set error message
+      console.error('Login error:', error);
+    }
   };
 
   return (
     <div className={styles.login}>
       <div>
-        <Image src="/Images/Login.png" alt="Login" width={500} height={300} /> {/* Use Image component */}
+        <Image src="/Images/Login.png" alt="Login" width={500} height={300} />
       </div>
       <div className={styles.loginContainer}>
         <div className={styles.contHeader}>
           <h1>Log In to Your Account</h1>
           <span>Enter the email and password you used to register</span>
         </div>
+
+        {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
 
         <div className={styles.contBody}>
           <div className={styles.loginBody}>
