@@ -47,57 +47,59 @@ const Login = (props: Props) => {
   };
 
   return (
+    <div className={styles.mainContent}>
     <div className={styles.login}>
       <div>
-        <Image src="/Images/Login.png" alt="Login" width={500} height={300} />
+        <Image src="/Images/Login.png" alt="Login" width={559} height={469} className={styles.image} />
       </div>
-      <div className={styles.loginContainer}>
-        <div className={styles.contHeader}>
-          <h1>Log In to Your Account</h1>
-          <span>Enter the email and password you used to register</span>
-        </div>
+        <div className={styles.loginContainer}>
+          <div className={styles.contHeader}>
+            <h1>Log In to Your Account</h1>
+            <span>Enter the email and password you used to register</span>
+          </div>
 
-        {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
+          {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
 
-        <div className={styles.contBody}>
-          <div className={styles.loginBody}>
-            <div className={styles.emailCont}>
-              <span>Email</span>
-              <div className={styles.infoHolder}>
-                <input
-                  onChange={changeEmail}
-                  className={styles.input}
-                  type="email"
-                  placeholder="Email"
-                />
+          <div className={styles.contBody}>
+            <div className={styles.loginBody}>
+              <div className={styles.emailCont}>
+                <span>Email</span>
+                <div className={styles.infoHolder}>
+                  <input
+                    onChange={changeEmail}
+                    className={styles.input}
+                    type="email"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+              <div className={styles.passCont}>
+                <span>Password</span>
+                <div className={styles.infoHolder}>
+                  <input
+                    onChange={changePassword}
+                    className={styles.input}
+                    type="password"
+                    placeholder="Password"
+                  />
+                </div>
               </div>
             </div>
-            <div className={styles.passCont}>
-              <span>Password</span>
-              <div className={styles.infoHolder}>
-                <input
-                  onChange={changePassword}
-                  className={styles.input}
-                  type="password"
-                  placeholder="Password"
-                />
+            <div className={styles.passwordOptions}>
+              <div className={styles.forgetPassword}>
+                <span>Forget Password</span>
               </div>
             </div>
           </div>
-          <div className={styles.passwordOptions}>
-            <div className={styles.forgetPassword}>
-              <span>Forget Password</span>
-            </div>
+
+          <div className={styles.contFooter}>
+            <button className={styles.signInBTN} onClick={authUser}>Sign In</button>
+            <span onClick={() => router.push('./SignUp')}>
+              Don’t Have An Account? <span className={styles.createAcc}>Create An Account</span>
+            </span>
           </div>
         </div>
-
-        <div className={styles.contFooter}>
-          <button className={styles.signInBTN} onClick={authUser}>Sign In</button>
-          <span onClick={() => router.push('./SignUp')}>
-            Don’t Have An Account? <span className={styles.createAcc}>Create An Account</span>
-          </span>
-        </div>
-      </div>
+    </div>
     </div>
   );
 };
