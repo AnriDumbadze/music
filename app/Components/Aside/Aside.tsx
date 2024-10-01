@@ -63,30 +63,6 @@ const AsideMenu = () => {
             isActive={activeItem === "library"}
             onClick={() => handleMenuItemClick("library", "http://localhost:3000/Library")}
           />
-          {isAdmin && (
-            <>
-              <MenuItem
-                name={"artists"}
-                isActive={activeItem === "artists"}
-                onClick={() => handleMenuItemClick("artists", "http://localhost:3000/adminArtist")}
-              />
-              <MenuItem
-                name={"Users"}
-                isActive={activeItem === "Users"}
-                onClick={() => handleMenuItemClick("Users", "http://localhost:3000/userList")}
-              />
-              <MenuItem
-                name={"Album"}
-                isActive={activeItem === "Album"}
-                onClick={() => handleMenuItemClick("Album", "http://localhost:3000/adminAlbum")}
-              />
-              <MenuItem
-                name={"Music"}
-                isActive={activeItem === "Music"}
-                onClick={() => handleMenuItemClick("Music", "http://localhost:3000/adminMusic")}
-              />
-            </>
-          )}
         </div>
       </div>
       
