@@ -1,7 +1,7 @@
 import styles from "./Badge.module.scss";
 import React from "react";
-import Icon from "../Icon/Icon";
 import { BadgeItem } from "@/public/Interfaces/inter";
+import Image from "next/image"; // Import the Image component from next/image
 
 type Props = {
   badgeItem: BadgeItem;
@@ -11,19 +11,27 @@ type Props = {
 };
 
 const Badge = (props: Props) => {
+  const { badgeItem, id, onClick, isActive } = props;
+
+  // Ensure image source is defined and valid
+  const imgSrc = isActive ? badgeItem.activePhoto : badgeItem.photo;
+  const altText = `${badgeItem.name} badge`;
+
   return (
     <div
-      className={props.isActive ? styles.active : styles.badgeContent}
-      onClick={() => props.onClick(props.id)}
+      className={isActive ? styles.active : styles.badgeContent}
+      onClick={() => onClick(id)}
     >
-      {props.badgeItem.name}
-      <Icon width={"24px"} height={"24px"}
-        src={
-          props.isActive
-            ? `${props.badgeItem.activePhoto}`
-            : `${props.badgeItem.photo}`
-        }
-      />
+      {badgeItem.name}
+      {imgSrc && (
+        <Image
+          width={24} // Set width directly as a number
+          height={24} // Set height directly as a number
+          src={imgSrc}
+          alt={altText}
+          layout="fixed" // Use fixed layout to maintain size
+        />
+      )}
     </div>
   );
 };
