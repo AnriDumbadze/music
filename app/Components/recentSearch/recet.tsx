@@ -54,8 +54,8 @@ export default function RecentSearch(props: Props) {
     const handleRemove = (id: number) => {
         const userToken = Cookies.get("userToken");
 
-        if (props.id === id) {
-            localStorage.removeItem("searchData");
+        if (props.id === id && typeof window !== "undefined") {
+            localStorage.removeItem("searchData"); 
         }
 
         axios.get('https://music-back-1s59.onrender.com/users/me', {

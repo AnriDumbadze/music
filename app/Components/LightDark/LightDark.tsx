@@ -5,13 +5,18 @@ import { setCookie } from '@/helper/cookie';
 
 const LightDark = () => {
   const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
+    if (typeof window !== "undefined") {
+      return localStorage.getItem('theme') === 'dark';
+    }
+    return false;
   });
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    setCookie("theme", isDarkMode ? 'dark' : 'light',6)
+    if (typeof window !== "undefined") {
+      document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+      localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+      setCookie("theme", isDarkMode ? 'dark' : 'light', 6);
+    }
   }, [isDarkMode]);
 
   const handleToggle = (mode: 'light' | 'dark') => {

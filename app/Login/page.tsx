@@ -33,7 +33,10 @@ const Login = (props: Props) => {
       setCookie("userToken", response.data.token, 60);
       setCookie("isAdmin", response.data.forToken.role, 60);
       setCookie("lastLogin", response.data.lastLogin, 60);
-      localStorage.setItem("token", response.data.token);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("token", response.data.token);
+      }
+  
 
       // Redirect after successful login
       router.replace("http://localhost:3000");

@@ -31,12 +31,18 @@ export default function Player() {
   const [isActive, setIsActive] = useState(false);
   const [data, setData] = useState<Song[]>([]);
   const currentSong = songs.find((song) => song.id === currentSongId);
+  const [themeColor, setThemeColor] = useState<string | null>(null);
 
   useEffect(() => {
-    const savedMusicVolume = localStorage.getItem("music");
-    const savedVoiceVolume = localStorage.getItem("voice");
-    if (savedMusicVolume) setMusicVolume(Number(savedMusicVolume));
-    if (savedVoiceVolume) setVoiceVolume(Number(savedVoiceVolume));
+    if (typeof window !== "undefined") {
+      const savedMusicVolume = localStorage.getItem("music");
+      const savedVoiceVolume = localStorage.getItem("voice");
+      const savedTheme = localStorage.getItem("theme");
+
+      if (savedMusicVolume) setMusicVolume(Number(savedMusicVolume));
+      if (savedVoiceVolume) setVoiceVolume(Number(savedVoiceVolume));
+      if (savedTheme) setThemeColor(savedTheme);
+    }
   }, []);
 
   useEffect(() => {
@@ -126,7 +132,9 @@ export default function Player() {
 
   const handleMusicVolumeChange = (value: number) => {
     setMusicVolume(value);
-    localStorage.setItem("music", value.toString());
+    if (typeof window !== "undefined") {
+      localStorage.setItem("music", value.toString());
+    }
     if (audioRef.current) {
       audioRef.current.volume = value / 100;
     }
@@ -175,34 +183,9 @@ export default function Player() {
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
 
-  const [themeColor, setThemeColor] = useState<string | null>(localStorage.getItem("theme"));
-
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = localStorage.getItem("theme");
-      setThemeColor(newTheme);
-    };
-  
-    updateTheme();
-  
-    const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "theme") {
-        updateTheme();
-      }
-    };
-  
-    if (typeof window !== 'undefined') {
-      window.addEventListener("storage", handleStorageChange);
-      return () => {
-        window.removeEventListener("storage", handleStorageChange);
-      };
-    }
-  }, []);
-
   const getIconPath = (iconName: string) => {
     return `icons/${iconName}${themeColor === "light" ? "Light" : ""}.svg`;
   };
-
   return (
 <>
 <div className={`${styles.computerPlayer} ${themeColor === 'light' ? styles.lightPlayer : ''}`}>
