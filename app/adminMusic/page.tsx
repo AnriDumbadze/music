@@ -10,7 +10,7 @@ import Cookies from "js-cookie";
 import Input from '../Components/Input/input'
 import Button from '../Components/Button/Button'
 export default function AdminMusic() {
-    const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
+    const [themeColor, setThemeColor] = useState(getCookie("theme") || "");
     const [artistName, setArtistName] = useState("")
     const [artistLastname, setArtistLastname] = useState("")
     const [artistBiography, setArtistBiography] = useState("")
@@ -29,7 +29,7 @@ export default function AdminMusic() {
     useEffect(() => {
         const updateTheme = () => {
             const newTheme = getCookie("theme");
-            setThemeColor(newTheme);
+            setThemeColor(String(newTheme));
         };
 
         updateTheme();
