@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import React, { useState } from "react";
 import styles from './page.module.scss';
 import AsideMenu, { getCookie } from "../Components/Aside/Aside";
@@ -11,27 +10,23 @@ import MusicWrapper from "../Components/MusicWrapper/MusicWrapper";
 
 export default function Library() {
     const [query, setQuery] = useState<string>('');
-    const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
-    
-
+    const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null); // Handle undefined case
 
     const handleSearchChange = (newQuery: string) => {
         setQuery(newQuery);
-       
     };
 
     return (
-            <>
-                <div className={styles.mainpage}>
-                    <div className={styles.background}>
-                    
+        <>
+            <div className={styles.mainpage}>
+                <div className={styles.background}>
                     <div className={styles.search}>
-                            <Search onChange={handleSearchChange} />
-                        </div>
-                        <div className={styles.librarytext}>
-                            <span>Your Library</span>
-                        </div>
-                        <div className={styles.mainContent}>
+                        <Search onChange={handleSearchChange} />
+                    </div>
+                    <div className={styles.librarytext}>
+                        <span>Your Library</span>
+                    </div>
+                    <div className={styles.mainContent}>
                         <LibraryItem title={"Travis Scott"} songQuantity={"Artist"} id={0} />
                         <LibraryItem title={"Travis Scott"} songQuantity={"Artist"} id={0} />
                         <LibraryItem title={"Travis Scott"} songQuantity={"Artist"} id={0} />
@@ -42,11 +37,10 @@ export default function Library() {
                         <LibraryItem title={"Travis Scott"} songQuantity={"Artist"} id={0} />
                         <LibraryItem title={"Travis Scott"} songQuantity={"Artist"} id={0} />
                         <LibraryItem title={"Travis Scott"} songQuantity={"Artist"} id={0} />
-                        </div>
                     </div>
-                    
-                    
-            <AsideMenu />
-        </div></>
+                </div>
+                <AsideMenu />
+            </div>
+        </>
     );
 }

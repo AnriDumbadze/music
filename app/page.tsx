@@ -7,17 +7,15 @@ import Header from "./Components/Header/Header";
 import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
 import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
-import Player from "./Components/ComputerPlayer/ComputerPlayer";
-import Login from "./Login/page";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
+  const [themeColor, setThemeColor] = useState(getCookie("theme") || "");
 
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
-      setThemeColor(newTheme);
+      setThemeColor(String(newTheme));
     };
 
     updateTheme();
@@ -32,16 +30,15 @@ const Home = () => {
   };
 
   const artistCards = [
-    <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
+    <ArtistCard key={"artist-1"} artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
   ];
 
   const popularHits = [
-    <MusicCard albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
+    <MusicCard key={"music-1"} albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
   ];
 
   const popularCharts = [
-    <TopChart image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
-
+    <TopChart key={"chart-1"} image={"topChart"} songName={"Good Days"} artistName={"SZA"} rank={"1"} />,
   ];
 
   return (
@@ -52,7 +49,6 @@ const Home = () => {
         <MusicWrapper cards={artistCards} name={"Popular artists"} />
         <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
-
       </div>
     </div>
   );

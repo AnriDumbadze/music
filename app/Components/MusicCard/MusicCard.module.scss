@@ -44,6 +44,12 @@
   text-transform: capitalize;
 }
 
+.musicWrap{
+  width: 168px;
+  height: 242px;
+}
+
+
 @media (max-width: 768px) {
   .musicPhoto img {
     width: 103px;
@@ -52,6 +58,10 @@
   .musicPhoto {
     height: 103px;
     width: 103px;
+  }
+  .musicWrap{
+    width: 120px;
+    height: 182px;
   }
 }
 

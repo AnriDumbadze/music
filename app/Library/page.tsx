@@ -1,108 +1,135 @@
-"use client"
-import React, { useState, useEffect } from "react";
-import styles from './page.module.scss';
-import AsideMenu, { getCookie } from "../Components/Aside/Aside";
-import Search from "../Components/SearchComponent/Search";
-import MusicCard from "../Components/MusicCard/Musiccard";
-import ArtistCard from "../Components/ArtistCard/ArtistCard";
-import MusicWrapper from "../Components/MusicWrapper/MusicWrapper";
-import Header from "../Components/Header/Header";
-import Aside from "../Components/Aside/Aside";
+"use client";
+import React, { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import Aside, { getCookie } from "../Components/Aside/Aside";
+import Icon from "../Components/Icon/Icon";
+import styles from "./page.module.scss";
+import { message } from "antd";
 
-export default function Library() {
-    const [query, setQuery] = useState<string>('');
-    const [cardsPerRow, setCardsPerRow] = useState<number>(6); // Default for desktop
-    const [groupedCards, setGroupedCards] = useState<any[]>([]);
-    const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme")); // Store theme in state
 
+export default function UserList() {
+    const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null);
+    const [artistName, setArtistName] = useState("");
+    const [artistLastname, setArtistLastname] = useState("");
+    const [artistBiography, setArtistBiography] = useState("");
+    const [getData, setGetData] = useState<any[]>([]);
+    const [search, setSearch] = useState("");
+    const [messageApi, contextHolder] = message.useMessage();
+    const [showAddArtist, setShowAddArtist] = useState(false);
+    const [listArtist, setListArtist] = useState(true);
+    
     useEffect(() => {
-      const updateTheme = () => {
-        const newTheme = getCookie("theme");
-        setThemeColor(newTheme);
-      };
-  
-      updateTheme();
-  
-      const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
-  
-      return () => clearInterval(themeInterval); 
+        const updateTheme = () => {
+            const newTheme = getCookie("theme");
+            setThemeColor(newTheme || null); // Set to null if undefined
+        };
+
+        updateTheme(); // Initial theme check
+
+        const themeInterval = setInterval(updateTheme, 5000); // Update every 5 seconds
+        return () => clearInterval(themeInterval); // Clean up on unmount
     }, []);
 
-    const handleSearchChange = (newQuery: string) => {
-        setQuery(newQuery);
+    useEffect(() => {
+        const userToken = Cookies.get("userToken");
+
+        axios.get('https://music-back-1s59.onrender.com/users', {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then((response) => {
+            setGetData(response.data);
+        }).catch((error) => {
+            console.error("Error fetching users:", error);
+        });
+    }, []);
+
+    const suggest = () => {
+        const userToken = localStorage.getItem("token");
+        axios.post(
+            "https://music-back-1s59.onrender.com/artist",
+            {
+                firstName: artistName,
+                lastName: artistLastname,
+                biography: artistBiography,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${userToken}`
+                }
+            }
+        )
+        .then(() => {
+            messageApi.open({
+                type: 'success',
+                content: 'Artist added successfully!',
+            });
+            setShowAddArtist(false);
+            setListArtist(true);
+        })
+        .catch(() => {
+            messageApi.error({
+                type: 'error',
+                content: 'Error adding artist.',
+            });
+        });
     };
 
-    
-    const cards = [
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-        <ArtistCard artistImg={"artist"} artistName={"Drake"} artistType={"Artist"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
-        <MusicCard albumCover={"popHit"} author={"Drake"} songTitle={"jondo"} />,
+    const searchArtist = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+    };
 
-        
-    ];
-
-   
-    // const groupCards = (cards: any[], cardsPerRow: number) => {
-    //     const grouped = [];
-    //     for (let i = 0; i < cards.length; i += cardsPerRow) {
-    //         grouped.push(cards.slice(i, i + cardsPerRow));
-    //     }
-    //     return grouped;
-    // };
-
-    // useEffect(() => {
-        
-    //     const handleResize = () => {
-    //         if (window.innerWidth <= 768) {
-    //             setCardsPerRow(3); 
-    //         } else {
-    //             setCardsPerRow(6);
-    //         }
-    //     };
-
-    //     window.addEventListener('resize', handleResize);
-    //     handleResize(); 
-
-    
-    //     // setGroupedCards(groupCards(cards, cardsPerRow));
-
-    //     return () => {
-    //         window.removeEventListener('resize', handleResize);
-    //     };
-    // }, [cardsPerRow]);
-    const artistCards = [
-        <ArtistCard artistImg={"artist"} artistName={"Travis Scott"} artistType={"Artist"} />,  
-      ];
-    
-      const popularHits = [
-        <MusicCard albumCover={"popHit"} author={"Juice WRLD"} songTitle={"Robbery"} />,
-      ];
-    
-      
-      
     return (
         <>
-  <div className={styles.mainContent}>
-      <Aside />
-      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-        <Header />
-        <MusicWrapper cards={artistCards} name={""} />  
-      </div>
-    </div>
+            {contextHolder}
+            <div className={styles.mainContent}>
+                <Aside />
+                <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
+                    <div className={styles.container}>
+                        <div className={styles.headerAdmin}>
+                            <p className={styles.HeaderTitle}>Users</p>
+                        </div>
+                        <div className={styles.search}>
+                            <div className={styles.icon}>
+                                <Icon name={"searchIcon"} isActive={false} />
+                            </div>
+                            <input
+                                onChange={searchArtist}
+                                placeholder='Search'
+                                type="text"
+                                className={styles.artistSearch}
+                            />
+                        </div>
+                        <div className={styles.listArtist}>
+                            <div className={styles.list}>
+                                <div className={styles.listInfo}>
+                                    <div className={styles.items}>
+                                        <p>Name</p>
+                                        <p>Email</p>
+                                        <p>UserId</p>
+                                        <p>Last login</p>
+                                        <p>Status</p>
+                                    </div>
+                                </div>
+                                {getData.filter((item) =>
+                                    item.name.toLowerCase().includes(search.toLowerCase()) // Case-insensitive search
+                                ).map((item) => (
+                                    <div className={styles.ArtistInfo} key={item.id}>
+                                        <div className={styles.items}>
+                                            <p>{item.name}</p>
+                                            <p>{item.email}</p>
+                                            <p>{item.id}</p>
+                                            <p>{item.lastLogin}</p>
+                                            <p className={styles.Active}>{'Active'}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

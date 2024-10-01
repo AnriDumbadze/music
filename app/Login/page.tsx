@@ -1,48 +1,60 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import styles from "./Login.module.scss";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { setCookie } from "@/helper/cookie";
+import Image from 'next/image'; // Import Image component
 
 type Props = {};
 
 const Login = (props: Props) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // State to handle error messages
 
-    const router = useRouter();
+  const router = useRouter();
 
-    const changeEmail = (e:any) => {
-      setEmail(e.target.value)
-    }
-    const changePassword = (e:any) => {
-      setPassword(e.target.value)
-    }
+  const changeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
 
-    const authUser = () => {
-      axios.post("https://music-back-1s59.onrender.com/auth",{
-        email:email,
-        password:password
-      })
-      .then((data) => {
-       setCookie("userToken",data.data.token,60)
-       router.replace("http://localhost:3000")
-     })
-     .catch(() =>{console.log('s');
-     })
+  const changePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const authUser = async () => {
+    try {
+      const response = await axios.post("https://music-back-1s59.onrender.com/auth", {
+        email: email,
+        password: password,
+      });
+      
+      setCookie("userToken", response.data.token, 60);
+      setCookie("isAdmin", response.data.forToken.role, 60);
+      setCookie("lastLogin", response.data.lastLogin, 60);
+      localStorage.setItem("token", response.data.token);
+
+      // Redirect after successful login
+      router.replace("http://localhost:3000");
+    } catch (error) {
+      setError('Login failed. Please check your email and password.'); // Set error message
+      console.error('Login error:', error);
     }
+  };
 
   return (
     <div className={styles.login}>
       <div>
-        <img src="./Images/Login.png" alt="" />
+        <Image src="/Images/Login.png" alt="Login" width={500} height={300} />
       </div>
       <div className={styles.loginContainer}>
         <div className={styles.contHeader}>
           <h1>Log In to Your Account</h1>
-          <span>Enter The email and password you used to register</span>
+          <span>Enter the email and password you used to register</span>
         </div>
+
+        {error && <p className={styles.error}>{error}</p>} {/* Display error message */}
 
         <div className={styles.contBody}>
           <div className={styles.loginBody}>
@@ -50,7 +62,7 @@ const Login = (props: Props) => {
               <span>Email</span>
               <div className={styles.infoHolder}>
                 <input
-                onChange={changeEmail}
+                  onChange={changeEmail}
                   className={styles.input}
                   type="email"
                   placeholder="Email"
@@ -61,7 +73,7 @@ const Login = (props: Props) => {
               <span>Password</span>
               <div className={styles.infoHolder}>
                 <input
-                onChange={changePassword}
+                  onChange={changePassword}
                   className={styles.input}
                   type="password"
                   placeholder="Password"
@@ -77,12 +89,14 @@ const Login = (props: Props) => {
         </div>
 
         <div className={styles.contFooter}>
-        <button className={styles.signInBTN} onClick={authUser}>signin</button>
-            <span onClick={()=> router.push('./SignUp')}>Don’t Have An Account? <span className={styles.createAcc}>Create An Account</span></span>
+          <button className={styles.signInBTN} onClick={authUser}>Sign In</button>
+          <span onClick={() => router.push('./SignUp')}>
+            Don’t Have An Account? <span className={styles.createAcc}>Create An Account</span>
+          </span>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login; 
+export default Login;

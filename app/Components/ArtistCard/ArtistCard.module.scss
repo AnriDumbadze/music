@@ -8,9 +8,9 @@
 .cardContent {
   display: flex;
   align-items: center;
+  overflow-x: scroll;
   gap: 6px;
-  max-width: 1135px;
-  flex-wrap: wrap;
+  max-width: 1225px;
 }
 
 .artistInfo {
@@ -45,11 +45,13 @@
 
 @media (max-width: 768px){
   .cardContent img{
-    width: 103px !important;
-    height: 103px !important;
+    width: 80px !important;
+    height: 80px !important;
   }
   .cardContent{
-    width: 103px;
+    width: 530px;
+    overflow-x: scroll;
     height: 168px;
+    max-height: 128px;
   }
 }
