@@ -3,16 +3,28 @@
   align-items: center;
   justify-content: center;
   gap: 112px;
+  padding: 100px;
+}
+
+.image{
+  width: 559px;
+  height: 469px;
+}
+
+.mainContent{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .loginContainer {
   display: flex;
   padding: 64px;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   gap: 32px;
   border-radius: 24px;
-  background: yellow;
 }
 
 .contHeader {
@@ -158,3 +170,17 @@
   cursor: pointer;
 }
 
+@media (max-width: 768px){
+  .login{
+    gap: 1px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    padding: 54px;
+  }
+
+  .image{
+    width: 195px;
+    height: 155px;
+  }
+}

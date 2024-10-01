@@ -9,6 +9,14 @@ import ArtistCard from '../Components/ArtistCard/ArtistCard';
 import TopChart from '../Components/TopChart/TopChart';
 import RecentSearch from "../Components/recentSearch/recet"; // Make sure the path is correct
 import axios from "axios";
+import Cookies from "js-cookie";
+
+interface Artist {
+    id: number;
+    firstName: string;
+    lastName: string;
+    biography: string;
+}
 
 interface SearchData {
     artistName: string;
@@ -16,6 +24,7 @@ interface SearchData {
     id: number; // Assuming ID is a number based on the expected type
     name: string;
     description: string;
+    artistId: number; // Add artistId if you need to relate to the artist
     // Add other relevant properties here
 }
 
@@ -23,29 +32,29 @@ export default function SearchPage() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null);
     const [search, setSearch] = useState('');
     const [data, setData] = useState<SearchData[]>([]);
-    const [loading, setLoading] = useState(false); // New loading state
-    const [error, setError] = useState<string | null>(null); // Error state
+    const [loading, setLoading] = useState(false); 
+    const [error, setError] = useState<string | null>(null); 
+    const [artistData, setArtistData] = useState<Artist[]>([]); // Specify the type here
 
     useEffect(() => {
         const updateTheme = () => {
-            const newTheme = getCookie("theme") || null; // Use null as fallback
+            const newTheme = getCookie("theme") || null;
             setThemeColor(newTheme);
         };
 
         updateTheme();
 
-        const themeInterval = setInterval(updateTheme, 5000);
+        const themeInterval = setInterval(updateTheme, 0);
 
         return () => clearInterval(themeInterval); 
     }, []);
 
-    // Fetch data based on search term
     useEffect(() => {
-        const userToken = localStorage.getItem("token");
+        const userToken = getCookie("userToken");
         
         if (userToken && search) {
-            setLoading(true); // Set loading to true before fetching
-            setError(null); // Reset error state
+            setLoading(true);
+            setError(null);
             
             axios.get(`https://music-back-1s59.onrender.com/search/music?search=${search}`, {
                 headers: {
@@ -63,28 +72,47 @@ export default function SearchPage() {
                     setError('Error: ' + error.message);
                 }
             })
-            .finally(() => setLoading(false)); // Set loading to false after fetch completes
+            .finally(() => {
+                setLoading(false); // Set loading to false regardless of success or failure
+            });
         }
     }, [search]);
 
-    const artistCards = data.map((artist) => (
+    useEffect(() => {
+        const userToken = getCookie("userToken");
+        axios.get("https://music-back-1s59.onrender.com/artist", {
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        }).then((response) => {
+            setArtistData(response.data); // Ensure the correct data is being set
+        })
+        .catch(() => {
+            console.log('ratom gavixade?');
+        });
+    }, []);
+
+    const artistCards = artistData.map((artist) => (
         <ArtistCard 
             key={artist.id} 
             artistImg={"artist"} 
-            artistName={artist.name} 
+            artistName={artist.firstName} 
             artistType={"Artist"} 
         />
     ));
 
-    const popularCharts = data.map((chart) => (
-        <TopChart 
-            key={chart.id} 
-            image={"topChart"} 
-            songName={chart.name} 
-            artistName={chart.artistName} 
-            rank={chart.rank} 
-        />
-    ));
+    const popularCharts = data.map((chart) => {
+        const artist = artistData.find((a) => a.id === chart.artistId); // Make sure you have artistId in your data
+        return (
+            <TopChart 
+                key={chart.id} 
+                image={"topChart"} 
+                songName={chart.name} 
+                artistName={artist ? artist.firstName : "Unknown Artist"} // Use optional chaining to handle cases where artist is not found
+                rank={chart.rank} 
+            />
+        );
+    });
 
     const onchange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);
@@ -99,11 +127,9 @@ export default function SearchPage() {
             <Aside />
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
                 <Header onchange={onchange1} />
-                {loading && <p>Loading...</p>} {/* Loading indicator */}
-                {error && <p style={{ color: 'red' }}>{error}</p>} {/* Error message */}
-                <RecentSearch name={firstResultName} id={idSearch} description={descriptionSearch} data={data} />
-                <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
-                <MusicWrapper cards={artistCards} name={"Artists"} />
+                <RecentSearch id={idSearch} description={descriptionSearch} data={data} />
+                <MusicWrapper cards={artistCards} name={"Top searched artists"} />
+                <MusicWrapper cards={popularCharts} name={"Search Musics Charts"} />
             </div>
         </div>
     );
