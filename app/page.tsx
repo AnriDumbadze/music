@@ -7,6 +7,7 @@ import Header from "./Components/Header/Header";
 import MusicWrapper from "./Components/MusicWrapper/MusicWrapper";
 import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
+import { RecoilRoot } from "recoil";
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
@@ -42,7 +43,8 @@ const Home = () => {
   ];
 
   return (
-    <div className={styles.mainContent}>
+    <RecoilRoot>
+      <div className={styles.mainContent}>
       <Aside />
       <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
         <Header />
@@ -51,6 +53,7 @@ const Home = () => {
         <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
       </div>
     </div>
+    </RecoilRoot>
   );
 };
 
