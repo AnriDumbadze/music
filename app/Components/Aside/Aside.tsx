@@ -29,7 +29,7 @@ const AsideMenu = () => {
     };
 
     updateTheme();
-    const themeInterval = setInterval(updateTheme, 1000); // Set reasonable interval (1 second)
+    const themeInterval = setInterval(updateTheme, 0); // Set reasonable interval (1 second)
 
     return () => clearInterval(themeInterval);
   }, []);

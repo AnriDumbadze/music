@@ -19,7 +19,7 @@ type Artist = {
 };
 
 export default function ArtistAdd() {
-  const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
+  const [themeColor, setThemeColor] = useState(getCookie("theme") || "");
   const [artistName, setArtistName] = useState("");
   const [artistLastname, setArtistLastname] = useState("");
   const [artistMusicIds, setArtistMusicIds] = useState("");
@@ -38,8 +38,8 @@ export default function ArtistAdd() {
 
   useEffect(() => {
     const updateTheme = () => {
-      const newTheme = getCookie("theme") || null; // Provide fallback value
-      setThemeColor(newTheme);
+      const newTheme = getCookie("theme") || 'null'; // Provide fallback value
+      setThemeColor(String(newTheme));
     };
 
     updateTheme();
