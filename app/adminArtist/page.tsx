@@ -4,7 +4,6 @@ import styles from './artist.module.scss'
 import { useState, useEffect } from 'react'
 import TopChart from '../Components/TopChart/TopChart'
 import Icon from '../Components/Icon/Icon'
-import ArtistForm from '../Components/AddArtistForm/artistForm'
 import Input from '../Components/Input/input'
 import Button from '../Components/Button/Button'
 import { Switch } from 'antd';
@@ -12,6 +11,13 @@ import Cookies from "js-cookie";
 import axios from 'axios'
 import { message, Space } from 'antd';
 import Image from 'next/image';
+type Artist = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  biography: string;
+};
+
 export default function ArtistAdd() {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme"));
   const [artistName, setArtistName] = useState("");
@@ -26,7 +32,7 @@ export default function ArtistAdd() {
   const [messageApi, contextHolder] = message.useMessage();
   const [showAddArtist, setShowAddArtist] = useState(false);
   const [listArtist, setListArtist] = useState(true);
-  const [getData, setGetData] = useState([]);
+  const [getData, setGetData] = useState<Artist[]>([]);
   const [search, setSearch] = useState('');
   const [searchData, setSearchData] = useState([]);
 
