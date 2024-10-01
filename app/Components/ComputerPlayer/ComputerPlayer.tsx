@@ -212,7 +212,7 @@ export default function Player() {
       <div className={styles.textContainer}>
         <div className={styles.textGrid}>
           {/* Add the src attribute to the img element */}
-          <img className={styles.img} src={currentSong?.coverUrl || '/path/to/default/image.png'} alt={currentSong?.title} />
+          <img className={styles.img} src={currentSong?.url || '/path/to/default/image.png'} alt={currentSong?.title} />
           <div className={styles.artistInfo}>
             <h3 className={`${styles.Text} ${themeColor === 'light' ? styles.lightText : ''}`}>{currentSong?.title || 'Unknown Title'}</h3>
             <p className={styles.Text2}>{currentSong?.artist || 'Unknown Artist'}</p>
