@@ -9,6 +9,7 @@ import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
 import { RecoilRoot } from "recoil";
 import axios from "axios";
+
 interface Artist {
   id: number;
   firstName: string;
@@ -25,9 +26,9 @@ interface Music {
 const Home = () => {
   const [query, setQuery] = useState<string>("");
   const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
-  const [artistData, setArtistData] = useState<Artist[]>([]); // Specify type as Artist[]
-  const [topChatData, setTopChatData] = useState([]); // You may want to specify a type for this as well
-  const [data1, setData1] = useState<Music[]>([]); // Specify type as Music[]
+  const [artistData, setArtistData] = useState<Artist[]>([]);
+  const [topChatData, setTopChatData] = useState<any[]>([]); // Specify a type if known
+  const [data1, setData1] = useState<Music[]>([]);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -39,84 +40,87 @@ const Home = () => {
 
     const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
 
-    return () => clearInterval(themeInterval); 
+    return () => clearInterval(themeInterval);
   }, []);
-  
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
   };
+
   useEffect(() => {
     const userToken = getCookie("userToken");
-    axios.get("https://music-back-1s59.onrender.com/artist",{
+    axios
+      .get("https://music-back-1s59.onrender.com/artist", {
         headers: {
-            Authorization: `Bearer ${userToken}`,
-        },
-    }).then((data) => {
-        setArtistData(data.data)
-    })
-    .catch(() => {
-        console.log('ratom gavixade?');
-    })
-},[])
-
-useEffect(() => {
-  const userToken = getCookie("userToken");
-  axios.get("https://music-back-1s59.onrender.com/music",{
-      headers: {
           Authorization: `Bearer ${userToken}`,
-      },
-  }).then((data) => {
-      setData1(data.data)
-  })
-  .catch(() => {
-      console.log('ratom gavixade?');
-  })
-},[])
+        },
+      })
+      .then((response) => {
+        setArtistData(response.data);
+      })
+      .catch(() => {
+        console.log("ratom gavixade?");
+      });
+  }, []);
 
-   
+  useEffect(() => {
+    const userToken = getCookie("userToken");
+    axios
+      .get("https://music-back-1s59.onrender.com/music", {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      })
+      .then((response) => {
+        setData1(response.data);
+      })
+      .catch(() => {
+        console.log("ratom gavixade?");
+      });
+  }, []);
+
   const artistCards = artistData.map((artist) => (
-    <ArtistCard 
-        key={artist.id} 
-        artistImg={"artist"} 
-        artistName={artist.firstName} 
-        artistType={"Artist"} 
+    <ArtistCard
+      key={artist.id}
+      artistImg={"artist"}
+      artistName={artist.firstName}
+      artistType={"Artist"}
     />
-));
+  ));
 
+  const popularCharts = data1.map((chart) => {
+    const artist = artistData.find((a) => a.id === chart.artist.id); // Find artist for the current chart
+    return (
+      <TopChart
+        key={chart.id}
+        image={"topChart"}
+        songName={chart.name}
+        artistName={artist ? artist.firstName : "Unknown Artist"} // Use optional chaining to handle cases where artist is not found
+        rank={'rank'}
+      />
+    );
+  });
 
-
-const popularCharts = data1.map((chart) => (
-  <TopChart 
-      key={chart.id} 
-      image={"topChart"} 
-      songName={chart.name} 
-      artistName={artistData.firstName} 
-      rank={'rank'} 
-  />
-));
-
-
-const popularHits = data1.map((item) => (
-  <MusicCard 
-    key={item.id} // Add a unique key for each item
-    albumCover={"popHit"} 
-    author={item.artist.firstName} // Access the artist's first name
-    songTitle={item.name} // Use the song name from your data
-  />
-));
-
+  const popularHits = data1.map((item) => (
+    <MusicCard
+      key={item.id}
+      albumCover={"popHit"}
+      author={item.artist.firstName} // Access the artist's first name
+      songTitle={item.name}
+    />
+  ));
 
   return (
     <RecoilRoot>
       <div className={styles.mainContent}>
-      <Aside />
-      <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-        <Header />
-        <MusicWrapper cards={artistCards} name={"Popular artists"} />
-        <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
-        <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+        <Aside />
+        <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
+          <Header />
+          <MusicWrapper cards={artistCards} name={"Popular artists"} />
+          <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
+          <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+        </div>
       </div>
-    </div>
     </RecoilRoot>
   );
 };
