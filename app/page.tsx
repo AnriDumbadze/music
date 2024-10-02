@@ -9,6 +9,8 @@ import MusicCard from "./Components/MusicCard/Musiccard";
 import ArtistCard from "./Components/ArtistCard/ArtistCard";
 import { RecoilRoot } from "recoil";
 import axios from "axios";
+import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
+import Icon from "./Components/Icon/Icon";
 
 
 
@@ -129,12 +131,21 @@ const Home = () => {
   return (
     <RecoilRoot>
       <div className={styles.mainContent}>
+        <div className={styles.burger}>
+        <Icon width='72px' name={"FAZER"} isActive={false} onClick={() => {}} />
+          <BurgerMenuMobile />
+        </div>
+        <div className={styles.mainAside}>
         <Aside />
+        </div>
         <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
           <Header />
           <MusicWrapper cards={artistCards} name={"Popular artists"} />
           <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
           <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+        </div>
+        <div className={styles.secondAside}>
+          <Aside />
         </div>
       </div>
     </RecoilRoot>

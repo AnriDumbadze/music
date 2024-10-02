@@ -4,6 +4,10 @@
   overflow-y: scroll;
 }
 
+.burger{
+  display: none;
+}
+
 .default{
   display: flex;
   height: fit-content;
@@ -199,4 +203,31 @@ letter-spacing: -0.48px;
 .containerMusic{
   display: flex;
   
+}
+
+.secondAside{
+  display: none;
+}
+
+@media (max-width: 768px) { 
+    .mainAside{
+      display: none;
+    }
+
+    .mainContent{
+      display: flex;
+      flex-direction: column;
+    }
+
+    .burger{
+      display: flex;
+      padding: 56px 220px 16px 16px;
+    }
+
+    .secondAside{
+      display: flex;
+      height: 124px;
+    }
+
+    
 }
