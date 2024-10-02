@@ -12,16 +12,14 @@ import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
 import PlayerController from "./Components/PlayerController/PlayerController";
-
-
-
+import songs from "@/public/Consts/songs";
 
 interface Artist {
   id: number;
   firstName: string;
   lastName: string;
   biography: string;
-  image: Image[]
+  image: Image[];
 }
 
 interface Image {
@@ -35,25 +33,25 @@ interface Image {
 interface Music {
   id: number;
   name: string;
-  artist: Artist; // Assuming each music item has an artist
-  image: Image[]
+  artist: Artist;
+  image: Image[];
 }
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
   const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
   const [artistData, setArtistData] = useState<Artist[]>([]);
-  const [data1, setData1] = useState<Music[]>([]);
+  const [musicData, setMusicData] = useState<Music[]>([]);
 
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
-      setThemeColor(String(newTheme));
+      setThemeColor(newTheme || "");
     };
 
     updateTheme();
 
-    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
+    const themeInterval = setInterval(updateTheme, 0);
 
     return () => clearInterval(themeInterval);
   }, []);
@@ -66,15 +64,13 @@ const Home = () => {
     const userToken = getCookie("userToken");
     axios
       .get("https://music-back-1s59.onrender.com/artist", {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((response) => {
         setArtistData(response.data);
       })
-      .catch(() => {
-        console.log("ratom gavixade?");
+      .catch((error) => {
+        console.error("Failed to fetch artists:", error);
       });
   }, []);
 
@@ -82,20 +78,36 @@ const Home = () => {
     const userToken = getCookie("userToken");
     axios
       .get("https://music-back-1s59.onrender.com/music", {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
+        headers: { Authorization: `Bearer ${userToken}` },
       })
       .then((response) => {
-        setData1(response.data);
+        setMusicData(response.data);
       })
-      .catch(() => {
-        console.log("ratom gavixade?");
+      .catch((error) => {
+        console.error("Failed to fetch music:", error);
       });
   }, []);
 
-  
-  
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime] = useState(0);
+  const [showPlayer, setShowPlayer] = useState(true);
+  const [currentSongId, setCurrentSongId] = useState<number | null>(
+    songs.length > 0 ? songs[0].id : null
+  );
+
+  const toggleView = () => {
+    setShowPlayer((prevShowPlayer) => !prevShowPlayer);
+  };
+
+  const handleSongChange = (id: number) => {
+    if (songs.some((song) => song.id === id)) {
+      setCurrentSongId(id);
+      setShowPlayer(true);
+    }
+  };
+
+  const currentSong = songs.find((song) => song.id === currentSongId);
+
   const artistCards = artistData.map((artist) => (
     <ArtistCard
       key={artist.id}
@@ -106,24 +118,27 @@ const Home = () => {
     />
   ));
 
-  const popularCharts = data1.map((chart) => {
-    const artist = artistData.find((a) => a.id === chart.artist.id); // Find artist for the current chart
+  const popularCharts = musicData.map((chart) => {
+    const artist = artistData.find((a) => a.id === chart.artist.id);
     return (
       <TopChart
-        image={chart.image[chart.image.length - 1]?.url || "https://musicappbacket.s3.eu-north-1.amazonaws.com/271247016_1261196094379214_756297623613666142_n"}
+        image={
+          chart.image[chart.image.length - 1]?.url ||
+          "https://musicappbacket.s3.eu-north-1.amazonaws.com/271247016_1261196094379214_756297623613666142_n"
+        }
         key={chart.id}
         songName={chart.name}
-        artistName={artist ? artist.firstName : "Unknown Artist"} // Use optional chaining to handle cases where artist is not found
-        rank={'rank'}
+        artistName={artist ? artist.firstName : "Unknown Artist"}
+        rank="rank"
       />
     );
   });
 
-  const popularHits = data1.map((item) => (
+  const popularHits = musicData.map((item) => (
     <MusicCard
       url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
       key={item.id}
-      author={item.artist.firstName} // Access the artist's first name
+      author={item.artist.firstName}
       songTitle={item.name}
       id={item.id}
     />
@@ -133,36 +148,36 @@ const Home = () => {
     <RecoilRoot>
       <div className={styles.mainContent}>
         <div className={styles.burger}>
-        <Icon width='72px' name={"FAZER"} isActive={false} onClick={() => {}} />
+          <Icon width="72px" name="FAZER" isActive={false} onClick={() => {}} />
           <BurgerMenuMobile />
         </div>
         <div className={styles.mainAside}>
-        <Aside />
+          <Aside />
         </div>
-        <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
+        <div className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""}`}>
           <Header />
-          <MusicWrapper cards={artistCards} name={"Popular artists"} />
-          <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
-          <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+          <MusicWrapper cards={artistCards} name="Popular artists" />
+          <MusicWrapper cards={popularHits} name="Popular hits of the week" />
+          <MusicWrapper cards={popularCharts} name="Popular Charts" />
           <PlayerController
-                albumTitle="Born To Die"
-                dropdown="icons/arrowdown.svg"
-                image={currentSong.src}
-                currentTrack={currentSong.title}
-                currentArtist={currentSong.artist}
-                currentTime={currentTime}
-                duration={convertDurationToSeconds(currentSong.songDuration)} 
-                isPlaying={isPlaying}
-                onPlayPause={() => setIsPlaying(prev => !prev)}
-                onRepeat={() => {}}
-                onShuffle={() => {}}
-                queueTrack={currentSong.queueSong}
-                queueArtist={currentSong.queueName}
-                photo={currentSong.src}
-                onToggleView={toggleView}
-                currentSongId={currentSongId}
-                setCurrentSongId={setCurrentSongId}
-              />
+            albumTitle="Born To Die"
+            dropdown="icons/arrowdown.svg"
+            image={currentSong?.src}
+            currentTrack={currentSong?.title}
+            currentArtist={currentSong?.artist}
+            currentTime={currentTime}
+            duration={convertDurationToSeconds(currentSong?.songDuration || "00:00")}
+            isPlaying={isPlaying}
+            onPlayPause={() => setIsPlaying((prev) => !prev)}
+            onRepeat={() => {}}
+            onShuffle={() => {}}
+            queueTrack={currentSong?.queueSong}
+            queueArtist={currentSong?.queueName}
+            photo={currentSong?.src}
+            onToggleView={toggleView}
+            currentSongId={currentSongId}
+            setCurrentSongId={setCurrentSongId}
+          />
         </div>
         <div className={styles.secondAside}>
           <Aside />
