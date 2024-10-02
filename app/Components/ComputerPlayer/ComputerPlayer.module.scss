@@ -170,3 +170,10 @@
 .lightText{
     color: black;
 }
+
+@media (max-width: 768px){
+  .computerPlayer{
+    display: none;
+    width: 319px;
+  }
+}
