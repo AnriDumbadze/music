@@ -159,25 +159,46 @@ const Home = () => {
           <MusicWrapper cards={artistCards} name="Popular artists" />
           <MusicWrapper cards={popularHits} name="Popular hits of the week" />
           <MusicWrapper cards={popularCharts} name="Popular Charts" />
-          <PlayerController
-            albumTitle="Born To Die"
-            dropdown="icons/arrowdown.svg"
-            image={currentSong?.src}
-            currentTrack={currentSong?.title}
-            currentArtist={currentSong?.artist}
-            currentTime={currentTime}
-            duration={convertDurationToSeconds(currentSong?.songDuration || "00:00")}
-            isPlaying={isPlaying}
-            onPlayPause={() => setIsPlaying((prev) => !prev)}
-            onRepeat={() => {}}
-            onShuffle={() => {}}
-            queueTrack={currentSong?.queueSong}
-            queueArtist={currentSong?.queueName}
-            photo={currentSong?.src}
-            onToggleView={toggleView}
-            currentSongId={currentSongId}
-            setCurrentSongId={setCurrentSongId}
-          />
+          <div className={styles.mainContent}>
+        <div className="App">
+          {showPlayer ? (
+            currentSong ? (
+              <PlayerController
+                albumTitle="Born To Die"
+                dropdown="icons/arrowdown.svg"
+                image={currentSong.src}
+                currentTrack={currentSong.title}
+                currentArtist={currentSong.artist}
+                currentTime={currentTime}
+                duration={convertDurationToSeconds(currentSong.songDuration)} 
+                isPlaying={isPlaying}
+                onPlayPause={() => setIsPlaying(prev => !prev)}
+                onRepeat={() => {}}
+                onShuffle={() => {}}
+                queueTrack={currentSong.queueSong}
+                queueArtist={currentSong.queueName}
+                photo={currentSong.src}
+                onToggleView={toggleView}
+                currentSongId={currentSongId}
+                setCurrentSongId={setCurrentSongId}
+              />
+            ) : (
+              <p>Song not found</p>
+            )
+          ) : (
+            currentSong && (
+              <MusicListItem
+                image={currentSong.src}
+                songName={currentSong.title}
+                artistName={currentSong.artist}
+                rank="" 
+                button="./icons/playbtn.svg"
+                onPlay={() => handleSongChange(currentSongId as number)}
+              />
+            )
+          )}
+        </div>
+      </div>
         </div>
         <div className={styles.secondAside}>
           <Aside />
