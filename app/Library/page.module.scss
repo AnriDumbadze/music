@@ -1,86 +1,93 @@
-.mainpage{
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: flex-start;
-    justify-content: flex-end;
+.mainpage {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-start;
+  justify-content: flex-end;
 }
 
-.background{
-    background-color: #F7F7F7;
+.background {
+  background-color: #F7F7F7;
 }
 
-.search{
-    border-radius: 20px;
-    width: 1200px;
-    height: 48px;
+.search {
+  border-radius: 20px;
+  width: 1200px;
+  height: 48px;
 }
 
-.mainContent{
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1440px;
-    width: 100%;
-    align-items: flex-start;
-    background-color: #F7F7F7;
+.mainContent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 1440px;
+  width: 100%;
+  align-items: flex-start;
+  background-color: #F7F7F7;
 }
 
-.librarytext{
-    color: var(--PrimaryTextCollorWHiteMode, #292929);
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 24px; 
-    letter-spacing: -0.32px;
-    padding: 5px;
+.librarytext {
+  color: var(--PrimaryTextCollorWHiteMode, #292929);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.32px;
+  padding: 5px;
 }
 
 .container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-    max-width: 1135px;
-    gap: 25px;
-    height: auto; 
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  max-width: 1135px;
+  gap: 25px;
+  height: auto;
+}
+
+
+
+@media (max-width: 768px) {
+
+  .mainpage {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
-  
 
+  .search {
+    width: 100%;
+  }
 
-    @media (max-width: 768px) {
-        
-        .mainpage {
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-      
-        .search {
-          width: 100%;
-        }
-      
-        .container {
-        grid-template-columns: repeat(3, 1fr);
-        width: 100%;
-        gap: 15px;
-        max-width: 340px;
-        height: 158px;
-        justify-items: center;
-        }
-      
-        .musicCard, .artistCard {
-          width: 100%;
-          max-width: 104px;
-        }
-        .musicPhoto img, .cardContent img {
-            width: 103px !important; 
-            height: 103px !important;
-          }
-      
-        .librarytext {
-          font-size: 14px;
-        }
-        .musicInfo, .artistInfo {
-            text-align: center; 
-          }
-          
-      }
+  .container {
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    gap: 15px;
+    max-width: 340px;
+    height: 158px;
+    justify-items: center;
+  }
+
+  .musicCard,
+  .artistCard {
+    width: 100%;
+    max-width: 104px;
+  }
+
+  .musicPhoto img,
+  .cardContent img {
+    width: 103px !important;
+    height: 103px !important;
+  }
+
+  .librarytext {
+    font-size: 14px;
+  }
+
+  .musicInfo,
+  .artistInfo {
+    text-align: center;
+  }
+
+}

@@ -109,7 +109,7 @@ const Home = () => {
     const artist = artistData.find((a) => a.id === chart.artist.id); // Find artist for the current chart
     return (
       <TopChart
-        image={chart.image[chart.image.length - 1]?.url}
+        image={chart.image[chart.image.length - 1]?.url || "https://musicappbacket.s3.eu-north-1.amazonaws.com/271247016_1261196094379214_756297623613666142_n"}
         key={chart.id}
         songName={chart.name}
         artistName={artist ? artist.firstName : "Unknown Artist"} // Use optional chaining to handle cases where artist is not found
