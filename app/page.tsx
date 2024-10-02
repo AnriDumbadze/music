@@ -37,18 +37,18 @@ interface Music {
   name: string;
   artist: Artist;
   image: Image[];
+  songDuration?: string; // Assuming songDuration is part of the Music interface
 }
 
 const convertDurationToSeconds = (duration: string | undefined): number => {
   if (!duration) {
     console.error("Invalid duration:", duration);
-    return 0; // or any default value you prefer
+    return 0; // Default value
   }
-  
+
   const [minutes, seconds] = duration.split(":").map(Number);
-  return minutes * 60 + seconds;
+  return isNaN(minutes) || isNaN(seconds) ? 0 : minutes * 60 + seconds;
 };
-    
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
