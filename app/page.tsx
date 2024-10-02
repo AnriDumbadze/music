@@ -10,11 +10,23 @@ import ArtistCard from "./Components/ArtistCard/ArtistCard";
 import { RecoilRoot } from "recoil";
 import axios from "axios";
 
+
+
+
 interface Artist {
   id: number;
   firstName: string;
   lastName: string;
   biography: string;
+  image: Image[]
+}
+
+interface Image {
+  id: number;
+  fileName: string;
+  bucketName: string;
+  key: string;
+  url: string;
 }
 
 interface Music {
@@ -27,7 +39,6 @@ const Home = () => {
   const [query, setQuery] = useState<string>("");
   const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
   const [artistData, setArtistData] = useState<Artist[]>([]);
-  const [topChatData, setTopChatData] = useState<any[]>([]); // Specify a type if known
   const [data1, setData1] = useState<Music[]>([]);
 
   useEffect(() => {
@@ -79,12 +90,15 @@ const Home = () => {
       });
   }, []);
 
+  
+  
   const artistCards = artistData.map((artist) => (
     <ArtistCard
       key={artist.id}
-      artistImg={"artist"}
+      artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
       artistName={artist.firstName}
       artistType={"Artist"}
+      biography={artist.biography}
     />
   ));
 
@@ -103,6 +117,7 @@ const Home = () => {
 
   const popularHits = data1.map((item) => (
     <MusicCard
+      url={item.}
       key={item.id}
       albumCover={"popHit"}
       author={item.artist.firstName} // Access the artist's first name

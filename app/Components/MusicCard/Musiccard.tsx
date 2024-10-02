@@ -14,6 +14,7 @@ interface Music {
 }
 
 interface Props {
+  url: string;
   albumCover: string;
   author: string; // Consider if you still need this prop
   songTitle: string; // Consider if you still need this prop
@@ -57,7 +58,6 @@ function MusicCard({ albumCover }: Props) {
   return (
     <div className={cardClassName}>
       <div className={styles.musicPhoto1}>
-        {getData.map((music) => (
           <div key={music.id} className={styles.musicWrap}> 
             <div className={styles.musicPhoto}>
               <Image 
@@ -73,7 +73,6 @@ function MusicCard({ albumCover }: Props) {
               </div>
             </div>
           </div>
-        ))}
       </div>
     </div>
   );

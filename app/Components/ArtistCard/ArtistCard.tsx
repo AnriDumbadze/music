@@ -10,17 +10,34 @@ type Props = {
   artistImg: string;
   artistName: string;
   artistType: string;
+  biography: string;
 };
+
+interface Image {
+  id: number;
+  fileName: string;
+  bucketName: string;
+  key: string;
+  url: string;
+}
 
 type ArtistData = {
   firstName: string;
   biography: string;
+  image: Image[];
 };
+
+
 
 const ArtistCard = (props: Props) => {
   // Initialize themeColor to a string or null
   const [themeColor, setThemeColor] = useState<string | null>(Cookies.get("theme") || null); // Get initial theme from cookies
   const [getData, setGetData] = useState<ArtistData[]>([]);
+  
+
+
+
+  
 
   useEffect(() => {
     const updateTheme = () => {
@@ -52,22 +69,24 @@ const ArtistCard = (props: Props) => {
       });
   }, []);
 
+
+
   return (
     <div className={cardClassName}>
       <div className={styles.cardContent}>
-        {getData.map((artist) => (
-          <div key={artist.firstName} className={styles.artistInfo}>
+      
+          <div key={props.artistName} className={styles.artistInfo}>
             <Image
-              src={`/Images/${props.artistImg}.png`} // Use next/image for images
+              src={props.artistImg} // Use a known valid image URL
               alt={props.artistName}
-              width={150} 
-              height={150} 
-              className={styles.artistImage} // Add a class for styling if needed
+              width={150}
+              height={150}
+              className={styles.artistImage}
             />
-            <div className={styles.artistName}>{artist.firstName}</div>
-            <div className={styles.artistType}>{artist.biography}</div>
+            <div className={styles.artistName}>{props.artistName}</div>
+            <div className={styles.artistType}>{props.biography}</div>
           </div>
-        ))}
+
       </div>
     </div>
   );
