@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import Aside, { getCookie } from "./Components/Aside/Aside";
@@ -38,35 +39,30 @@ interface Music {
   image: Image[];
 }
 
-
-const convertDurationToSeconds = (duration: string): number => {
-  const [minutes, seconds] = duration.split(':').map(Number);
-  return (minutes * 60) + seconds;
+const convertDurationToSeconds = (duration: string | undefined): number => {
+  if (!duration) {
+    console.error("Invalid duration:", duration);
+    return 0; // or any default value you prefer
+  }
+  
+  const [minutes, seconds] = duration.split(":").map(Number);
+  return minutes * 60 + seconds;
 };
+    
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
   const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
   const [artistData, setArtistData] = useState<Artist[]>([]);
   const [musicData, setMusicData] = useState<Music[]>([]);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime] = useState(0);
+  const [showPlayer, setShowPlayer] = useState(true);
+  const [currentSongId, setCurrentSongId] = useState<number | null>(
+    songs.length > 0 ? songs[0].id : null
+  );
 
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme");
-      setThemeColor(newTheme || "");
-    };
-
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0);
-
-    return () => clearInterval(themeInterval);
-  }, []);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
+  // Fetch artist data
   useEffect(() => {
     const userToken = getCookie("userToken");
     axios
@@ -81,6 +77,7 @@ const Home = () => {
       });
   }, []);
 
+  // Fetch music data
   useEffect(() => {
     const userToken = getCookie("userToken");
     axios
@@ -95,12 +92,21 @@ const Home = () => {
       });
   }, []);
 
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime] = useState(0);
-  const [showPlayer, setShowPlayer] = useState(true);
-  const [currentSongId, setCurrentSongId] = useState<number | null>(
-    songs.length > 0 ? songs[0].id : null
-  );
+  // Update theme
+  useEffect(() => {
+    const updateTheme = () => {
+      const newTheme = getCookie("theme");
+      setThemeColor(newTheme || "");
+    };
+
+    updateTheme();
+    const themeInterval = setInterval(updateTheme, 0);
+    return () => clearInterval(themeInterval);
+  }, []);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(event.target.value);
+  };
 
   const toggleView = () => {
     setShowPlayer((prevShowPlayer) => !prevShowPlayer);
@@ -120,7 +126,7 @@ const Home = () => {
       key={artist.id}
       artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
       artistName={artist.firstName}
-      artistType={"Artist"}
+      artistType="Artist"
       biography={artist.biography}
     />
   ));
@@ -167,45 +173,45 @@ const Home = () => {
           <MusicWrapper cards={popularHits} name="Popular hits of the week" />
           <MusicWrapper cards={popularCharts} name="Popular Charts" />
           <div className={styles.mainContent}>
-        <div className="App">
-          {showPlayer ? (
-            currentSong ? (
-              <PlayerController
-                albumTitle="Born To Die"
-                dropdown="icons/arrowdown.svg"
-                image={currentSong.src}
-                currentTrack={currentSong.title}
-                currentArtist={currentSong.artist}
-                currentTime={currentTime}
-                duration={convertDurationToSeconds(currentSong.songDuration)} 
-                isPlaying={isPlaying}
-                onPlayPause={() => setIsPlaying(prev => !prev)}
-                onRepeat={() => {}}
-                onShuffle={() => {}}
-                queueTrack={currentSong.queueSong}
-                queueArtist={currentSong.queueName}
-                photo={currentSong.src}
-                onToggleView={toggleView}
-                currentSongId={currentSongId}
-                setCurrentSongId={setCurrentSongId}
-              />
-            ) : (
-              <p>Song not found</p>
-            )
-          ) : (
-            currentSong && (
-              <MusicListItem
-                image={currentSong.src}
-                songName={currentSong.title}
-                artistName={currentSong.artist}
-                rank="" 
-                button="./icons/playbtn.svg"
-                onPlay={() => handleSongChange(currentSongId as number)}
-              />
-            )
-          )}
-        </div>
-      </div>
+            <div className="App">
+              {showPlayer ? (
+                currentSong ? (
+                  <PlayerController
+                    albumTitle="Born To Die"
+                    dropdown="icons/arrowdown.svg"
+                    image={currentSong.src}
+                    currentTrack={currentSong.title}
+                    currentArtist={currentSong.artist}
+                    currentTime={currentTime}
+                    duration={convertDurationToSeconds(currentSong.songDuration)}
+                    isPlaying={isPlaying}
+                    onPlayPause={() => setIsPlaying((prev) => !prev)}
+                    onRepeat={() => {}}
+                    onShuffle={() => {}}
+                    queueTrack={currentSong.queueSong}
+                    queueArtist={currentSong.queueName}
+                    photo={currentSong.src}
+                    onToggleView={toggleView}
+                    currentSongId={currentSongId}
+                    setCurrentSongId={setCurrentSongId}
+                  />
+                ) : (
+                  <p>Song not found</p>
+                )
+              ) : (
+                currentSong && (
+                  <MusicListItem
+                    image={currentSong.src}
+                    songName={currentSong.title}
+                    artistName={currentSong.artist}
+                    rank=""
+                    button="./icons/playbtn.svg"
+                    onPlay={() => handleSongChange(currentSongId as number)}
+                  />
+                )
+              )}
+            </div>
+          </div>
         </div>
         <div className={styles.secondAside}>
           <Aside />
