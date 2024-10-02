@@ -21,14 +21,7 @@ const MusicListItem: React.FC<Props> = ({
 }) => {
   return (
     <div className={styles.musiclistitem}>
-      <Image 
-        src={image} 
-        alt={`${songName} cover`} 
-        className={styles.musicimage} 
-        height={176} // Set appropriate height
-        width={168}  // Set appropriate width
-        layout="intrinsic" // Maintain aspect ratio
-      />
+      <img src={props.image} alt={`${props.songName} cover`} className={styles.musicimage} />
       <div className={styles.musicinfo}>
         <h3 className={styles.songname}>{songName}</h3>
         <p className={styles.artistname}>{artistName}</p>
