@@ -11,6 +11,7 @@ import { RecoilRoot } from "recoil";
 import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
+import PlayerController from "./Components/PlayerController/PlayerController";
 
 
 
@@ -143,6 +144,21 @@ const Home = () => {
           <MusicWrapper cards={artistCards} name={"Popular artists"} />
           <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
           <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
+          <PlayerController albumTitle={"John"} dropdown={"yes"} queueTrack={"no"} queueArtist={"John"} photo={"nice"} image={"ok"} duration={0} isPlaying={false} onPlayPause={function (): void {
+            throw new Error("Function not implemented.");
+          } } onSkipForward={function (): void {
+            throw new Error("Function not implemented.");
+          } } onSkipBackward={function (): void {
+            throw new Error("Function not implemented.");
+          } } onRepeat={function (): void {
+            throw new Error("Function not implemented.");
+          } } onShuffle={function (): void {
+            throw new Error("Function not implemented.");
+          } } onToggleView={function (): void {
+            throw new Error("Function not implemented.");
+          } } currentSongId={0} setCurrentSongId={function (value: React.SetStateAction<number>): void {
+            throw new Error("Function not implemented.");
+          } }/>
         </div>
         <div className={styles.secondAside}>
           <Aside />
