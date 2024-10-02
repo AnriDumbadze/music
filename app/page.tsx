@@ -13,7 +13,7 @@ const convertDurationToSeconds = (duration: string): number => {
 
 const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
+  const [currentTime] = useState(0);
   const [showPlayer, setShowPlayer] = useState(true);
   const [currentSongId, setCurrentSongId] = useState<number | null>(
     songs.length > 0 ? songs[0].id : null
