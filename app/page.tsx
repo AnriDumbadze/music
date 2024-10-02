@@ -165,7 +165,7 @@ const Home = () => {
     <RecoilRoot>
       <div className={styles.mainContent}>
         <div className={styles.burger}>
-          <Icon width="72px" name="FAZER" isActive={false} onClick={() => { }} />
+          <Icon width="72px" name="FAZER" isActive={false} onClick={() => {}} />
           <BurgerMenuMobile />
         </div>
         <div className={styles.mainAside}>
@@ -178,7 +178,6 @@ const Home = () => {
           <Header />
           <div className={styles.staticFlex}>
             <div className={styles.wrapperContainer}>
-
               <MusicWrapper cards={artistCards} name="Popular artists" />
               <MusicWrapper cards={popularHits} name="Popular hits of the week" />
               <MusicWrapper cards={popularCharts} name="Popular Charts" />
@@ -197,16 +196,15 @@ const Home = () => {
                       duration={convertDurationToSeconds(currentSong.songDuration)}
                       isPlaying={isPlaying}
                       onPlayPause={() => setIsPlaying((prev) => !prev)}
-                      onRepeat={() => { }}
-                      onShuffle={() => { }}
+                      onRepeat={() => {}}
+                      onShuffle={() => {}}
                       queueTrack={currentSong.queueSong}
                       queueArtist={currentSong.queueName}
                       photo={currentSong.src}
                       onToggleView={toggleView}
-                      currentSongId={currentSongId !== null ? currentSongId : 0} // Handle null case
-                      setCurrentSongId={setCurrentSongId}
+                      currentSongId={currentSongId !== null ? currentSongId : undefined} // Pass undefined instead of 0 if null
+                      setCurrentSongId={setCurrentSongId} // Keep as is
                     />
-
                   ) : (
                     <p>Song not found</p>
                   )
