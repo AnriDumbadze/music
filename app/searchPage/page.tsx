@@ -121,7 +121,7 @@ export default function SearchPage() {
         const imageUrl = chart.image 
           ? chart.image[chart.image.length - 1]?.url 
           : "/Image/topChart.png"; // Fallback to default image
-          console.log(chart.image);
+          
           
       
         return (
