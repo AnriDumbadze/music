@@ -11,12 +11,23 @@ import RecentSearch from "../Components/recentSearch/recet"; // Make sure the pa
 import axios from "axios";
 import Cookies from "js-cookie";
 
+interface Image {
+    id: number;
+    fileName: string;
+    bucketName: string;
+    key: string;
+    url: string;
+}
+
 interface Artist {
     id: number;
     firstName: string;
     lastName: string;
     biography: string;
+    image: Image[];
 }
+
+
 
 interface SearchData {
     artistName: string;
@@ -26,14 +37,15 @@ interface SearchData {
     description: string;
     artistId: number; // Add artistId if you need to relate to the artist
     // Add other relevant properties here
+    image: Image[];
 }
 
 export default function SearchPage() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null);
     const [search, setSearch] = useState('');
     const [data, setData] = useState<SearchData[]>([]);
-    const [loading, setLoading] = useState(false); 
-    const [error, setError] = useState<string | null>(null); 
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
     const [artistData, setArtistData] = useState<Artist[]>([]); // Specify the type here
 
     useEffect(() => {
@@ -46,35 +58,35 @@ export default function SearchPage() {
 
         const themeInterval = setInterval(updateTheme, 0);
 
-        return () => clearInterval(themeInterval); 
+        return () => clearInterval(themeInterval);
     }, []);
 
     useEffect(() => {
         const userToken = getCookie("userToken");
-        
+
         if (userToken && search) {
             setLoading(true);
             setError(null);
-            
+
             axios.get(`https://music-back-1s59.onrender.com/search/music?search=${search}`, {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
             })
-            .then((response) => {
-                setData(response.data);
-                localStorage.setItem("searchData", JSON.stringify(response.data));
-            })
-            .catch((error) => {
-                if (error.response && error.response.status === 401) {
-                    setError('Unauthorized: Invalid token');
-                } else {
-                    setError('Error: ' + error.message);
-                }
-            })
-            .finally(() => {
-                setLoading(false); // Set loading to false regardless of success or failure
-            });
+                .then((response) => {
+                    setData(response.data);
+                    localStorage.setItem("searchData", JSON.stringify(response.data));
+                })
+                .catch((error) => {
+                    if (error.response && error.response.status === 401) {
+                        setError('Unauthorized: Invalid token');
+                    } else {
+                        setError('Error: ' + error.message);
+                    }
+                })
+                .finally(() => {
+                    setLoading(false); // Set loading to false regardless of success or failure
+                });
         }
     }, [search]);
 
@@ -87,32 +99,41 @@ export default function SearchPage() {
         }).then((response) => {
             setArtistData(response.data); // Ensure the correct data is being set
         })
-        .catch(() => {
-            console.log('ratom gavixade?');
-        });
+            .catch(() => {
+                console.log('ratom gavixade?');
+            });
     }, []);
 
     const artistCards = artistData.map((artist) => (
-        <ArtistCard 
-            key={artist.id} 
-            artistImg={"artist"} 
-            artistName={artist.firstName} 
-            artistType={"Artist"} 
+        <ArtistCard
+            key={artist.id}
+            artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
+            artistName={artist.firstName}
+            artistType={"Artist"}
+            biography={artist.biography}
         />
     ));
 
     const popularCharts = data.map((chart) => {
-        const artist = artistData.find((a) => a.id === chart.artistId); // Make sure you have artistId in your data
+        const artist = artistData.find((a) => a.id === chart.artistId); // Ensure artistId is present
+      
+        // Check if chart.image exists and has a length before accessing the last image
+        const imageUrl = chart.image 
+          ? chart.image[chart.image.length - 1]?.url 
+          : "/Image/topChart.png"; // Fallback to default image
+          console.log(chart.image);
+          
+      
         return (
-            <TopChart 
-                key={chart.id} 
-                image={"topChart"} 
-                songName={chart.name} 
-                artistName={artist ? artist.firstName : "Unknown Artist"} // Use optional chaining to handle cases where artist is not found
-                rank={chart.rank} 
-            />
+          <TopChart
+            image={imageUrl} // Use the checked image URL
+            key={chart.id}
+            songName={chart.name}
+            artistName={artist ? artist.firstName : "Unknown Artist"} // Fallback to "Unknown Artist" if artist not found
+            rank={chart.rank}
+          />
         );
-    });
+      });
 
     const onchange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value);

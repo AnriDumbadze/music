@@ -33,6 +33,7 @@ interface Music {
   id: number;
   name: string;
   artist: Artist; // Assuming each music item has an artist
+  image: Image[]
 }
 
 const Home = () => {
@@ -106,8 +107,8 @@ const Home = () => {
     const artist = artistData.find((a) => a.id === chart.artist.id); // Find artist for the current chart
     return (
       <TopChart
+        image={chart.image[chart.image.length - 1]?.url}
         key={chart.id}
-        image={"topChart"}
         songName={chart.name}
         artistName={artist ? artist.firstName : "Unknown Artist"} // Use optional chaining to handle cases where artist is not found
         rank={'rank'}
@@ -117,11 +118,11 @@ const Home = () => {
 
   const popularHits = data1.map((item) => (
     <MusicCard
-      url={item.}
+      url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
       key={item.id}
-      albumCover={"popHit"}
       author={item.artist.firstName} // Access the artist's first name
       songTitle={item.name}
+      id={item.id}
     />
   ));
 

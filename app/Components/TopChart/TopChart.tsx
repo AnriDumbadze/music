@@ -8,6 +8,7 @@ import styles from "./TopChart.module.scss"; // Change to .css
 import axios from "axios";
 import Image from 'next/image'; // Import Image from next/image
 
+
 interface Props {
   image: string;
   songName: string;
@@ -51,8 +52,8 @@ const TopChart = (props: Props) => {
     <div className={containerClassName}>
       <div className={styles.imageContainer}>
         <Image
-          src={`/Images/${props.image}.png`}
-          alt="image"
+          src={props.image}
+          alt={props.songName}
           className={styles.topImage}
           height={176} // Set appropriate height
           width={168}  // Set appropriate width

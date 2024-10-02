@@ -15,12 +15,12 @@ interface Music {
 
 interface Props {
   url: string;
-  albumCover: string;
   author: string; // Consider if you still need this prop
   songTitle: string; // Consider if you still need this prop
+  id: number;
 }
 
-function MusicCard({ albumCover }: Props) {
+function MusicCard(props: Props) {
   const [getData, setGetData] = useState<Music[]>([]);
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null); // Set default to null
 
@@ -58,18 +58,18 @@ function MusicCard({ albumCover }: Props) {
   return (
     <div className={cardClassName}>
       <div className={styles.musicPhoto1}>
-          <div key={music.id} className={styles.musicWrap}> 
+          <div key={props.id} className={styles.musicWrap}> 
             <div className={styles.musicPhoto}>
               <Image 
-                src={`/Images/${albumCover}.png`} 
-                alt={music.name} 
+                src={props.url} 
+                alt={props.songTitle} 
                 height={176} // Use numbers for height
                 width={168} // Use numbers for width
                 layout="intrinsic" // Use layout for better handling
               />
               <div className={styles.musicInfo}>
-                <p className={styles.songTitle}>{music.name}</p>
-                <p className={styles.author}>{music.artist.firstName}</p>
+                <p className={styles.songTitle}>{props.songTitle}</p>
+                <p className={styles.author}>{props.author}</p>
               </div>
             </div>
           </div>
