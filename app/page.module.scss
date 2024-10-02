@@ -4,6 +4,10 @@
   overflow-y: scroll;
 }
 
+.mainContent::-webkit-scrollbar{
+  display: none;
+}
+
 .burger{
   display: none;
 }
@@ -18,16 +22,29 @@
   width: 100%;
   overflow: scroll; 
 }
+
+.static::-webkit-scrollbar{
+  display: none;
+
+}
+
+.wrapperContainer{
+  display: flex;
+  flex-direction: column;
+}
+
+.staticFlex{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding-right: 16px;
+}
+
 .darkStatic{
   background-color: #0E0E0E;
 }
 
-.headerAdmin{
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 30px;
-}
+
 
 .HeaderTitle{
   position: relative;
@@ -228,6 +245,7 @@ letter-spacing: -0.48px;
       display: flex;
       
     }
+
 
     
 }

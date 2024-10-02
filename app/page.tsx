@@ -52,7 +52,9 @@ const convertDurationToSeconds = (duration: string | undefined): number => {
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
-  const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
+  const [themeColor, setThemeColor] = useState<string>(
+    getCookie("theme") || ""
+  );
   const [artistData, setArtistData] = useState<Artist[]>([]);
   const [musicData, setMusicData] = useState<Music[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -124,7 +126,9 @@ const Home = () => {
   const artistCards = artistData.map((artist) => (
     <ArtistCard
       key={artist.id}
-      artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
+      artistImg={
+        artist.image[artist.image.length - 1]?.url || "/Images/artist.png"
+      }
       artistName={artist.firstName}
       artistType="Artist"
       biography={artist.biography}
@@ -167,49 +171,60 @@ const Home = () => {
         <div className={styles.mainAside}>
           <Aside />
         </div>
-        <div className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""}`}>
-          <Header />
-          <MusicWrapper cards={artistCards} name="Popular artists" />
-          <MusicWrapper cards={popularHits} name="Popular hits of the week" />
-          <MusicWrapper cards={popularCharts} name="Popular Charts" />
-          <div className={styles.mainContent}>
-            <div className="App">
-              {showPlayer ? (
-                currentSong ? (
-                  <PlayerController
-                    albumTitle="Born To Die"
-                    dropdown="icons/arrowdown.svg"
-                    image={currentSong.src}
-                    currentTrack={currentSong.title}
-                    currentArtist={currentSong.artist}
-                    currentTime={currentTime}
-                    duration={convertDurationToSeconds(currentSong.songDuration)}
-                    isPlaying={isPlaying}
-                    onPlayPause={() => setIsPlaying((prev) => !prev)}
-                    onRepeat={() => {}}
-                    onShuffle={() => {}}
-                    queueTrack={currentSong.queueSong}
-                    queueArtist={currentSong.queueName}
-                    photo={currentSong.src}
-                    onToggleView={toggleView}
-                    currentSongId={currentSongId}
-                    setCurrentSongId={setCurrentSongId}
-                  />
+        <div
+          className={`${styles.static} ${
+            themeColor === "dark" ? styles.darkStatic : ""
+          }`}
+        >
+            <Header />
+          <div className={styles.staticFlex}>
+            <div className={styles.wrapperContainer}>
+
+            <MusicWrapper cards={artistCards} name="Popular artists" />
+            <MusicWrapper cards={popularHits} name="Popular hits of the week" />
+            <MusicWrapper cards={popularCharts} name="Popular Charts" />
+            </div>
+            <div className={styles.mainContent}>
+              <div className="App">
+                {showPlayer ? (
+                  currentSong ? (
+                    <PlayerController
+                      albumTitle="Born To Die"
+                      dropdown="icons/arrowdown.svg"
+                      image={currentSong.src}
+                      currentTrack={currentSong.title}
+                      currentArtist={currentSong.artist}
+                      currentTime={currentTime}
+                      duration={convertDurationToSeconds(
+                        currentSong.songDuration
+                      )}
+                      isPlaying={isPlaying}
+                      onPlayPause={() => setIsPlaying((prev) => !prev)}
+                      onRepeat={() => {}}
+                      onShuffle={() => {}}
+                      queueTrack={currentSong.queueSong}
+                      queueArtist={currentSong.queueName}
+                      photo={currentSong.src}
+                      onToggleView={toggleView}
+                      currentSongId={currentSongId}
+                      setCurrentSongId={setCurrentSongId}
+                    />
+                  ) : (
+                    <p>Song not found</p>
+                  )
                 ) : (
-                  <p>Song not found</p>
-                )
-              ) : (
-                currentSong && (
-                  <MusicListItem
-                    image={currentSong.src}
-                    songName={currentSong.title}
-                    artistName={currentSong.artist}
-                    rank=""
-                    button="./icons/playbtn.svg"
-                    onPlay={() => handleSongChange(currentSongId as number)}
-                  />
-                )
-              )} 
+                  currentSong && (
+                    <MusicListItem
+                      image={currentSong.src}
+                      songName={currentSong.title}
+                      artistName={currentSong.artist}
+                      rank=""
+                      button="./icons/playbtn.svg"
+                      onPlay={() => handleSongChange(currentSongId as number)}
+                    />
+                  )
+                )}
+              </div>
             </div>
           </div>
         </div>
