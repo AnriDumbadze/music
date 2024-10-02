@@ -3,18 +3,20 @@
 
 .artistCard {
   display: flex;
+  overflow: hidden;
 }
 
 .cardContent {
   display: flex;
   align-items: center;
-  overflow-x: scroll;
+  overflow: hidden;
   gap: 6px;
 }
 
 .artistInfo {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
 }
@@ -50,7 +52,12 @@
   .cardContent{
     width: 530px;
     overflow-x: scroll;
+    overflow: hidden;
     height: 168px;
     max-height: 128px;
+  }
+
+  .artistCard{
+    overflow: hidden ;
   }
 }

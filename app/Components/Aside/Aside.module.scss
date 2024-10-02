@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   width: 15%;
+  width: 241px;
   background-color: #FFF;
   height: 100vh;
   padding: 24px;
@@ -24,12 +25,6 @@
   margin-top: auto; // Pushes LightDark to the bottom
 }
 
-@media screen and (max-width: 900px) {
-  .aside {
-    display: none;
-  }
-}
-
 .darkAside{
   background-color: $DarkModeColor;
   height: 100vh;
@@ -38,4 +33,28 @@
   flex-direction: column;
   width: 15%;
   border:1px solid #262626;
+}
+
+@media (max-width: 768px) {
+  .aside {
+    display: flex;
+    flex-direction: row;
+    height: 82px;
+    width: 375px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightDarkContainer{
+    display: none;
+  }
+
+  .logo{
+    display: none;
+  }
+
+  .menuItems{
+    display: flex;
+    flex-direction: row;
+  }
 }
