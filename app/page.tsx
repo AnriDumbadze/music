@@ -209,7 +209,7 @@ const Home = () => {
                     onPlay={() => handleSongChange(currentSongId as number)}
                   />
                 )
-              )}
+              )} 
             </div>
           </div>
         </div>
