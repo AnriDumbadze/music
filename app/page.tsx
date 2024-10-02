@@ -13,6 +13,7 @@ import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
 import PlayerController from "./Components/PlayerController/PlayerController";
 import songs from "@/public/Consts/songs";
+import MusicListItem from "./Components/MusicList/MusicListItem";
 
 interface Artist {
   id: number;
@@ -36,6 +37,12 @@ interface Music {
   artist: Artist;
   image: Image[];
 }
+
+
+const convertDurationToSeconds = (duration: string): number => {
+  const [minutes, seconds] = duration.split(':').map(Number);
+  return (minutes * 60) + seconds;
+};
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
