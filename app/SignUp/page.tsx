@@ -48,7 +48,7 @@ const SignUp = () => {
 
       setCookie("userToken", response.data.token, 60);
       setCookie("isAdmin", response.data.forToken.role, 60);
-      router.replace("http://localhost:3000");
+      router.replace("https://burgermenu.d25x0dq5whxx2c.amplifyapp.com/");
     } catch (error) {
       setError("Error signing up. Please try again."); // Set error message
       console.error('Sign-up error:', error);
