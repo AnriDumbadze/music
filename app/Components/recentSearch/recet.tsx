@@ -1,6 +1,5 @@
 "use client"; // Add this line at the very top
-
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import styles from './recent.module.scss';
 import Icon from '../Icon/Icon';
 import Cookies from "js-cookie";
@@ -10,7 +9,6 @@ import axios from 'axios';
 interface RecentSearchData {
     id: number; // Assuming ID is a number
     name: string; // Name of the item
-    // Add other relevant properties as needed
 }
 
 interface Props {

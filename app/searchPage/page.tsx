@@ -9,7 +9,6 @@ import ArtistCard from '../Components/ArtistCard/ArtistCard';
 import TopChart from '../Components/TopChart/TopChart';
 import RecentSearch from "../Components/recentSearch/recet"; // Make sure the path is correct
 import axios from "axios";
-import Cookies from "js-cookie";
 
 interface Image {
     id: number;

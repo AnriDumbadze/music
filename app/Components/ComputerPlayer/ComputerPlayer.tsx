@@ -2,13 +2,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./ComputerPlayer.module.scss";
 import { Slider } from "antd";
-import songs from "@/public/Consts/songs"; // Assuming you have a songs array
+import songs from "../../../public/Consts/songs"; // Assuming you have a songs array
 import Icon from "../Icon/Icon";
-import { getCookie } from "../Aside/Aside";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useCallback } from "react";
-import Image from 'next/image';
+
 
 interface Song {
   id: number;
@@ -220,7 +219,7 @@ export default function Player() {
             {isPlaying ? (
               <img src={getIconPath('pause')} alt="Pause" />
             ) : (
-              <img src={getIconPath('play')} alt="Play" />
+              <img  src={getIconPath('play')} alt="Play" />
             )}
           </div>
           <div className={styles.controlBTN}>

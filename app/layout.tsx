@@ -1,14 +1,14 @@
 "use client"
 import React from "react";
-import { Cookie, Inter } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import Player from "./Components/ComputerPlayer/ComputerPlayer"; // Import the Player component
 import { usePathname } from 'next/navigation';
 import { FloatButton } from 'antd';
 import Icon from "./Components/Icon/Icon";
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
 import { RecoilRoot } from "recoil"; 
+import Player from "./Components/ComputerPlayer/ComputerPlayer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,7 +37,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <RecoilRoot> 
           {children}
-          {showPlayer && <Player />}
+          {showPlayer && <Player/>}
           {showExitButton && 
             <FloatButton
               shape="circle"

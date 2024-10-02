@@ -21,6 +21,9 @@ const TopChart = (props: Props) => {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null);
   const [getData, setGetData] = useState([]);
 
+  console.log(getData);
+  
+
   useEffect(() => {
     const updateTheme = () => {
       const newTheme = getCookie("theme");
