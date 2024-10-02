@@ -144,21 +144,25 @@ const Home = () => {
           <MusicWrapper cards={artistCards} name={"Popular artists"} />
           <MusicWrapper cards={popularHits} name={"Popular hits of the week"} />
           <MusicWrapper cards={popularCharts} name={"Popular Charts"} />
-          <PlayerController albumTitle={"John"} dropdown={"yes"} queueTrack={"no"} queueArtist={"John"} photo={"nice"} image={"ok"} duration={0} isPlaying={false} onPlayPause={function (): void {
-            throw new Error("Function not implemented.");
-          } } onSkipForward={function (): void {
-            throw new Error("Function not implemented.");
-          } } onSkipBackward={function (): void {
-            throw new Error("Function not implemented.");
-          } } onRepeat={function (): void {
-            throw new Error("Function not implemented.");
-          } } onShuffle={function (): void {
-            throw new Error("Function not implemented.");
-          } } onToggleView={function (): void {
-            throw new Error("Function not implemented.");
-          } } currentSongId={0} setCurrentSongId={function (value: React.SetStateAction<number>): void {
-            throw new Error("Function not implemented.");
-          } }/>
+          <PlayerController
+                albumTitle="Born To Die"
+                dropdown="icons/arrowdown.svg"
+                image={currentSong.src}
+                currentTrack={currentSong.title}
+                currentArtist={currentSong.artist}
+                currentTime={currentTime}
+                duration={convertDurationToSeconds(currentSong.songDuration)} 
+                isPlaying={isPlaying}
+                onPlayPause={() => setIsPlaying(prev => !prev)}
+                onRepeat={() => {}}
+                onShuffle={() => {}}
+                queueTrack={currentSong.queueSong}
+                queueArtist={currentSong.queueName}
+                photo={currentSong.src}
+                onToggleView={toggleView}
+                currentSongId={currentSongId}
+                setCurrentSongId={setCurrentSongId}
+              />
         </div>
         <div className={styles.secondAside}>
           <Aside />
