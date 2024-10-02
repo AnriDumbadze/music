@@ -45,25 +45,29 @@ const AsideMenu = () => {
     <div className={`${styles.aside} ${themeColor === 'dark' ? styles.darkAside : ''}`}>
       <div className={styles.siderContent}>
         <div className={styles.logo}>
-          <Icon width='72px' name={"FAZER"} isActive={false} onClick={() => {}} />
+          <Icon width='72px' name={"FAZER"} isActive={false} onClick={() => { }} />
         </div>
         <div className={styles.menuItems}>
-        <MenuItem
-  name={"home"}
-  isActive={activeItem === "home"}
-  onClick={() => handleMenuItemClick("home", "/")} // Use relative paths
-/>
-<MenuItem
-  name={"search"}
-  isActive={activeItem === "search"}
-  onClick={() => handleMenuItemClick("search", "/searchPage")} // Use relative paths
-/>
+          <MenuItem
+            name={"home"}
+            isActive={activeItem === "home"}
+            onClick={() => handleMenuItemClick("home", "/")} // Use relative paths
+          />
+          <MenuItem
+            name={"search"}
+            isActive={activeItem === "search"}
+            onClick={() => handleMenuItemClick("search", "/searchPage")} // Use relative paths
+          />
 
-
+          <MenuItem
+            name={"library"}
+            isActive={activeItem === "slibrary"}
+            onClick={() => handleMenuItemClick("library", "/library")} // Use relative paths
+          />
 
         </div>
       </div>
-      
+
       <div className={styles.lightDarkContainer}>
         <LightDark />
       </div>

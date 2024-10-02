@@ -10,10 +10,8 @@ interface BadgeItem {
 }
 
 type Props = {
-  badgeItem?: BadgeItem; // Use a specific type here
   title: string;
   songQuantity: string;
-  id: number;
   imageUrl?: string; // Optional image URL prop
 };
 
@@ -39,6 +37,7 @@ const LibraryItem = (props: Props) => {
             height={80} // Set height for the image
             alt={props.title}
             layout="fixed" // Maintain the fixed layout for the image
+            className={styles.photo}
           />
         </div>
         <div className={styles.itemInfo}>
@@ -47,11 +46,7 @@ const LibraryItem = (props: Props) => {
         </div>
       </div>
       <div className={styles.downloadContainer}>
-        <div className={styles.downloadCursor}>
-          <Icon name={"Download"} onClick={handleIconClick} isActive={isActive} />
-        </div>
 
-        <Icon name={"More"} isActive={false} onClick={handleMoreClick} />
       </div>
     </div>
   );
