@@ -246,6 +246,12 @@ letter-spacing: -0.48px;
       
     }
 
-
+    .staticFlex{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      padding-right: 16px;
+      flex-direction: column;
+    }
     
 }

@@ -165,24 +165,23 @@ const Home = () => {
     <RecoilRoot>
       <div className={styles.mainContent}>
         <div className={styles.burger}>
-          <Icon width="72px" name="FAZER" isActive={false} onClick={() => {}} />
+          <Icon width="72px" name="FAZER" isActive={false} onClick={() => { }} />
           <BurgerMenuMobile />
         </div>
         <div className={styles.mainAside}>
           <Aside />
         </div>
         <div
-          className={`${styles.static} ${
-            themeColor === "dark" ? styles.darkStatic : ""
-          }`}
+          className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""
+            }`}
         >
-            <Header />
+          <Header />
           <div className={styles.staticFlex}>
             <div className={styles.wrapperContainer}>
 
-            <MusicWrapper cards={artistCards} name="Popular artists" />
-            <MusicWrapper cards={popularHits} name="Popular hits of the week" />
-            <MusicWrapper cards={popularCharts} name="Popular Charts" />
+              <MusicWrapper cards={artistCards} name="Popular artists" />
+              <MusicWrapper cards={popularHits} name="Popular hits of the week" />
+              <MusicWrapper cards={popularCharts} name="Popular Charts" />
             </div>
             <div className={styles.mainContent}>
               <div className="App">
@@ -195,20 +194,19 @@ const Home = () => {
                       currentTrack={currentSong.title}
                       currentArtist={currentSong.artist}
                       currentTime={currentTime}
-                      duration={convertDurationToSeconds(
-                        currentSong.songDuration
-                      )}
+                      duration={convertDurationToSeconds(currentSong.songDuration)}
                       isPlaying={isPlaying}
                       onPlayPause={() => setIsPlaying((prev) => !prev)}
-                      onRepeat={() => {}}
-                      onShuffle={() => {}}
+                      onRepeat={() => { }}
+                      onShuffle={() => { }}
                       queueTrack={currentSong.queueSong}
                       queueArtist={currentSong.queueName}
                       photo={currentSong.src}
                       onToggleView={toggleView}
-                      currentSongId={currentSongId}
+                      currentSongId={currentSongId !== null ? currentSongId : 0} // Handle null case
                       setCurrentSongId={setCurrentSongId}
                     />
+
                   ) : (
                     <p>Song not found</p>
                   )
