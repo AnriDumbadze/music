@@ -1,8 +1,41 @@
-const songs = [
-  { id: 1, title: "Born to Die", artist: "Lana Del rey", url: "https://musicappbacket.s3.eu-north-1.amazonaws.com/Lana+Del+Rey+-+Born+To+Die+%28Lyrics%29", songDuration: "5:00", queueSong: "Sour", queueName: "Olivia Rodygo", src:"./images/lana-anal.png", queueImg: "./images/OliviaQueue.png",},
-  { id: 2, title: "Rusian song", artist: "Russian mafia", url: "https://musicappbacket.s3.eu-north-1.amazonaws.com/Bagardi%20-%20Baby%20Stop%20%28%F0%9D%92%94%F0%9D%92%8D%F0%9D%92%90%F0%9D%92%98%F0%9D%92%86%F0%9D%92%85%20%20%F0%9D%92%93%F0%9D%92%86%F0%9D%92%97%F0%9D%92%86%F0%9D%92%93%F0%9D%92%83%29", src: "https://musicappbacket.s3.eu-north-1.amazonaws.com/ewevidzma%3F", songDuration: "4:12", queueImg: "./images/queue.png", queueSong: "cxra mtas gadavivli", queueName: "gabriel pogba" },
-  { id: 3, title: "Robbery", artist: "Jungle World", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", src: "./images/artistSec.png", songDuration: "4:12", queueImg: "./images/queue.png", queueSong: "chanchxalo ox chanchxalo", queueName: "anri" },
-  { id: 4, title: "Travis Scott - goosebumps ft. Kendrick Lamar", artist: "Travis Scott", url: "https://musicappbacket.s3.eu-north-1.amazonaws.com/Travis+Scott+-+goosebumps+ft.+Kendrick+Lamar", songDuration: "4:10", queueImg: "https://musicappbacket.s3.eu-north-1.amazonaws.com/travisa", queueSong: "cxra mtas gadavivli", queueName: "gabriel pogba", src:"https://musicappbacket.s3.eu-north-1.amazonaws.com/travisa" },
-];
+import { getCookie } from "@/app/Components/Aside/Aside";
+import axios from "axios";
 
-export default songs;
+// Retrieve user token from cookies
+const userToken = getCookie("userToken");
+
+// Define the songs array outside of the Axios request
+let songs: any[] = [];
+
+// Fetch music data from the API
+axios
+  .get("https://music-back-1s59.onrender.com/music", {
+    headers: { Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ4dXNraUBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjc5NzA5NjIsImV4cCI6MTczMzE1NDk2Mn0.OcqTFqa8NHBmOwuK4ICwv4376duyMO7rByhKUQFB0k8"}` }, // Use user token from cookies
+  })
+  .then((response) => {
+    const musicData = response.data; // Assign fetched data to musicData array
+
+    console.log(`Fetched music data:`, musicData);
+
+    // Populate the songs array based on fetched music data
+    songs = musicData.map((musicItem: any) => ({
+      id: musicItem.id, // Assuming musicItem has an 'id' property
+      title: musicItem.name, // Assuming musicItem has a 'name' property
+      artist: musicItem.artist || "Unknown Artist", // Use a default if artist is not provided
+      url: musicItem.url || "", // Use a default if url is not provided
+      songDuration: musicItem.duration || "0:00", // Default duration
+      queueSong: musicItem.queueSong || "N/A", // Default queue song
+      queueName: musicItem.queueName || "N/A", // Default queue name
+      src: musicItem.src || "./images/default.png", // Default image source
+      queueImg: musicItem.queueImg || "./images/defaultQueue.png", // Default queue image
+    }));
+
+    // Log the songs array
+    console.log(`Processed songs array:`, songs);
+  })
+  .catch((error) => {
+    console.error("Error fetching music data:", error);
+  });
+
+// Export the songs array as a named export
+export { songs };
