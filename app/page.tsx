@@ -202,7 +202,7 @@ const Home = () => {
                       queueArtist={currentSong.queueName}
                       photo={currentSong.src}
                       onToggleView={toggleView}
-                      currentSongId={currentSongId !== null ? currentSongId : undefined} // Pass undefined instead of 0 if null
+                      currentSongId={currentSongId !== null ? currentSongId : 0} // Pass 0 if null
                       setCurrentSongId={setCurrentSongId} // Keep as is
                     />
                   ) : (
