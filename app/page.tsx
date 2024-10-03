@@ -60,7 +60,7 @@ const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime] = useState(0);
   const [showPlayer, setShowPlayer] = useState(true);
-  const [currentSongId, setCurrentSongId] = useState<number | null>(null);
+   const [currentSongId, setCurrentSongId] = useState<number | null>(null);
 
   // Fetch songs only after the component mounts
   useEffect(() => {
