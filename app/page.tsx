@@ -60,9 +60,14 @@ const Home = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime] = useState(0);
   const [showPlayer, setShowPlayer] = useState(true);
-  const [currentSongId, setCurrentSongId] = useState<number | null>(
-    songs.length > 0 ? songs[0].id : null
-  );
+  const [currentSongId, setCurrentSongId] = useState<number | null>(null);
+
+  // Fetch songs only after the component mounts
+  useEffect(() => {
+    if (songs.length > 0) {
+      setCurrentSongId(songs[0].id); // Set the first song's ID if songs are available
+    }
+  }, [songs]);
 
   // Fetch artist data
   useEffect(() => {
