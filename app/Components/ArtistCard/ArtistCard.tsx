@@ -11,6 +11,7 @@ type Props = {
   artistName: string;
   artistType: string;
   biography: string;
+  onClick?:() => void
 };
 
 interface Image {
@@ -75,7 +76,7 @@ const ArtistCard = (props: Props) => {
     <div className={cardClassName}>
       <div className={styles.cardContent}>
       
-          <div key={props.artistName} className={styles.artistInfo}>
+          <div onClick={props.onClick} key={props.artistName} className={styles.artistInfo}>
             <Image
               src={props.artistImg} // Use a known valid image URL
               alt={props.artistName}

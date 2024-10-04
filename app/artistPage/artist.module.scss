@@ -1,0 +1,589 @@
+.mainContent {
+    display: flex;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
+  
+  
+  .mainContent::-webkit-scrollbar{
+    display: none;
+  }
+  
+  .burger{
+    display: none;
+  }
+  
+  .default{
+    display: flex;
+    height: fit-content;
+  }
+  
+  .static{
+    background: #F7F7F7;
+    width: 100%;
+    overflow: scroll; 
+  }
+  
+  .static::-webkit-scrollbar{
+    display: none;
+  
+  }
+  
+  .wrapperContainer{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .app{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    border-radius: 24px;
+    align-items: center;
+    justify-content: center;
+    background-color: #fbfbfb;
+  }
+  
+  .staticFlex{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 16px;
+  }
+  
+  .darkStatic{
+    background-color: #0E0E0E;
+  }
+  
+  
+  
+  
+  .HeaderTitle{
+    position: relative;
+    font-size: 24px;
+    color: #292929;
+  }
+  
+  .line{
+    width: 1134px;
+    height: 4px;
+    background-color: rgba(0, 0, 0, 0.031372549);
+    position: relative;
+    top: 10px;
+    left: 33px;
+  }
+  
+  .text{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    gap: 16px;
+    width: 557px;
+    height: 48px;
+  }
+  
+  .bio{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 557px;
+    height: 264px;
+    gap: 16px;
+  }
+  
+  .head{
+    font-size: 24px;
+    font-weight: 500;
+  
+  }
+  
+  .album{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 557px;
+    height: 48px;
+  }
+  
+  .img{
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  }
+  
+  .imageText{
+    display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  align-self: stretch;
+  color: var(--SecondaryDarkModeTExtCollor, #898989);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.32px;
+  }
+  
+  .iimg{
+    color: var(--PrimaryTextCollorWHiteMode, #292929);
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 100% */
+  letter-spacing: -0.48px;
+  }
+  
+  .buttons{
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .BiographyText{
+    width: 557px;
+    height: 224px;
+    border-radius: 12px;
+    padding: 12px 16px;
+    border: none;
+  }
+  
+  .btn1{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 12px;
+    width: 138px;
+    padding: 8px 16px;
+    color: #898989;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .container{
+    display: flex;
+    align-items: center;
+    width: 1135px;
+    justify-content: space-between;
+  }
+  
+  .artistSearch{
+    width: 276px;
+    height: 48px;
+    border-radius: 16px;
+    padding: 12px 44px;
+    border: none;
+  }
+  
+  .icon{
+    position: relative;
+    left: 33px;
+    top: 2px;
+  }
+  
+  .search{
+    display: flex;
+    align-items: center;
+  }
+  
+  .contaienrGroup{
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+  
+  .listInfo{
+    width: 1135px;
+    border: 1px solid black;
+    height: 56px;
+  }
+  
+  .items{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+  }
+  
+  .ArtistInfo{
+    width: 1135px;
+    border: 1px solid black;
+    height: 56px;
+  }
+  
+  .Active{
+    width: 83px;
+    height: 32px;
+    padding: 4px 24px;
+    background-color: #0EC60A1A;
+    border-radius: 16px;
+    color: #0EC60A;
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+  }
+  
+  .containerMusic{
+    display: flex;
+    
+  }
+  
+  .secondAside{
+    display: none;
+  }
+  
+  
+  
+  @media (max-width: 768px) { 
+      .mainAside{
+        display: none;
+      }
+  
+      .mainContent{
+        display: flex;
+        flex-direction: column;
+      }
+  
+      .burger{
+        display: flex;
+        padding: 56px 220px 16px 16px;
+      }
+  
+      .secondAside{
+        display: flex;
+        
+      }
+  
+      .staticFlex{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding-right: 16px;
+        flex-direction: column;
+      }
+      
+  }
+  
+  .playerController {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #251918;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    top: 395px;
+  }
+  
+  
+  
+  
+  @media screen and (width: 1024px) {
+    .playerController{
+      flex-direction: row;
+    }
+  }
+  
+  
+  .trackInfo {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  
+  .albumArt {
+    width: 343px;
+    height: 343px;
+    top: 119px;
+    left: 16px;
+    border-radius: 12px;
+  }
+  
+  .trackDetails {
+    display: flex;
+    color: black;
+    flex-direction: column;
+  }
+  
+  .track {
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: -0.3199999928474426px;
+    text-align: left;
+    color: black;
+    margin-top: 32px;
+    margin-bottom: 4px;
+  }
+  
+  .trackDetails p {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.3199999928474426px;
+    text-align: left;
+    color: #898989;
+    margin-bottom: 12px;
+  }
+  
+  .controls {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
+  
+  .controls button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+  }
+  
+  .progress {
+    max-width: 310px;
+    margin-top: 40px;
+    margin-right: 20px;
+  }
+  
+  .progress input[type="range"] {
+    flex: 1;
+    margin: 0 10px;
+    border: solid 1px #898989;
+    box-shadow: 0px 4px 4px 0px #00000040;
+    border-radius: 1px;
+    height: 1px;
+    width: 100%;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  
+  .duration {
+    margin-left: 285px;
+    color: #898989;
+  }
+  
+  .current {
+    margin-bottom: -48px;
+    margin-left: 10px;
+    color: #898989;
+  }
+  
+  .playInput {
+    cursor: pointer;
+  }
+  
+  .shuffle {
+    margin-right: -10px;
+    margin-top: -10px;
+  }
+  
+  .repeat {
+    margin-left: -10px;
+    margin-top: -10px;
+  }
+  
+  .icons {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: -50px;
+    margin-left: -10px;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .queue {
+    width: 375px;
+    height: 100%;
+    top: 690px;
+    padding: 16px;
+    border-radius: 24px 24px;
+    background-color: #FFFFFF0D;
+    margin-left: -22px;
+    margin-top: 24px;
+  }
+  
+  .queue p {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    letter-spacing: -0.3199999928474426px;
+    text-align: left;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .next {
+    width: 343px;
+    height: 72px;
+    padding: 12px;
+    gap: 10px;
+    border-radius: 12px;
+    background-color: #F7F7F70D;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .queueTrack {
+    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.3199999928474426px;
+    text-align: left;
+    color: #FFFFFF;
+  }
+  
+  .queueArtist {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.3199999928474426px;
+    text-align: left;
+    color: #898989;
+  }
+  
+  .names {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-left: -50px;
+  }
+  
+  .image {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+  
+  .albumName {
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    letter-spacing: -0.3199999928474426px;
+    text-align: left;
+    color: #898989;
+    padding-bottom: 31px;
+  }
+  
+  .arrow {
+    display: flex;
+    width: 100%;
+    margin-bottom: -25px;
+  }
+  .videoContainer {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .controllerbutton{
+    cursor: pointer;
+  }
+  
+  /* Custom Progress Bar Container */
+  .customProgressContainer {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0; /* Light grey background */
+    position: absolute;
+    bottom: 10px; /* Position near the bottom of the video */
+    left: 0;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  
+  /* Custom Progress Bar */
+  .customProgressBar {
+    height: 100%;
+    background-color: #E5E5E5; /* The stroke color you want */
+    stroke-width: 3px; /* Mimicking the stroke width */
+    transition: width 0.4s ease; /* Smooth transition */
+    align-self: stretch;
+  }
+  
+  .forpointer {
+    cursor: pointer;
+  }
+  
+
+  .artistContainer{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-evenly;
+  }
+
+  .imgBackground{
+    width: 100%;
+    height: 500px;
+  }
+
+  .nameMusic{
+    position: relative;
+    bottom: 97px;
+    left: 46px;
+    color: #fff;
+    font-size: 64px;
+    font-weight: 800;
+  }
+
+  .imgAll{
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+  }
+
+  .musicInfo{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+  }
+
+  .info{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #ffff;
+    padding: 12px 16px;
+    width: 769px;
+    height: 88px;
+  }
+
+  .text1{
+    display: flex;
+    flex-direction: column
+    ;
+  }
+
+  .text1P{
+    color: #292929;
+  }
+
+  .text1SP{
+    color: #8F93A3;
+  }
