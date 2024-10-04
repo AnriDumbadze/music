@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./page.module.scss";
 import Aside, { getCookie } from "./Components/Aside/Aside";
 import TopChart from "./Components/TopChart/TopChart";
@@ -12,8 +12,6 @@ import { RecoilRoot } from "recoil";
 import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
-import PlayerController from "./Components/PlayerController/PlayerController";
-import songs from "@/public/Consts/songs";
 import MusicListItem from "./Components/MusicList/MusicListItem";
 
 interface Artist {
@@ -37,38 +35,17 @@ interface Music {
   name: string;
   artist: Artist;
   image: Image[];
-  songDuration?: string; // Assuming songDuration is part of the Music interface
+  mp3: { url: string }; // Ensure mp3 field is included
 }
-
-const convertDurationToSeconds = (duration: string | undefined): number => {
-  if (!duration) {
-    console.error("Invalid duration:", duration);
-    return 0; // Default value
-  }
-
-  const [minutes, seconds] = duration.split(":").map(Number);
-  return isNaN(minutes) || isNaN(seconds) ? 0 : minutes * 60 + seconds;
-};
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
-  const [themeColor, setThemeColor] = useState<string>(
-    getCookie("theme") || ""
-  );
+  const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
   const [artistData, setArtistData] = useState<Artist[]>([]);
   const [musicData, setMusicData] = useState<Music[]>([]);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [currentTime] = useState(0);
   const [showPlayer, setShowPlayer] = useState(true);
-   const [currentSongId, setCurrentSongId] = useState<number | null>(null);
-
-  // Fetch songs only after the component mounts
-  useEffect(() => {
-    if (songs.length > 0) {
-      setCurrentSongId(songs[0].id); // Set the first song's ID if songs are available
-    }
-  }, [songs]);
-
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentTrackTime, setCurrentTrackTime] = useState(0);
   // Fetch artist data
   useEffect(() => {
     const userToken = getCookie("userToken");
@@ -99,73 +76,35 @@ const Home = () => {
       });
   }, []);
 
-  // Update theme
+
+
+
+  const videoRef = useRef<HTMLVideoElement | null>(null); 
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % musicData.length); // Increment index and wrap around
+    setCurrentTrackTime(0); // Reset track time
+  };
+
+
   useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme");
-      setThemeColor(newTheme || "");
-    };
-
-    updateTheme();
-    const themeInterval = setInterval(updateTheme, 0);
-    return () => clearInterval(themeInterval);
-  }, []);
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
-  };
-
-  const toggleView = () => {
-    setShowPlayer((prevShowPlayer) => !prevShowPlayer);
-  };
-
-  const handleSongChange = (id: number) => {
-    if (songs.some((song) => song.id === id)) {
-      setCurrentSongId(id);
-      setShowPlayer(true);
-    }
-  };
-
-  const currentSong = songs.find((song) => song.id === currentSongId);
-
-  const artistCards = artistData.map((artist) => (
-    <ArtistCard
-      key={artist.id}
-      artistImg={
-        artist.image[artist.image.length - 1]?.url || "/Images/artist.png"
+    if (musicData.length > 0) {
+      const currentSong = musicData[currentIndex]; // Get the current song based on the index
+      if (videoRef.current) {
+        videoRef.current.src = currentSong.mp3.url; // Update the video source
+        videoRef.current.load(); // Load the new source
+        videoRef.current.play(); // Play the new track
       }
-      artistName={artist.firstName}
-      artistType="Artist"
-      biography={artist.biography}
-    />
-  ));
+    }
+  }, [currentIndex, musicData]); // Run when currentIndex or musicData changes
 
-  const popularCharts = musicData.map((chart) => {
-    const artist = artistData.find((a) => a.id === chart.artist.id);
-    return (
-      <TopChart
-        image={
-          chart.image[chart.image.length - 1]?.url ||
-          "https://musicappbacket.s3.eu-north-1.amazonaws.com/271247016_1261196094379214_756297623613666142_n"
-        }
-        key={chart.id}
-        songName={chart.name}
-        artistName={artist ? artist.firstName : "Unknown Artist"}
-        rank="rank"
-      />
-    );
-  });
 
-  const popularHits = musicData.map((item) => (
-    <MusicCard
-      url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
-      key={item.id}
-      author={item.artist.firstName}
-      songTitle={item.name}
-      id={item.id}
-    />
-  ));
+  const currentSong = musicData[currentIndex];
 
+
+  if (currentSong) {
+    console.log(currentSong.mp3.url);
+  }
+  
   return (
     <RecoilRoot>
       <div className={styles.mainContent}>
@@ -176,54 +115,50 @@ const Home = () => {
         <div className={styles.mainAside}>
           <Aside />
         </div>
-        <div
-          className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""
-            }`}
-        >
+        <div className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""}`}>
           <Header />
           <div className={styles.staticFlex}>
             <div className={styles.wrapperContainer}>
-              <MusicWrapper cards={artistCards} name="Popular artists" />
-              <MusicWrapper cards={popularHits} name="Popular hits of the week" />
-              <MusicWrapper cards={popularCharts} name="Popular Charts" />
+              <MusicWrapper cards={artistData.map((artist) => (
+                <ArtistCard
+                  key={artist.id}
+                  artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
+                  artistName={artist.firstName}
+                  artistType="Artist"
+                  biography={artist.biography}
+                />
+              ))} name="Popular artists" />
+              <MusicWrapper cards={musicData.map((item) => (
+                <MusicCard
+                  url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
+                  key={item.id}
+                  author={item.artist.firstName}
+                  songTitle={item.name}
+                  id={item.id}
+                />
+              ))} name="Popular hits of the week" />
             </div>
             <div className={styles.mainContent}>
               <div className="App">
-                {showPlayer ? (
-                  currentSong ? (
-                    <PlayerController
-                      albumTitle="Born To Die"
-                      dropdown="icons/arrowdown.svg"
-                      image={currentSong.src}
-                      currentTrack={currentSong.title}
-                      currentArtist={currentSong.artist}
-                      currentTime={currentTime}
-                      duration={convertDurationToSeconds(currentSong.songDuration)}
-                      isPlaying={isPlaying}
-                      onPlayPause={() => setIsPlaying((prev) => !prev)}
-                      onRepeat={() => {}}
-                      onShuffle={() => {}}
-                      queueTrack={currentSong.queueSong}
-                      queueArtist={currentSong.queueName}
-                      photo={currentSong.src}
-                      onToggleView={toggleView}
-                      currentSongId={currentSongId !== null ? currentSongId : 0} // Pass 0 if null
-                      setCurrentSongId={setCurrentSongId} // Keep as is
-                    />
-                  ) : (
-                    <p>Song not found</p>
-                  )
+                {showPlayer && currentSong ? (
+                  <>
+                    <div className={styles.trackInfo}>
+                      <img src={currentSong.image[0]?.url || "default-album-art.jpg"} alt="Album Art" className={styles.albumArt} />
+                      <div className={styles.trackDetails}>
+                        <h3 className={styles.track}>{currentSong.name}</h3>
+                        <p>{currentSong.artist.firstName}</p>
+                      </div>
+                    </div>
+                    <div className={styles.videoContainer}>
+                    <video ref={videoRef} className={styles.lineVideo} controls>
+                        <source src={currentSong.mp3.url} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                      <button onClick={handleNext}>Next</button>
+                    </div>
+                  </>
                 ) : (
-                  currentSong && (
-                    <MusicListItem
-                      image={currentSong.src}
-                      songName={currentSong.title}
-                      artistName={currentSong.artist}
-                      rank=""
-                      button="./icons/playbtn.svg"
-                      onPlay={() => handleSongChange(currentSongId as number)}
-                    />
-                  )
+                  <p>No music available</p>
                 )}
               </div>
             </div>

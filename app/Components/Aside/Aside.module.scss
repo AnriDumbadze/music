@@ -26,13 +26,11 @@
 }
 
 .darkAside{
-  background-color: $DarkModeColor;
+  background-color: #151515;
   height: 100vh;
   padding: 24px;
   display: flex;
   flex-direction: column;
-  width: 15%;
-  border:1px solid #262626;
 }
 
 @media (max-width: 768px) {
