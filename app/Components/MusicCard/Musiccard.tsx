@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./MusicCard.module.scss";
 import { getCookie } from "../Aside/Aside";
 import axios from "axios";
-import Image from 'next/image'; // Import Image from next/image
+import Image from 'next/image'; 
 
 interface Music {
   id: number; // or string based on your API response
@@ -60,10 +60,14 @@ function MusicCard(props: Props) {
       <div className={styles.musicPhoto1}>
           <div key={props.id} className={styles.musicWrap}> 
             <div className={styles.musicPhoto}>
-              <Image 
+
+              
+
+            <Image 
+            className={styles.img}
                 src={props.url} 
                 alt={props.songTitle} 
-                height={176} // Use numbers for height
+                height={172} // Use numbers for height
                 width={168} // Use numbers for width
                 layout="intrinsic" // Use layout for better handling
               />
