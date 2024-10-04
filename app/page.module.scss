@@ -34,6 +34,16 @@
   flex-direction: column;
 }
 
+.app{
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 24px;
+  align-items: center;
+  justify-content: center;
+  background-color: #fbfbfb;
+}
+
 .staticFlex{
   display: flex;
   width: 100%;
@@ -44,6 +54,7 @@
 .darkStatic{
   background-color: #0E0E0E;
 }
+
 
 
 
@@ -296,8 +307,8 @@ letter-spacing: -0.48px;
 
 .trackDetails {
   display: flex;
+  color: black;
   flex-direction: column;
-  margin-left: 16px;
 }
 
 .track {
@@ -307,7 +318,7 @@ letter-spacing: -0.48px;
   line-height: 26px;
   letter-spacing: -0.3199999928474426px;
   text-align: left;
-  color: #FFFFFF;
+  color: black;
   margin-top: 32px;
   margin-bottom: 4px;
 }
@@ -484,20 +495,14 @@ letter-spacing: -0.48px;
   margin-bottom: -25px;
 }
 .videoContainer {
-  position: relative;
+  display: flex;
+  align-items: flex-end;
   width: 100%;
-  max-width: 800px; 
-  margin: 20px auto; 
   border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-.lineVideo {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  outline: none;
+.controllerbutton{
+  cursor: pointer;
 }
 
 /* Custom Progress Bar Container */

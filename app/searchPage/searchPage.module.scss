@@ -14,3 +14,11 @@
   .darkStatic{
     background-color: #0E0E0E;
   }
+
+
+  @media (max-width:700px) {
+    .mainContent{
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
