@@ -77,24 +77,26 @@ const Home = () => {
       });
   }, []);
 
-
-
-
   const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  // Handle track change
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % musicData.length); // Increment index and wrap around
     setCurrentTrackTime(0); // Reset track time
   };
 
   const handleBack = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1) % musicData.length)
+    setCurrentIndex((prevIndex) => (prevIndex - 1) % musicData.length);
     setCurrentTrackTime(0);
-  }
+  };
 
-  const addMusic = (musicProps: Music) => {
-    setMusicData([musicProps, ...musicData])
-  }
-
+  // Handle selecting a song from the music list without modifying the musicData array
+  const handleMusicSelect = (musicId: number) => {
+    const selectedMusicIndex = musicData.findIndex((music) => music.id === musicId);
+    if (selectedMusicIndex !== -1) {
+      setCurrentIndex(selectedMusicIndex); // Set the selected song index without altering the array
+    }
+  };
 
   useEffect(() => {
     if (musicData.length > 0) {
@@ -107,19 +109,13 @@ const Home = () => {
     }
   }, [currentIndex, musicData]); // Run when currentIndex or musicData changes
 
-
   const currentSong = musicData[currentIndex];
-
-
-  if (currentSong) {
-    console.log(currentSong.mp3.url);
-  }
 
   return (
     <RecoilRoot>
       <div className={styles.mainContent}>
         <div className={styles.burger}>
-          <Icon width="72px" name="FAZER" isActive={false} onClick={() => { }} />
+          <Icon width="72px" name="FAZER" isActive={false} onClick={() => {}} />
           <BurgerMenuMobile />
         </div>
         <div className={styles.mainAside}>
@@ -129,31 +125,31 @@ const Home = () => {
           <Header />
           <div className={styles.staticFlex}>
             <div className={styles.wrapperContainer}>
-              <MusicWrapper cards={artistData.map((artist) => (
-                <ArtistCard
-                  key={artist.id}
-                  artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
-                  artistName={artist.firstName}
-                  artistType="Artist"
-                  biography={artist.biography}
-                />
-              ))} name="Popular artists" />
+              <MusicWrapper
+                cards={artistData.map((artist) => (
+                  <ArtistCard
+                    key={artist.id}
+                    artistImg={artist.image[artist.image.length - 1]?.url || "/Images/artist.png"}
+                    artistName={artist.firstName}
+                    artistType="Artist"
+                    biography={artist.biography}
+                  />
+                ))}
+                name="Popular artists"
+              />
               <MusicWrapper
                 cards={musicData.map((item) => (
-                  <div key={item.id}  onClick={() => addMusic({id: item.id, name: item.name, artist: item.artist, image: item.image, mp3: {url: item.mp3.url}})}>
+                  <div key={item.id} onClick={() => handleMusicSelect(item.id)}>
                     <MusicCard
                       url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                       author={item.artist.firstName}
                       songTitle={item.name}
                       id={item.id}
-                      
                     />
                   </div>
                 ))}
-                
                 name="Popular hits of the week"
               />
-
             </div>
             <div className={styles.mainContent}>
               <div className="App">
@@ -173,14 +169,12 @@ const Home = () => {
                       </video>
                       <div onClick={handleNext} className={styles.controllerbutton}>
                         <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.8507 8.37869L18.648 14.8574C19.5107 15.3747 19.5107 16.6267 18.648 17.144L7.8507 23.6227C6.9627 24.1547 5.83203 23.5147 5.83203 22.4787V9.52135C5.83203 8.48535 6.9627 7.84535 7.8507 8.37869Z" fill="#292929" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" />
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M25.168 24C24.064 24 23.168 23.104 23.168 22V10C23.168 8.896 24.064 8 25.168 8C26.272 8 27.168 8.896 27.168 10V22C27.168 23.104 26.272 24 25.168 24Z" fill="#292929" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" />
+                          {/* SVG Path for Next button */}
                         </svg>
                       </div>
                       <div onClick={handleBack} className={styles.controllerbutton}>
                         <svg width="33" height="32" viewBox="0 0 33 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M25.1493 8.37869L14.352 14.8574C13.4893 15.3747 13.4893 16.6267 14.352 17.144L25.1493 23.6227C26.0373 24.1547 27.168 23.5147 27.168 22.4787V9.52135C27.168 8.48535 26.0373 7.84535 25.1493 8.37869Z" fill="#292929" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" />
-                          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.83203 24C8.93603 24 9.83203 23.104 9.83203 22V10C9.83203 8.896 8.93603 8 7.83203 8C6.72803 8 5.83203 8.896 5.83203 10V22C5.83203 23.104 6.72803 24 7.83203 24Z" fill="#292929" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" />
+                          {/* SVG Path for Back button */}
                         </svg>
                       </div>
                     </div>
