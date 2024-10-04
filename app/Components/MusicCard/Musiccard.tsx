@@ -56,7 +56,7 @@ function MusicCard(props: Props) {
   }, []);
 
   return (
-    <div className={cardClassName}>
+    <div className={styles.cardClassName}>
       <div className={styles.musicPhoto1}>
           <div key={props.id} className={styles.musicWrap}> 
             <div className={styles.musicPhoto}>
