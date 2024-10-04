@@ -24,6 +24,9 @@ export default function BurgerMenuMobile() {
                 <div className={styles.overlay}>
                     <div className={styles.burgerMenu}>
                         {/* <LightDark/> */}
+                        <div className={styles.lightDarkContainer}>
+        <LightDark />
+      </div>
                         <div onClick={closeBurger} className={styles.logoutImg}></div>
                     </div>
                 </div>
