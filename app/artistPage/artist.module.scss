@@ -3,6 +3,12 @@
     overflow: hidden;
     overflow-y: scroll;
   }
+
+  .darkStatic{
+    background-color: #151515;
+    width: 100%;
+    overflow: scroll; 
+  }
   
   
   .mainContent::-webkit-scrollbar{
@@ -19,7 +25,6 @@
   }
   
   .static{
-    background: #F7F7F7;
     width: 100%;
     overflow: scroll; 
   }
@@ -536,7 +541,14 @@
     align-items: center;
     width: 100%;
     justify-content: space-evenly;
+
   }
+
+  .darkArtistContainer{
+    background-color: #151515;
+  }
+
+
 
   .imgBackground{
     width: 100%;
@@ -574,6 +586,11 @@
     height: 88px;
   }
 
+  .darkInfo{
+    background-color: #151515;
+    color: white;
+  }
+
   .text1{
     display: flex;
     flex-direction: column
@@ -582,6 +599,10 @@
 
   .text1P{
     color: #292929;
+  }
+
+  .darkText1P{
+    color: white;
   }
 
   .text1SP{
