@@ -121,7 +121,6 @@ const Home = () => {
   }, [currentIndex, musicData]); // Run when currentIndex or musicData changes
 
   const currentSong = musicData[currentIndex];
-
   return (
     <RecoilRoot>
       <div className={styles.mainContent}>

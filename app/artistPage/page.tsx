@@ -121,7 +121,7 @@ export default function ArtistList() {
                         <div className={styles.musicCard}>
                             <div className={styles.musicInfo}>
                                 {artistIdData.image && artistIdData.image.map((img: any, index: number) => (
-                                    <div className={`${styles.info} ${themeColor === 'dark' ? styles.darkInfo : ''}`}> key={index}
+                                    <div className={`${styles.info} ${themeColor === 'dark' ? styles.darkInfo : ''}`}>
                                         <Image
                                             src={img.url} // Loop through and display all images
                                             alt={'Artist music image'}
