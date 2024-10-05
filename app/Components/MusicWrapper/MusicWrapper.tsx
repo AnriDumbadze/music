@@ -26,8 +26,8 @@ const MusicWrapper = (props: Props) => {
   }, []);
 
   return (
-    <div className={`${styles.wrapper} ${themeColor === 'dark' ? styles.darkWrapper : ''}`}>
-      <div className={styles.wrapperContent}>
+    <div className={`${styles.wrapper} ${themeColor === 'dark' ? styles.darkWrapper : styles.wrapper}`}>
+      <div className={themeColor === 'dark' ? styles.darkWrapperContainer : styles.wrapperContainer}>
         <h1 className={styles.title}>{props.name}</h1>
         <div className={styles.content}>
           {props.cards.map((card, index) => (

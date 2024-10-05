@@ -13,6 +13,7 @@ import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
 import MusicListItem from "./Components/MusicList/MusicListItem";
+import Cookies from "js-cookie";
 
 interface Artist {
   id: number;
@@ -40,7 +41,7 @@ interface Music {
 
 const Home = () => {
   const [query, setQuery] = useState<string>("");
-  const [themeColor, setThemeColor] = useState<string>(getCookie("theme") || "");
+  const [themeColor, setThemeColor] = useState<string>(Cookies.get("theme") || "");
   const [artistData, setArtistData] = useState<Artist[]>([]);
   const [musicData, setMusicData] = useState<Music[]>([]);
   const [showPlayer, setShowPlayer] = useState(true);
