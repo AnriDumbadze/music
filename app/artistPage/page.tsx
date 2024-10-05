@@ -65,7 +65,6 @@ export default function ArtistList() {
                             <div className={styles.artistContainer}>
                                 {artistData.map((item, index) => (
                                     <ArtistCard
-                                        key={index}
                                         onClick={() => handleArtistClick(item.id, item.image?.[0]?.url || '')}
                                         artistImg={item.image?.[0]?.url || ''} // Fallback to an empty string if no image
                                         artistName={item.firstName}
