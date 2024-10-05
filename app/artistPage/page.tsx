@@ -1,5 +1,4 @@
-"use client";
-
+// Import the necessary modules at the top
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styles from './artist.module.scss';
@@ -10,10 +9,12 @@ import BurgerMenuMobile from '../Components/burgermenumobile/burgetmobile';
 import Image from "next/image";
 import Cookies from "js-cookie";
 
+// Utility function to get a cookie by key
 export const getCookie = (key: string) => {
     return Cookies.get(key);
 };
 
+// Default component export for the Artist List Page
 export default function ArtistList() {
     const [artistData, setArtistData] = useState<any[]>([]);
     const [artistIdData, setArtistIdData] = useState<any>(null); // Holds clicked artist's data
@@ -137,7 +138,6 @@ export default function ArtistList() {
                                         ))}
                                     </div>
                                 ))}
-
                             </div>
                         </div>
                     </div>
