@@ -149,7 +149,6 @@ const Home = () => {
               <MusicWrapper
                 cards={artistData.map((artist) => (
                   <ArtistCard
-                    key={artist.id} // Make sure this is present
                     artistImg={
                       artist.image[artist.image.length - 1]?.url ||
                       "/Images/artist.png"
