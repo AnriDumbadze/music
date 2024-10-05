@@ -154,7 +154,6 @@ const Home = () => {
                 cards={musicData.map((item) => (
                   <div key={item.id} onClick={() => handleMusicSelect(item.id)}>
                     <MusicCard
-                      key={item.id}
                       url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                       author={item.artist.firstName}
                       songTitle={item.name}
