@@ -23,7 +23,7 @@ const Header = (props: Props) => {
   }, []);
 
   return (
-    <div className={`${styles.header} ${themeColor === 'dark' ? styles.darkHeader : ''}`}>
+    <div className={`${styles.darkHeader} ${themeColor === 'dark' ? styles.darkHeader : ''}`}>
       <div className={styles.headerContent}>
         <div className={styles.arrowContainer}>
           <Icon height={"40px"} width={"40px"} name={"Arrow"} isActive={false} onClick={() => {}} />
