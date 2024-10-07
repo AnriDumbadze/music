@@ -34,10 +34,10 @@ const SignUp = () => {
 
   const sendInfo = async () => {
     if (password !== confPass) {
-      setError("Passwords do not match."); // Check if passwords match
+      setError("Passwords do not match.");
       return;
     }
-
+  
     try {
       const response = await axios.post("https://music-back-1s59.onrender.com/users", {
         name: username,
@@ -45,16 +45,18 @@ const SignUp = () => {
         password: password,
         confirmPassword: confPass,
       });
-
+  
       setCookie("userToken", response.data.token, 60);
       setCookie("isAdmin", response.data.forToken.role, 60);
-      router.replace("https://burgermenu.d25x0dq5whxx2c.amplifyapp.com/");
+  
+      // Refresh the page after successful sign-up
+      window.location.reload();
     } catch (error) {
-      setError("Error signing up. Please try again."); // Set error message
-      console.error('Sign-up error:', error);
+      setError("Error signing up. Please try again.");
+    } finally {
+      window.location.reload();
     }
   };
-
   return (
     <div className={styles.login}>
       <div className={styles.image}>
