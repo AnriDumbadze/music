@@ -142,12 +142,14 @@ export default function SearchPage() {
     const idSearch = data.length > 0 ? data[0].id : undefined; // Change to undefined if no ID
     const descriptionSearch = data.length > 0 ? data[0].description : '';
 
+    
+    
     return (
         <div className={styles.mainContent}>
             <Aside />
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
                 <Header onchange={onchange1} />
-                <RecentSearch id={idSearch} description={descriptionSearch} data={data} />
+                <RecentSearch name={data.name} musicId={data.id} id={idSearch} description={descriptionSearch} data={data} />
                 <MusicWrapper cards={artistCards} name={"Top searched artists"} />
                 <MusicWrapper cards={popularCharts} name={"Search Musics Charts"} />
             </div>

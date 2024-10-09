@@ -39,7 +39,7 @@ const Login = (props: Props) => {
   
 
       // Redirect after successful login
-      router.replace("http://localhost:3000");
+      router.replace("https://burgermenu.d25x0dq5whxx2c.amplifyapp.com/");
     } catch (error) {
       setError('Login failed. Please check your email and password.'); // Set error message
       console.error('Login error:', error);

@@ -1,5 +1,5 @@
 "use client"; // Add this line at the very top
-import {  useState } from 'react';
+import {  useEffect, useState } from 'react';
 import styles from './recent.module.scss';
 import Icon from '../Icon/Icon';
 import Cookies from "js-cookie";
@@ -13,9 +13,10 @@ interface RecentSearchData {
 
 interface Props {
     data: RecentSearchData[]; // Accepts an array of RecentSearchData
-    name?: string;
+    name: string;
     id?: number;
     description?: string;
+    musicId:number
 }
 
 export default function RecentSearch(props: Props) {
@@ -31,21 +32,26 @@ export default function RecentSearch(props: Props) {
         );
         const userToken = Cookies.get("userToken");
 
+        
+        
+  
         axios.post(
             "https://music-back-1s59.onrender.com/playlist",
             {
-                name: props.name,
+                name: String(props.name),
                 description: 'ss',
-                musicIds: [props.id],
+                musicIds: [Number(props.id)], // Ensure musicId is a number, fallback to 0 if it's undefined
             },
             {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
             }
+            
         ).catch(() => {
             console.log('Error saving playlist');
         });
+        console.log(props.id);
     };
 
     // Remove a recent item

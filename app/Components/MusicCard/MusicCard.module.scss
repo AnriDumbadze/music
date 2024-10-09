@@ -50,6 +50,7 @@
 }
 
 
+
 @media (max-width: 768px) {
   .musicPhoto img {
     width: 103px;
@@ -68,4 +69,8 @@
 
 .darkMusicCard .songTitle{
   color: #fff;
+}
+
+.cardClassName {
+  cursor: pointer;
 }

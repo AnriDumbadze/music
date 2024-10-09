@@ -8,8 +8,6 @@ import Icon from "./Components/Icon/Icon";
 import Cookies from 'js-cookie';
 import { useRouter } from "next/navigation";
 import { RecoilRoot } from "recoil"; 
-import Player from "./Components/ComputerPlayer/ComputerPlayer";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
@@ -22,7 +20,7 @@ export default function RootLayout({
 
 
 
-  const showPlayer = pathname !== '/adminArtist' && pathname !== '/Login' && pathname !== '/SignUp' && pathname !== '/userList' && pathname !== '/adminMusic';
+
   const showExitButton = pathname !== '/Login' && pathname !== '/SignUp';
 
   const handleLogout = () => {
@@ -37,7 +35,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <RecoilRoot> 
           {children}
-          {showPlayer && <Player/>}
+          
           {showExitButton && 
             <FloatButton
               shape="circle"

@@ -58,13 +58,12 @@ const AsideMenu = () => {
             isActive={activeItem === "search"}
             onClick={() => handleMenuItemClick("search", "/searchPage")} // Use relative paths
           />
-
-          <MenuItem
-            name={"library"}
-            isActive={activeItem === "slibrary"}
-            onClick={() => handleMenuItemClick("library", "/library")} // Use relative paths
+<MenuItem
+            name={"album"}
+            isActive={activeItem === "album"}
+            onClick={() => handleMenuItemClick("album", "/artistPage")} // Use relative paths
           />
-
+          
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import styles from './page.module.scss';
 import AsideMenu, { getCookie } from "../Components/Aside/Aside";
 import LibraryItem from "../Components/LibraryItem/LibraryItem";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 interface Artist {
     id: number;
     firstName: string;
@@ -44,7 +44,12 @@ export default function Library() {
     };
 
     useEffect(() => {
-        axios.get('https://music-back-1s59.onrender.com/playlist/me')
+        const userToken = Cookies.get("userToken");
+        axios.get('https://music-back-1s59.onrender.com/playlist/me',{
+            headers: {
+                Authorization: `Bearer ${userToken}`,
+            },
+        })
             .then((response) => setData(response.data))
             .catch((err) => console.error("Failed to fetch playlist data:", err));
     }, []);
