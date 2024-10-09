@@ -67,7 +67,7 @@ function MusicCard(props: Props) {
             className={styles.img}
                 src={props.url} 
                 alt={props.songTitle} 
-                height={172} // Use numbers for height
+                height={176} // Use numbers for height
                 width={168} // Use numbers for width
                 layout="intrinsic" // Use layout for better handling
               />

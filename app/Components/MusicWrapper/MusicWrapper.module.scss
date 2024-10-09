@@ -22,6 +22,8 @@
 }
 
 .title {
+  position: fixed;
+  transform: translateY(-35px);
   color: var(--PrimaryTextCollorWHiteMode, $black);
   font-family: Inter;
   font-size: 20px;
@@ -37,6 +39,7 @@
 .content {
   display: flex;
   gap: 24px;
+  overflow: hidden;
 }
 
 .content::-webkit-scrollbar {
@@ -59,16 +62,15 @@
   color: #fff;
 }
 
-@media (max-width: 1800px) {
-  .wrapper {
-    max-width: 1000px;
-  }
-}
+
 
 @media (max-width: 1650px) {
   .wrapper {
-    max-width: 700px;
+    max-width: 878px;
+    padding: 42px 0 0 32px;
   }
+  
+  
 }
 
 @media (max-width: 1350px) {
@@ -76,11 +78,19 @@
   .wrapper {
   max-width: 400px;
 }
+.title{
+  position: relative;
+}
+
 }
 
 @media (max-width: 1050px) {
 
   .wrapper {
   max-width: 300px;
+
+  .title{
+    position: relative;
+  }
 }
 }
