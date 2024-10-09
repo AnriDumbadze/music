@@ -8,6 +8,7 @@ import styles from './playlist.module.scss'
 import Image from "next/image";
 import Icon from '../Components/Icon/Icon'
 import { ST } from 'next/dist/shared/lib/utils'
+import PlaylistCard from '../Components/playlistCard/playlsitCard'
 export default function Playlist() {
     return (
         <>
@@ -37,7 +38,7 @@ export default function Playlist() {
                             </div>
                             <div className={styles.lists}>
                                 <div className={styles.line}></div>
-                                <div className={styles.listTitle}>  
+                                <div className={styles.listTitle}>
                                     <p className={styles.titleTextP}>#</p>
                                     <p className={styles.titleTextP}>Music</p>
                                     <p className={styles.titleTextP}>Album</p>
@@ -45,6 +46,7 @@ export default function Playlist() {
                                     <button className={styles.btn1}>Mussic</button>
                                 </div>
                             </div>
+                            <PlaylistCard />
                         </div>
                     </div>
                 </div>

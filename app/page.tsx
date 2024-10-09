@@ -12,7 +12,6 @@ import { RecoilRoot } from "recoil";
 import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
-import MusicListItem from "./Components/MusicList/MusicListItem";
 import Cookies from "js-cookie";
 
 interface Artist {
