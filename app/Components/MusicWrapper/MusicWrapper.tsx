@@ -10,25 +10,12 @@ type Props = {
 };
 
 const MusicWrapper = (props: Props) => {
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null); // Handle undefined case
-
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme") ?? null; // Handle undefined case
-      setThemeColor(newTheme);
-    };
-
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
-
-    return () => clearInterval(themeInterval);
-  }, []);
+  
 
   return (
-    <div className={`${styles.wrapper} ${themeColor === 'dark' ? styles.darkWrapper : styles.wrapper}`}>
-      <div className={themeColor === 'dark' ? styles.darkWrapperContainer : styles.wrapperContainer}>
-        <h1 className={styles.title}>{props.name}</h1>
+    <div className={styles.wrapper} >
+      <h1 className={styles.title}>{props.name}</h1>
+      <div className={styles.wrapperContainer}>
         <div className={styles.content}>
           {props.cards.map((card, index) => (
             <div key={index} className={styles.card}>

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import styles from './Aside.module.scss';
 import Icon from '../Icon/Icon';
 import MenuItem from '../MenuItem/MenuItem';
-import LightDark from '../LightDark/LightDark';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
@@ -22,17 +21,7 @@ const AsideMenu = () => {
     router.replace(route);
   };
 
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme");
-      setThemeColor(newTheme);
-    };
-
-    updateTheme();
-    const themeInterval = setInterval(updateTheme, 0); // Set reasonable interval (1 second)
-
-    return () => clearInterval(themeInterval);
-  }, []);
+  
 
   useEffect(() => {
     const isAdminCookie = Cookie.get("isAdmin");
@@ -68,7 +57,7 @@ const AsideMenu = () => {
       </div>
 
       <div className={styles.lightDarkContainer}>
-        <LightDark />
+        
       </div>
     </div>
   );

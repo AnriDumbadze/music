@@ -22,9 +22,9 @@
 }
 
 .title {
-  position: fixed;
-  transform: translateY(-35px);
-  color: var(--PrimaryTextCollorWHiteMode, $black);
+  display: flex;
+  padding: 0 0 20px 0;
+  color: #FFFFFF;
   font-family: Inter;
   font-size: 20px;
   font-style: normal;
@@ -39,7 +39,7 @@
 .content {
   display: flex;
   gap: 24px;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .content::-webkit-scrollbar {
@@ -67,6 +67,9 @@
   .wrapper {
     max-width: 878px;
     padding: 42px 0 0 32px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll;
   }
   
   

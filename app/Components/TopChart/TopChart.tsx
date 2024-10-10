@@ -24,19 +24,6 @@ const TopChart = (props: Props) => {
   console.log(getData);
   
 
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme");
-      setThemeColor(newTheme ?? null); // Set to null if undefined
-    };
-
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
-
-    return () => clearInterval(themeInterval);
-  }, []);
-
   const containerClassName = themeColor === 'dark' ? `${styles.mainContainer} ${styles.darkMainContainer}` : styles.mainContainer;
 
   useEffect(() => {

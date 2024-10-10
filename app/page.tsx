@@ -46,18 +46,7 @@ const Home = () => {
   const [showPlayer, setShowPlayer] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
-  useEffect(() => {
-    const updateTheme = () => {
-        const newTheme = getCookie("theme") || "light"; 
-        setThemeColor(newTheme);
-    };
-
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0);
-
-    return () => clearInterval(themeInterval);
-}, []);
+ 
   // Fetch artist data
   useEffect(() => {
     const userToken = getCookie("userToken");

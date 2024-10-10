@@ -40,16 +40,6 @@ const ArtistCard = (props: Props) => {
 
   
 
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = Cookies.get("theme") || null; // Ensure it falls back to null
-      setThemeColor(newTheme);
-    };
-
-    const themeInterval = setInterval(updateTheme, 1000); // Adjust interval to 1 second or suitable value
-
-    return () => clearInterval(themeInterval);
-  }, []);
 
   const cardClassName = themeColor === "dark" ? `${styles.artistCard} ${styles.darkArtistCard}` : styles.artistCard;
 

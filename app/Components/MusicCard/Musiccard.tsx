@@ -24,18 +24,7 @@ function MusicCard(props: Props) {
   const [getData, setGetData] = useState<Music[]>([]);
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null); // Set default to null
 
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme") ?? null; // Ensure it defaults to null
-      setThemeColor(newTheme);
-    };
-
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 5000); // Adjust interval as needed
-
-    return () => clearInterval(themeInterval);
-  }, []);
+  
 
   const cardClassName = themeColor === 'dark' ? `${styles.musicCard} ${styles.darkMusicCard}` : styles.musicCard;
 

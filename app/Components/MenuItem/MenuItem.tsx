@@ -13,19 +13,7 @@ type Props = {
 const MenuItem = ({ name, isActive, onClick }: Props) => {
   const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null); // Handle undefined case
 
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = getCookie("theme") ?? null; // Handle undefined case
-      setThemeColor(newTheme);
-    };
-
-    updateTheme();
-
-    const themeInterval = setInterval(updateTheme, 0); // Adjust interval as needed
-
-    return () => clearInterval(themeInterval);
-  }, []);
-
+  
   return (
     <div
       className={`${styles.menuItem} ${isActive ? styles.active : ""} ${
