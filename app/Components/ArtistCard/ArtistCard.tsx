@@ -11,7 +11,7 @@ type Props = {
   artistName: string;
   artistType: string;
   biography: string;
-  onClick?:() => void
+  onClick?: () => void;
 };
 
 interface Image {
@@ -28,20 +28,17 @@ type ArtistData = {
   image: Image[];
 };
 
-
-
 const ArtistCard = (props: Props) => {
   // Initialize themeColor to a string or null
-  const [themeColor, setThemeColor] = useState<string | null>(Cookies.get("theme") || null); // Get initial theme from cookies
+  const [themeColor, setThemeColor] = useState<string | null>(
+    Cookies.get("theme") || null
+  ); // Get initial theme from cookies
   const [getData, setGetData] = useState<ArtistData[]>([]);
-  
 
-
-
-  
-
-
-  const cardClassName = themeColor === "dark" ? `${styles.artistCard} ${styles.darkArtistCard}` : styles.artistCard;
+  const cardClassName =
+    themeColor === "dark"
+      ? `${styles.artistCard} ${styles.darkArtistCard}`
+      : styles.artistCard;
 
   useEffect(() => {
     const userToken = Cookies.get("userToken");
@@ -60,24 +57,26 @@ const ArtistCard = (props: Props) => {
       });
   }, []);
 
-
-
   return (
     <div className={cardClassName}>
       <div className={styles.cardContent}>
-      
-          <div onClick={props.onClick} key={props.artistName} className={styles.artistInfo}>
-            <Image
-              src={props.artistImg} // Use a known valid image URL
-              alt={props.artistName}
-              width={150}
-              height={150}
-              className={styles.artistImage}
-            />
+        <div
+          onClick={props.onClick}
+          key={props.artistName}
+          className={styles.artistInfo}
+        >
+          <Image
+            src={props.artistImg} // Use a known valid image URL
+            alt={props.artistName}
+            width={150}
+            height={150}
+            className={styles.artistImage}
+          />
+          <div className={styles.cardInfo}>
             <div className={styles.artistName}>{props.artistName}</div>
             <div className={styles.artistType}>{props.biography}</div>
           </div>
-
+        </div>
       </div>
     </div>
   );

@@ -42,6 +42,7 @@ interface SearchData {
 export default function SearchPage() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null);
     const [search, setSearch] = useState('');
+    
     const [data, setData] = useState<SearchData[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
