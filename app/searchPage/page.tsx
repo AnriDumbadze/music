@@ -149,7 +149,7 @@ export default function SearchPage() {
             setDataId(data[0].id) // Set dataName based on the first item
         }
     }, [data]);
-    
+
 
     
     
