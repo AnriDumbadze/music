@@ -47,6 +47,7 @@ export default function SearchPage() {
     const [error, setError] = useState<string | null>(null);
     const [artistData, setArtistData] = useState<Artist[]>([]); 
     const [dataName, setDataName] = useState("")
+    const [dataId, setDataId] = useState<number>()
 
     useEffect(() => {
         const updateTheme = () => {
@@ -144,7 +145,8 @@ export default function SearchPage() {
     const descriptionSearch = data.length > 0 ? data[0].description : '';
     useEffect(() => {
         if (data.length > 0) {
-            setDataName(data[0].name); // Set dataName based on the first item
+            setDataName(data[0].name);
+            setDataId(data[0].id) // Set dataName based on the first item
         }
     }, [data]);
     
@@ -156,7 +158,7 @@ export default function SearchPage() {
             <Aside />
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
                 <Header onchange={onchange1} />
-                <RecentSearch name={dataName} musicId={data.id} id={idSearch} description={descriptionSearch} data={data} />
+                <RecentSearch name={dataName} musicId={Number(dataId)} id={idSearch} description={descriptionSearch} data={data} />
                 <MusicWrapper cards={artistCards} name={"Top searched artists"} />
                 <MusicWrapper cards={popularCharts} name={"Search Musics Charts"} />
             </div>
