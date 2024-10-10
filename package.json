@@ -12,11 +12,11 @@
     "antd": "^5.20.6",
     "axios": "^1.7.7",
     "js-cookie": "^3.0.5",
-    "next": "14.2.4",
+    "next": "^14.2.15",
     "react": "^18",
     "react-dom": "^18",
     "recoil": "^0.7.7",
-    "sass": "^1.77.6"
+    "sass": "^1.79.4"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
