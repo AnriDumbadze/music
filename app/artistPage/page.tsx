@@ -13,16 +13,22 @@ import Header from "../Components/Header/Header";
 import Badge from "../Components/Badge/Badge";
 import badgeItems from "@/public/Consts/BadgeData";
 import MusicWrapper from "../Components/MusicWrapper/MusicWrapper";
+import MusicCard from "../Components/MusicCard/Musiccard";
+import PlaylistCard from "../Components/playlistCard/playlsitCard";
 
 export default function ArtistList() {
   const [artistData, setArtistData] = useState<any[]>([]);
-  const [artistIdData, setArtistIdData] = useState<any>(null); // Holds clicked artist's data
-  const [showId, setShowId] = useState(false); // To control whether artist details are shown
-  const [selectedArtistImage, setSelectedArtistImage] = useState(""); // Selected artist image
+  const [artistIdData, setArtistIdData] = useState<any>(null);
+  const [showId, setShowId] = useState(false);
+  const [selectedArtistImage, setSelectedArtistImage] = useState("")
   const [activeBadge, setActiveBadge] = useState(0);
+  const [musicData, setMusicData] = useState<any[]>([]);
   const [themeColor, setThemeColor] = useState<string | null>(
     Cookies.get("theme") || null
   );
+  const [showAll, setShowAll] = useState(true)
+  const [showPlaylist, setShowPlaylist] = useState(false)
+  const [onlyArtist, setOnlyArtist] = useState(false)
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -38,7 +44,19 @@ export default function ArtistList() {
       .catch((error) => {
         console.error("Failed to fetch artists:", error);
       });
+
+    axios
+      .get("https://music-back-1s59.onrender.com/music", {
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
+      .then((response) => {
+        setMusicData(response.data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch music:", error);
+      });
   }, []);
+  console.log(musicData);
 
   useEffect(() => {
     const updateTheme = () => {
@@ -75,14 +93,25 @@ export default function ArtistList() {
 
   const handleBadgeClick = (id: number) => {
     setActiveBadge(id);
-    // Optionally, implement routing logic here
-    // router.push(`/path/${id}`);
+    if (id === 2) {
+      setShowAll(false)
+      setShowPlaylist(true)
+      setOnlyArtist(false)
+    } else if (id == 3) {
+      setShowAll(false)
+      setShowPlaylist(false)
+      setOnlyArtist(true)
+    }else if (id == 0){
+      setShowAll(true)
+      setShowPlaylist(false)
+      setOnlyArtist(false)
+    }
   };
 
   return (
     <div className={styles.mainContent}>
       <div className={styles.burger}>
-        <Icon width="72px" name="FAZER" isActive={false} onClick={() => {}} />
+        <Icon width="72px" name="FAZER" isActive={false} onClick={() => { }} />
         <BurgerMenuMobile />
       </div>
       <div className={styles.mainAside}>
@@ -90,9 +119,8 @@ export default function ArtistList() {
       </div>
 
       <div
-        className={`${styles.static} ${
-          themeColor === "dark" ? styles.darkStatic : ""
-        }`}
+        className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""
+          }`}
       >
         <Header onchange={onchange1} />
         <div className={styles.content}>
@@ -114,20 +142,57 @@ export default function ArtistList() {
           <div className={styles.artist}>
             {!showId && (
               <div className={styles.artistContainer}>
-                {artistData.map((item, index) => (
-                  <ArtistCard
-                    key={index}
-                    onClick={() =>
-                      handleArtistClick(item.id, item.image?.[0]?.url || "")
-                    }
-                    artistImg={item.image?.[0]?.url || ""}
-                    artistName={item.firstName}
-                    artistType={""}
-                    biography={""}
-                  />
-                ))}
+                {showAll && (
+                  <>
+                    {artistData.map((item, index) => (
+                      <ArtistCard
+                        key={index}
+                        onClick={() =>
+                          handleArtistClick(item.id, item.image?.[0]?.url || "")
+                        }
+                        artistImg={item.image?.[0]?.url || ""}
+                        artistName={item.firstName}
+                        artistType={""}
+                        biography={""}
+                      />
+                    ))}
+
+                    {musicData.map((item, index) => (
+                      <MusicCard
+                        key={index}
+                        url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
+                        author={item.artist.firstName}
+                        songTitle={item.name}
+                        id={item.id}
+                      />
+                    ))}
+                  </>
+                )}
+
+                {onlyArtist &&
+                  <>
+                    {artistData.map((item, index) => (
+                      <ArtistCard
+                        key={index}
+                        onClick={() =>
+                          handleArtistClick(item.id, item.image?.[0]?.url || "")
+                        }
+                        artistImg={item.image?.[0]?.url || ""}
+                        artistName={item.firstName}
+                        artistType={""}
+                        biography={""}
+                      />
+                    ))}
+                  </>
+                }
+
               </div>
             )}
+            {showPlaylist &&
+              <>
+                <PlaylistCard />
+              </>
+            }
           </div>
 
           {showId && artistIdData && (
@@ -142,47 +207,38 @@ export default function ArtistList() {
                 />
                 <p className={styles.nameMusic}>{artistIdData.firstName}</p>
               </div>
+              {showId && artistIdData && (
+  <div className={styles.artistMusic}>
+    <div className={styles.artists}>
+      <Image
+        src={selectedArtistImage || ""}
+        alt={"Artist image"}
+        width={150}
+        height={150}
+        className={styles.imgBackground}
+      />
+      <p className={styles.nameMusic}>{artistIdData.firstName}</p>
+    </div>
 
-              <div className={styles.musicCard}>
-                <div className={styles.musicInfo}>
-                  {artistIdData.image &&
-                    artistIdData.image.map((img: any, index: number) => (
-                      <div
-                        className={`${styles.info} ${
-                          themeColor === "dark" ? styles.darkInfo : ""
-                        }`}
-                        key={index}
-                      >
-                        <Image
-                          src={img.url}
-                          alt={"Artist music image"}
-                          width={150}
-                          height={150}
-                          className={styles.imgAll}
-                        />
-                        {Array.isArray(artistIdData.musics) &&
-                          artistIdData.musics.map(
-                            (musicItem: any, musicIndex: number) => (
-                              <div className={styles.text1} key={musicIndex}>
-                                <p
-                                  className={`${styles.text1P} ${
-                                    themeColor === "dark"
-                                      ? styles.darkText1P
-                                      : ""
-                                  }`}
-                                >
-                                  {musicItem.name}
-                                </p>
-                                <span className={styles.text1SP}>
-                                  {musicItem.id}
-                                </span>
-                              </div>
-                            )
-                          )}
-                      </div>
-                    ))}
-                </div>
-              </div>
+    {/* Display music list */}
+    <div className={styles.musicCard}>
+      <div className={styles.musicInfo}>
+        {Array.isArray(artistIdData.musics) &&
+          artistIdData.musics.map((musicItem: any, index: number) => (
+            <div className={styles.text1} key={index}>
+              <p className={styles.text1P}>
+                {musicItem.name} {/* Music name */}
+              </p>
+              <span className={styles.text1SP}>
+                {musicItem.id} {/* Music ID */}
+              </span>
+            </div>
+          ))}
+      </div>
+    </div>
+  </div>
+)}
+
             </div>
           )}
         </div>
