@@ -156,7 +156,9 @@ export default function SearchPage() {
     
     return (
         <div className={styles.mainContent}>
+            <div className={styles.asideContainer}>
             <Aside />
+            </div>
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
                 <Header onchange={onchange1} />
                 <RecentSearch name={dataName} musicId={Number(dataId)} id={idSearch} description={descriptionSearch} data={data} />
