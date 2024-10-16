@@ -60,21 +60,25 @@
 @media (max-width: 768px) {
 
   .musicPhoto img {
-    width: 120px;
-    height: 128px;
+    width: 104px;
+    height: 104px;
+  }
+  
+  .songTitle{
+    font-size: 16px;
   }
 
   .img{
-    width: 120px !important;
-    height: 128px !important;
+    width: 104px !important;
+    height: 104px !important;
   }
   .musicPhoto {
-    height: 120px;
-    width: 128px;
+    height: 104px;
+    width: 104px;
   }
   .musicWrap{
-    width: 120px;
-    height: 182px;
+    width: 104px;
+    height: 158px;
   }
 }
 

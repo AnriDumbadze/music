@@ -4,13 +4,13 @@
   display: flex;
   justify-content: center;
   flex-direction: column;
-  color: $black;
+  color: var(--SecondaryDarkModeTExtCollor, #898989);
   cursor: pointer;
   align-items: center;
 }
 
 .active {
-  color: $white !important;
+  color:var(--WhitePrimaryText, #FFF) !important;
   background-color: $primary !important;
   display: flex;
   padding: 8px 16px;

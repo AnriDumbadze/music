@@ -68,8 +68,8 @@ const ArtistCard = (props: Props) => {
           <Image
             src={props.artistImg} // Use a known valid image URL
             alt={props.artistName}
-            width={150}
-            height={150}
+            width={169}
+            height={169}
             className={styles.artistImage}
           />
           <div className={styles.cardInfo}>

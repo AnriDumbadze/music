@@ -27,10 +27,12 @@
   cursor: pointer;
 }
 
-
+.cardInfo{
+  padding: 5px 0 0 0;
+}
 
 .artistName {
-  color: black;
+  color: var(--WhitePrimaryText, #FFF);
   text-align: center;
   font-family: Inter;
   font-size: 16px;
@@ -55,19 +57,29 @@
 
 @media (max-width: 768px){
   .cardContent img{
-    width: 80px !important;
-    height: 80px !important;
+    width: 103px !important;
+    height: 103px !important;
   }
   .cardContent{
-    width: 122px;
+    width: 104px;
     overflow-x: scroll;
     overflow: hidden;
-    height: 168px;
-    max-height: 148px;
+    height: 158px;
+    max-height: 158px;
+  }
+
+  .cardInfo{
+    display: flex;
+    align-items: flex-start;
+    width: 104px;
   }
 
   .artistCard{
     overflow: hidden ;
+  }
+
+  .artistName{
+    font-size: 12px;
   }
 
   
