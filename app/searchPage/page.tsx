@@ -144,12 +144,7 @@ export default function SearchPage() {
     const firstResultName = data.length > 0 ? data[0].name : 'No results found';
     const idSearch = data.length > 0 ? data[0].id : undefined; // Change to undefined if no ID
     const descriptionSearch = data.length > 0 ? data[0].description : '';
-    useEffect(() => {
-        if (data.length > 0) {
-            setDataName(data[0].name);
-            setDataId(data[0].id) // Set dataName based on the first item
-        }
-    }, [data]);
+
 
 
     

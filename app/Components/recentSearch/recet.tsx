@@ -1,11 +1,10 @@
 "use client"; // Add this line at the very top
-import {  useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './recent.module.scss';
 import Icon from '../Icon/Icon';
 import Cookies from "js-cookie";
 import axios from 'axios';
 
-// Update the interface to accept an array of objects with expected properties
 interface RecentSearchData {
     id: number; // Assuming ID is a number
     name: string; // Name of the item
@@ -16,7 +15,7 @@ interface Props {
     name: string;
     id?: number;
     description?: string;
-    musicId:number
+    musicId: number;
 }
 
 export default function RecentSearch(props: Props) {
@@ -25,33 +24,32 @@ export default function RecentSearch(props: Props) {
 
     console.log(props.data);
 
-    // Toggle the icon's active state
-    const handleIconClick = (index: number) => {
+    // Toggle the icon's active state and capture music info
+    const handleIconClick = (music: RecentSearchData, index: number) => {
         setActiveStates((prev) =>
             prev.map((state, i) => (i === index ? !state : state))
         );
+
         const userToken = Cookies.get("userToken");
 
-        
-        
-  
+        // Make sure to send the clicked music's id and name in the POST request
         axios.post(
             "https://music-back-1s59.onrender.com/playlist",
             {
-                name: String(props.name),
+                name: music.name, // Use the clicked music's name
                 description: 'ss',
-                musicIds: [Number(props.id)], // Ensure musicId is a number, fallback to 0 if it's undefined
+                musicIds: [music.id], // Use the clicked music's ID
             },
             {
                 headers: {
                     Authorization: `Bearer ${userToken}`,
                 },
             }
-            
         ).catch(() => {
             console.log('Error saving playlist');
         });
-        console.log(props.id);
+
+        console.log(music.id, music.name); // Log the clicked music's info
     };
 
     // Remove a recent item
@@ -59,7 +57,7 @@ export default function RecentSearch(props: Props) {
         const userToken = Cookies.get("userToken");
 
         if (props.id === id && typeof window !== "undefined") {
-            localStorage.removeItem("searchData"); 
+            localStorage.removeItem("searchData");
         }
 
         axios.get('https://music-back-1s59.onrender.com/users/me', {
@@ -78,8 +76,6 @@ export default function RecentSearch(props: Props) {
         });
     };
 
-   
-
     return (
         <div className={styles.Recent}>
             <div className={styles.RecentTitleGroup}>
@@ -87,7 +83,7 @@ export default function RecentSearch(props: Props) {
                 <p className={styles.clearTitle}>Clear All</p>
             </div>
             {props.data?.length > 0 && props.data.map((item, index) => (
-                <div className={styles.RecentItems} key={item.id}> 
+                <div className={styles.RecentItems} key={item.id}>
                     <div className={styles.RecentItemsGroup}>
                         <div className={styles.flexGroup}>
                             <div className={styles.ImgRecent}></div>
@@ -99,7 +95,7 @@ export default function RecentSearch(props: Props) {
                         <div className={styles.iconGroup}>
                             <Icon
                                 name={"heart"}
-                                onClick={() => handleIconClick(index)}
+                                onClick={() => handleIconClick(item, index)} // Pass the clicked music item and index
                                 isActive={activeStates[index]}
                             />
                             <div
