@@ -144,7 +144,7 @@ export default function SearchPage() {
     const firstResultName = data.length > 0 ? data[0].name : 'No results found';
     const idSearch = data.length > 0 ? data[0].id : undefined; // Change to undefined if no ID
     const descriptionSearch = data.length > 0 ? data[0].description : '';
-
+    
 
 
     
