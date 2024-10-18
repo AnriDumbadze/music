@@ -1,71 +1,77 @@
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./MusicCard.module.scss";
-import { getCookie } from "../Aside/Aside";
+import Image from "next/image";
+import Icon from "../Icon/Icon";
 import axios from "axios";
-import Image from 'next/image'; 
+import { getCookie } from "../Aside/Aside";
 
 interface Music {
-  id: number; // or string based on your API response
+  id: number;
   name: string;
   artist: {
-    firstName: string; // Ensure this matches your API response
+    firstName: string;
   };
 }
 
 interface Props {
   url: string;
-  author: string; // Consider if you still need this prop
-  songTitle: string; // Consider if you still need this prop
+  author: string;
+  songTitle: string;
   id: number;
+  playlists: any[];
 }
 
 function MusicCard(props: Props) {
-  const [getData, setGetData] = useState<Music[]>([]);
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null); // Set default to null
+  const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
+  const [message, setMessage] = useState("");
 
-  
+  const handleAddToPlaylist = async (playlistId: number) => {
+    try {
+      const userToken = getCookie("userToken"); 
+      const response = await axios.post(
+        `https://music-back-1s59.onrender.com/playlists/${playlistId}/add-song`,
+        { songId: props.id }, 
+        { headers: { Authorization: `Bearer ${userToken}` } }
+      );
 
-  const cardClassName = themeColor === 'dark' ? `${styles.musicCard} ${styles.darkMusicCard}` : styles.musicCard;
-
-  useEffect(() => {
-    const userToken = Cookies.get("userToken");
-
-    axios.get('https://music-back-1s59.onrender.com/music', {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-    .then((response) => {
-      setGetData(response.data);
-    })
-    .catch((error) => {
-      console.error('Error fetching music data:', error);
-    });
-  }, []);
+      setMessage(`deeemata: ${response.data.playlistName}`);
+      setShowPlaylistMenu(false);
+    } catch (error) {
+      console.error("ratom gavixade:", error);
+      setMessage("saba kutai");
+    }
+  };
 
   return (
-    <div className={styles.cardClassName}>
-      <div className={styles.musicPhoto1}>
-          <div key={props.id} className={styles.musicWrap}> 
-            <div className={styles.musicPhoto}>
-
-              
-
-            <Image 
-            className={styles.img}
-                src={props.url} 
-                alt={props.songTitle} 
-                height={176} // Use numbers for height
-                width={168} // Use numbers for width
-                layout="intrinsic" // Use layout for better handling
-              />
-              <div className={styles.musicInfo}>
-                <p className={styles.songTitle}>{props.songTitle}</p>
-                <p className={styles.author}>{props.author}</p>
-              </div>
-            </div>
+    <div className={styles.musicCard}>
+      <div className={styles.musicPhoto}>
+        <Image
+          className={styles.img}
+          src={props.url}
+          alt={props.songTitle}
+          height={176}
+          width={168}
+        />
+        <div className={styles.musicInfo}>
+          <div className={styles.right}>
+            <p className={styles.songTitle}>{props.songTitle}</p>
+            <p className={styles.author}>{props.author}</p>
+            {message && <p className={styles.message}>{message}</p>} 
           </div>
+          <div className={styles.left}>
+            <Icon name={"3dots"} onClick={() => setShowPlaylistMenu(!showPlaylistMenu)} />
+            {showPlaylistMenu && (
+              <div className={styles.playlistMenu}>
+                <span className={styles.playlistHeader}>Add to Playlist</span>
+                {props.playlists.map((playlist) => (
+                  <div key={playlist.id} onClick={() => handleAddToPlaylist(playlist.id)}>
+                    {playlist.name}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

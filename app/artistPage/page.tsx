@@ -31,6 +31,24 @@ export default function ArtistList() {
   const [onlyArtist, setOnlyArtist] = useState(false)
   const [search, setSearch] = useState("");
 
+  const handleClick = (index: number) => {
+    console.log("clicked");
+    
+    const userToken = Cookies.get("userToken");
+    axios.get('https://music-back-1s59.onrender.com/music/' + index, {
+      headers: {
+        Authorization: `Bearer ${userToken}`
+      }
+    })
+      .then((rensponse) => {
+        localStorage.setItem("albumItem", JSON.stringify(rensponse.data))
+        if (typeof window != 'undefined') {
+          window.location.replace('/');
+        }
+      })
+      .catch((err) => console.error(err))
+  }
+
   useEffect(() => {
     const userToken = Cookies.get("userToken");
 
@@ -101,7 +119,7 @@ export default function ArtistList() {
       setShowAll(false)
       setShowPlaylist(false)
       setOnlyArtist(true)
-    }else if (id == 0){
+    } else if (id == 0) {
       setShowAll(true)
       setShowPlaylist(false)
       setOnlyArtist(false)
@@ -158,13 +176,15 @@ export default function ArtistList() {
                     ))}
 
                     {musicData.map((item, index) => (
-                      <MusicCard
-                        key={index}
-                        url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
-                        author={item.artist.firstName}
-                        songTitle={item.name}
-                        id={item.id}
-                      />
+                      <div onClick={() => handleClick(item.id)}>
+                        <MusicCard
+                          key={index}
+                          url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
+                          author={item.artist.firstName}
+                          songTitle={item.name}
+                          id={item.id}
+                        />
+                      </div>
                     ))}
                   </>
                 )}
@@ -172,16 +192,18 @@ export default function ArtistList() {
                 {onlyArtist &&
                   <>
                     {artistData.map((item, index) => (
-                      <ArtistCard
-                        key={index}
-                        onClick={() =>
-                          handleArtistClick(item.id, item.image?.[0]?.url || "")
-                        }
-                        artistImg={item.image?.[0]?.url || ""}
-                        artistName={item.firstName}
-                        artistType={""}
-                        biography={""}
-                      />
+                      <div>
+                        <ArtistCard
+                          key={index}
+                          onClick={() =>
+                            handleArtistClick(item.id, item.image?.[0]?.url || "")
+                          }
+                          artistImg={item.image?.[0]?.url || ""}
+                          artistName={item.firstName}
+                          artistType={""}
+                          biography={""}
+                        />
+                      </div>
                     ))}
                   </>
                 }
@@ -208,36 +230,36 @@ export default function ArtistList() {
                 <p className={styles.nameMusic}>{artistIdData.firstName}</p>
               </div>
               {showId && artistIdData && (
-  <div className={styles.artistMusic}>
-    <div className={styles.artists}>
-      <Image
-        src={selectedArtistImage || ""}
-        alt={"Artist image"}
-        width={150}
-        height={150}
-        className={styles.imgBackground}
-      />
-      <p className={styles.nameMusic}>{artistIdData.firstName}</p>
-    </div>
+                <div className={styles.artistMusic}>
+                  <div className={styles.artists}>
+                    <Image
+                      src={selectedArtistImage || ""}
+                      alt={"Artist image"}
+                      width={150}
+                      height={150}
+                      className={styles.imgBackground}
+                    />
+                    <p className={styles.nameMusic}>{artistIdData.firstName}</p>
+                  </div>
 
-    {/* Display music list */}
-    <div className={styles.musicCard}>
-      <div className={styles.musicInfo}>
-        {Array.isArray(artistIdData.musics) &&
-          artistIdData.musics.map((musicItem: any, index: number) => (
-            <div className={styles.text1} key={index}>
-              <p className={styles.text1P}>
-                {musicItem.name} {/* Music name */}
-              </p>
-              <span className={styles.text1SP}>
-                {musicItem.id} {/* Music ID */}
-              </span>
-            </div>
-          ))}
-      </div>
-    </div>
-  </div>
-)}
+                  {/* Display music list */}
+                  <div className={styles.musicCard}>
+                    <div className={styles.musicInfo}>
+                      {Array.isArray(artistIdData.musics) &&
+                        artistIdData.musics.map((musicItem: any, index: number) => (
+                          <div className={styles.text1} key={index}>
+                            <p className={styles.text1P}>
+                              {musicItem.name} {/* Music name */}
+                            </p>
+                            <span className={styles.text1SP}>
+                              {musicItem.id} {/* Music ID */}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                </div>
+              )}
 
             </div>
           )}

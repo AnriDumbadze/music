@@ -26,16 +26,13 @@ interface Artist {
     image: Image[];
 }
 
-
-
 interface SearchData {
     artistName: string;
     rank: string;
-    id: number; // Assuming ID is a number based on the expected type
+    id: number;
     name: string;
     description: string;
-    artistId: number; // Add artistId if you need to relate to the artist
-    // Add other relevant properties here
+    artistId: number;
     image: Image[];
 }
 
@@ -47,8 +44,6 @@ export default function SearchPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [artistData, setArtistData] = useState<Artist[]>([]); 
-    const [dataName, setDataName] = useState("")
-    const [dataId, setDataId] = useState<number>()
 
     useEffect(() => {
         const updateTheme = () => {
@@ -99,11 +94,11 @@ export default function SearchPage() {
                 Authorization: `Bearer ${userToken}`,
             },
         }).then((response) => {
-            setArtistData(response.data); // Ensure the correct data is being set
+            setArtistData(response.data); 
         })
-            .catch(() => {
-                console.log('ratom gavixade?');
-            });
+        .catch(() => {
+            console.log('Error fetching artist data');
+        });
     }, []);
 
     const artistCards = artistData.map((artist) => (
@@ -116,47 +111,46 @@ export default function SearchPage() {
         />
     ));
 
+
+
     const popularCharts = data.map((chart) => {
-        const artist = artistData.find((a) => a.id === chart.artistId); // Ensure artistId is present
-      
-        // Check if chart.image exists and has a length before accessing the last image
-        const imageUrl = chart.image 
-          ? chart.image[chart.image.length - 1]?.url 
-          : "/Image/topChart.png"; // Fallback to default image
-          
-          
-      
+        const artist = artistData.find((a) => a.id === chart.artistId); 
+        const imageUrl = chart.image ? chart.image[chart.image.length - 1]?.url : "/Image/topChart.png";
+
         return (
           <TopChart
-            image={imageUrl} // Use the checked image URL
+            image={imageUrl}
             key={chart.id}
             songName={chart.name}
-            artistName={artist ? artist.firstName : "Unknown Artist"} // Fallback to "Unknown Artist" if artist not found
+            artistName={artist ? artist.firstName : "Unknown Artist"}
             rank={chart.rank}
           />
         );
-      });
+    });
 
-    const onchange1 = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
-    };
+    const firstResult = data.length > 0 ? data[0] : null;
 
-    const firstResultName = data.length > 0 ? data[0].name : 'No results found';
-    const idSearch = data.length > 0 ? data[0].id : undefined; // Change to undefined if no ID
-    const descriptionSearch = data.length > 0 ? data[0].description : '';
-    
-
-
-    
-    
     return (
         <div className={styles.mainContent}>
             <div className={styles.asideContainer}>
-            <Aside />
+                <Aside />
             </div>
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-                <Header onchange={onchange1} />
-                <RecentSearch name={dataName} musicId={Number(dataId)} id={idSearch} description={descriptionSearch} data={data} />
+                <Header onchange={(e) => setSearch(e.target.value)} />
+                <div>
+                    {firstResult && (
+
+                            <RecentSearch 
+                                name={firstResult.name} 
+                                musicId={firstResult.id} 
+                                id={firstResult.id} 
+                                description={firstResult.description} 
+                                data={[firstResult]} 
+                                image={firstResult.image[firstResult.image.length - 1]} 
+                            />
+
+                    )}
+                </div>
                 <MusicWrapper cards={artistCards} name={"Top searched artists"} />
                 <MusicWrapper cards={popularCharts} name={"Search Musics Charts"} />
             </div>

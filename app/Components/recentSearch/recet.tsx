@@ -4,6 +4,8 @@ import styles from './recent.module.scss';
 import Icon from '../Icon/Icon';
 import Cookies from "js-cookie";
 import axios from 'axios';
+import { Image } from 'antd';
+import { getCookie } from '../Aside/Aside';
 
 interface RecentSearchData {
     id: number; // Assuming ID is a number
@@ -16,11 +18,41 @@ interface Props {
     id?: number;
     description?: string;
     musicId: number;
+    image?: Image;
+}
+
+interface Image {
+    id: number;
+    fileName: string;
+    bucketName: string;
+    key: string;
+    url: string;
 }
 
 export default function RecentSearch(props: Props) {
     const [activeStates, setActiveStates] = useState([false, false, false]);
     const [data, setData] = useState<RecentSearchData[]>([]); // Updated state type
+
+    const handleClick = async (id: number) => {
+        const userToken = getCookie("userToken");
+
+        axios.get('https://music-back-1s59.onrender.com/music/' + id, {
+            headers: {
+                Authorization: `Bearer ${userToken}`
+            }
+        })
+        .then((response) => {
+            localStorage.setItem("Searched_Music", JSON.stringify(response.data));
+            if(typeof window !== 'undefined') {
+                window.location.replace('/');
+            }
+        })
+        .catch((err: any) => {
+            if (typeof window !== 'undefined') {
+                window.alert(err);
+            }
+        });
+    };
 
     console.log(props.data);
 
@@ -85,8 +117,25 @@ export default function RecentSearch(props: Props) {
             {props.data?.length > 0 && props.data.map((item, index) => (
                 <div className={styles.RecentItems} key={item.id}>
                     <div className={styles.RecentItemsGroup}>
-                        <div className={styles.flexGroup}>
-                            <div className={styles.ImgRecent}></div>
+                        <div className={styles.flexGroup} onClick={() => handleClick(item.id)}>
+                            <div>
+                                {props.image ? ( // Check if props.image is defined and has elements
+                                    <Image
+                                        src={props.image.url}
+                                        width={72}
+                                        height={72}
+                                        alt={"photo"}
+                                    />
+                                ) : (
+                                    <Image
+                                        src="/Images/default.png" // Fallback image if props.image is undefined or empty
+                                        width={72}
+                                        height={72}
+                                        alt="Default photo"
+                                    />
+                                )}
+                            </div>
+
                             <div className={styles.text}>
                                 <p className={styles.name}>{item.name}</p>
                                 <p className={styles.songName}>{item.id}</p>
