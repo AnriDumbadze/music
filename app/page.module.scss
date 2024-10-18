@@ -20,7 +20,7 @@
 }
 
 .static{
-  background: #F7F7F7;
+  background: #151515;
   width: 100%;
   overflow: scroll; 
 }
@@ -498,21 +498,27 @@ letter-spacing: -0.48px;
 .videoContainer {
   display: flex;
   align-items: flex-end;
+  
   width: 100%;
   border-radius: 10px;
   background: #151515;
 }
 
+.lineVideo{
+  display: flex;
+  align-items: center;
+}
+
 .videoContainerDark {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   width: 100%;
   border-radius: 10px;
-  background-color: black;
 }
 
 .controllerbutton{
   cursor: pointer;
+  padding-bottom: 8px;
 }
 
 /* Custom Progress Bar Container */

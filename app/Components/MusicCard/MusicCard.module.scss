@@ -17,8 +17,13 @@
 .musicInfo {
   gap: 4px;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.right{
+  display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .author {
@@ -54,6 +59,27 @@
   height: 176px !important;
   width: 168px;
 }
+
+.popup {
+  position: absolute; // Adjust based on your layout
+  background-color: black; // Change based on theme
+  border: 1px solid gray;
+  padding: 10px;
+  z-index: 10;
+}
+
+.playlistButton{
+  display: flex;
+  
+}
+
+.playlist{
+  display: flex;
+  background-color: black;
+  border: none;
+  color: white;
+}
+
 
 
 
