@@ -13,6 +13,7 @@ import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
 import Cookies from "js-cookie";
+import { log } from "console";
 
 interface Artist {
   id: number;
@@ -46,6 +47,32 @@ const Home = () => {
   const [showPlayer, setShowPlayer] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
+  const [searchedMusic, setSearchedMusic] = useState<any>(undefined);
+  const [albumMusic, setAlbumMusic] = useState<any>(undefined)
+
+  useEffect(() => {
+    const searched_music = localStorage.getItem("Searched_Music");
+    const album_music = localStorage.getItem("albumItem");
+    if (searched_music) {
+      const music = JSON.parse(searched_music);
+      setSearchedMusic(music.musics);  // This will trigger a re-render
+      localStorage.removeItem("Searched_Music")
+    } else if(album_music){
+      const music = JSON.parse(album_music);
+      setAlbumMusic(music.musics)
+      localStorage.removeItem("albumItem")
+    }
+  }, []);
+  
+  // Log the updated searchedMusic when it changes
+  useEffect(() => {
+    if (searchedMusic) {
+      console.log(searchedMusic); // This will now log after it's updated
+    } else if(albumMusic) {
+      console.log(albumMusic); //undefined
+    }
+  }, [searchedMusic, albumMusic]);
+  
  
   // Fetch artist data
   useEffect(() => {
@@ -63,19 +90,51 @@ const Home = () => {
   }, []);
 
   // Fetch music data
-  useEffect(() => {
-    const userToken = getCookie("userToken");
-    axios
-      .get("https://music-back-1s59.onrender.com/music", {
+// Fetch music data
+useEffect(() => {
+  const userToken = getCookie("userToken");
+  
+  const fetchMusicData = async () => {
+    try {
+      const response = await axios.get("https://music-back-1s59.onrender.com/music", {
         headers: { Authorization: `Bearer ${userToken}` },
-      })
-      .then((response) => {
-        setMusicData(response.data);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch music:", error);
       });
-  }, []);
+
+      // Start with the fetched music data
+      const musicArr: any[] = response.data;
+
+      // If searchedMusic exists, check for duplicates
+      if (searchedMusic) {
+        // Filter out any music that has the same ID as searchedMusic
+        const filteredMusicArr = musicArr.filter(music => music.id !== searchedMusic.id);
+        
+        // Combine the searchedMusic with the filtered music array
+        const finalMusicArr = [searchedMusic, ...filteredMusicArr];
+        setMusicData(finalMusicArr);
+      } else if(albumMusic) {
+        console.log("albumId: " + albumMusic);
+        
+        // If no searchedMusic, just set the fetched music data
+        const filteredMusicArr = musicArr.filter(music => music.id !== albumMusic.id);
+        const finalMusicArr = [albumMusic, ...filteredMusicArr];
+        setMusicData(finalMusicArr)
+
+      } else  {
+        console.log("nothing")
+        setMusicData(musicArr);
+      }
+
+      console.log(musicArr);
+      
+    } catch (error) {
+      console.error("Failed to fetch music:", error);
+    }
+  };
+  
+  fetchMusicData();
+}, [searchedMusic, albumMusic]);
+; // Add searchedMusic as a dependency to run this effect when it changes
+
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
 

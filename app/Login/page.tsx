@@ -39,7 +39,7 @@ const Login = (props: Props) => {
   
 
       // Redirect after successful login
-      router.replace("https://burgermenu.d25x0dq5whxx2c.amplifyapp.com/");
+      router.replace("/");
     } catch (error) {
       setError('Login failed. Please check your email and password.'); // Set error message
       console.error('Login error:', error);
