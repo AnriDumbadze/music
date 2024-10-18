@@ -65,15 +65,16 @@
     display: flex;
     flex-direction: row;
     gap: 15px;
+    align-items: center;
 }
 
 .infodiv {
     display: flex;
-    width: 729px;
+    width: 100%;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     position: relative;
-    left: 32px;
+    padding: 0 32px;
 }
 
 .infotext {
@@ -83,28 +84,34 @@
     font-weight: 500;
     line-height: 18px;
     letter-spacing: -0.32px;
+    position: relative;
+    left: 3px;
+    flex: 1;
+    
 }
 
 .strokediv {
-    width: 1135px;
+    width: 100%;
     border: 1px solid #333;
     position: relative;
-    top: 25px;
+    margin: 25px 0;
 }
 
 .musicdiv {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    gap: 110px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
     position: relative;
-    left: 30px;
-    top: 45px;
+    padding: 0 30px;
 }
 
 .flexdiv {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 15px;
 }
 
 .musictext1 {
@@ -114,8 +121,7 @@
     font-weight: 500;
     line-height: 18px;
     letter-spacing: -0.32px;
-    text-transform: capitalize;
-    align-items: center;
+    text-align: center;
 }
 
 .musictext2 {
@@ -125,5 +131,5 @@
     font-weight: 500;
     line-height: 24px;
     letter-spacing: -0.32px;
-    text-transform: capitalize;
+    text-align: center;
 }

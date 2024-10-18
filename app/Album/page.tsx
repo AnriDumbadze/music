@@ -5,6 +5,7 @@ import styles from "./album.module.scss";
 import AsideMenu from "../Components/Aside/Aside";
 import Header from "../Components/Header/Header";
 import Icon from "../Components/Icon/Icon";
+import axios from "axios";
 
 export default function Library() {
   const [active, setActive] = useState(false);
@@ -12,6 +13,20 @@ export default function Library() {
   const handleIconClick = () => {
     setActive(!active);
   };
+
+  const [active1, setActive1] = useState(false);
+
+  const handleIconClick1 = () => {
+    setActive1(!active1);
+  };
+
+  useEffect(() =>{
+    axios.get("https://music-back-1s59.onrender.com/music").then((res) => {
+      console.log(res.data);
+    }).catch(() => {
+      console.log('s');
+    })
+  })
 
   return (
     <>
@@ -74,8 +89,8 @@ export default function Library() {
               width="24"
               height="24"
               name={"heart"}
-              onClick={handleIconClick}
-              isActive={active}
+              onClick={handleIconClick1}
+              isActive={active1}
             />
             <Icon width="24" height="24" name={"dots"} />
           </div>
