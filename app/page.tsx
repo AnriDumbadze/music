@@ -51,32 +51,50 @@ const Home = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
   const [searchedMusic, setSearchedMusic] = useState<any>(undefined);
-  const [albumMusic, setAlbumMusic] = useState<any>(undefined)
+  const [albumMusic, setAlbumMusic] = useState<any>(undefined);
+  const [playlists, setPlaylists] = useState<any[]>([]); // State to hold playlists
+
+  // Fetch playlists data
+  useEffect(() => {
+    const userToken = getCookie("userToken");
+    axios
+      .get("https://music-back-1s59.onrender.com/users/me", {
+        headers: { Authorization: `Bearer ${userToken}` },
+      })
+      .then((response) => {
+        if (Array.isArray(response.data)) {
+          setPlaylists(response.data);
+        } else if (response.data && response.data.playlists) {
+          setPlaylists(response.data.playlists);
+        }
+      })
+      .catch((error) => {
+        console.error("Failed to fetch playlists:", error);
+      });
+  }, []);
 
   useEffect(() => {
     const searched_music = localStorage.getItem("Searched_Music");
     const album_music = localStorage.getItem("albumItem");
     if (searched_music) {
       const music = JSON.parse(searched_music);
-      setSearchedMusic(music.musics);  // This will trigger a re-render
-      localStorage.removeItem("Searched_Music")
-    } else if(album_music){
+      setSearchedMusic(music.musics); // This will trigger a re-render
+      localStorage.removeItem("Searched_Music");
+    } else if (album_music) {
       const music = JSON.parse(album_music);
-      setAlbumMusic(music.musics)
-      localStorage.removeItem("albumItem")
+      setAlbumMusic(music.musics);
+      localStorage.removeItem("albumItem");
     }
   }, []);
-  
+
   // Log the updated searchedMusic when it changes
   useEffect(() => {
     if (searchedMusic) {
       console.log(searchedMusic); // This will now log after it's updated
-    } else if(albumMusic) {
+    } else if (albumMusic) {
       console.log(albumMusic); //undefined
     }
   }, [searchedMusic, albumMusic]);
-  
- 
 
   // Fetch artist data
   useEffect(() => {
@@ -94,52 +112,54 @@ const Home = () => {
   }, []);
 
   // Fetch music data
-// Fetch music data
-useEffect(() => {
-  const userToken = getCookie("userToken");
-  
-  const fetchMusicData = async () => {
-    try {
-      const response = await axios.get("https://music-back-1s59.onrender.com/music", {
-        headers: { Authorization: `Bearer ${userToken}` },
-      });
+  // Fetch music data
+  useEffect(() => {
+    const userToken = getCookie("userToken");
 
-      // Start with the fetched music data
-      const musicArr: any[] = response.data;
+    const fetchMusicData = async () => {
+      try {
+        const response = await axios.get(
+          "https://music-back-1s59.onrender.com/music",
+          {
+            headers: { Authorization: `Bearer ${userToken}` },
+          }
+        );
 
-      // If searchedMusic exists, check for duplicates
-      if (searchedMusic) {
-        // Filter out any music that has the same ID as searchedMusic
-        const filteredMusicArr = musicArr.filter(music => music.id !== searchedMusic.id);
-        
-        // Combine the searchedMusic with the filtered music array
-        const finalMusicArr = [searchedMusic, ...filteredMusicArr];
-        setMusicData(finalMusicArr);
-      } else if(albumMusic) {
-        console.log("albumId: " + albumMusic);
-        
-        // If no searchedMusic, just set the fetched music data
-        const filteredMusicArr = musicArr.filter(music => music.id !== albumMusic.id);
-        const finalMusicArr = [albumMusic, ...filteredMusicArr];
-        setMusicData(finalMusicArr)
+        // Start with the fetched music data
+        const musicArr: any[] = response.data;
 
-      } else  {
-        console.log("nothing")
-        setMusicData(musicArr);
+        // If searchedMusic exists, check for duplicates
+        if (searchedMusic) {
+          // Filter out any music that has the same ID as searchedMusic
+          const filteredMusicArr = musicArr.filter(
+            (music) => music.id !== searchedMusic.id
+          );
+
+          // Combine the searchedMusic with the filtered music array
+          const finalMusicArr = [searchedMusic, ...filteredMusicArr];
+          setMusicData(finalMusicArr);
+        } else if (albumMusic) {
+          console.log("albumId: " + albumMusic);
+
+          // If no searchedMusic, just set the fetched music data
+          const filteredMusicArr = musicArr.filter(
+            (music) => music.id !== albumMusic.id
+          );
+          const finalMusicArr = [albumMusic, ...filteredMusicArr];
+          setMusicData(finalMusicArr);
+        } else {
+          console.log("nothing");
+          setMusicData(musicArr);
+        }
+
+        console.log(musicArr);
+      } catch (error) {
+        console.error("Failed to fetch music:", error);
       }
+    };
 
-      console.log(musicArr);
-      
-    } catch (error) {
-      console.error("Failed to fetch music:", error);
-    }
-  };
-  
-  fetchMusicData();
-}, [searchedMusic, albumMusic]);
-; // Add searchedMusic as a dependency to run this effect when it changes
-
-
+    fetchMusicData();
+  }, [searchedMusic, albumMusic]); // Add searchedMusic as a dependency to run this effect when it changes
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // Handle track change
@@ -221,6 +241,7 @@ useEffect(() => {
                       author={item.artist.firstName}
                       songTitle={item.name}
                       id={item.id}
+                      playlists={playlists} // Pass the playlists down
                     />
                   </div>
                 ))}
@@ -275,7 +296,7 @@ useEffect(() => {
           </div>
         </div>
         <div className={styles.computerPlayer}>
-          <ComputerPlayer/>
+          <ComputerPlayer />
         </div>
 
         <div className={styles.secondAside}>

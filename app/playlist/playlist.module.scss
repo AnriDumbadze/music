@@ -1,101 +1,242 @@
 .mainContent {
-    display: flex;
-    height: 300vh;
-  }
+  display: flex;
+  margin-left: 241px;
+  background-color: black;
+  min-height: 100vh;
   
-  .default{
-    display: flex;
-    height: fit-content;
-  }
-  
-  .static{
-    background: #F7F7F7;
-    width: 100%;
-  }
-  .darkStatic{
-    background-color: #0E0E0E;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-
-  .background{
-    background-color: #230033;
-    width: 100%;
-    height: 137px;
-  }
-
-  .playlistTitle{
-    padding: 32px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .title{
-    font-size: 32px;
-    color: #fff;
-  }
-
-  .description{
-    width: 320px;
-    height: 44px;
-    font-size: 14px;
-    color: #898989;
-  }
-  
-.text{
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    position: relative;
-    top: 42px;
 }
 
-  .iconGroup{
+.default {
+  display: flex;
+  height: fit-content;
+}
+
+.static {
+  background: #f7f7f7;
+  width: 100%;
+}
+
+.darkStatic {
+  background-color: #0e0e0e;
+  width: 100%;
+}
+
+.background {
+  background-color: #230033;
+  width: 100%;
+  height: 137px;
+  position: relative; /* Ensure the background can hold positioned children */
+}
+
+.playlistTitle {
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.title {
+  font-size: 32px;
+  color: #fff;
+}
+
+.description {
+  width: 320px;
+  height: 44px;
+  font-size: 14px;
+  color: #898989;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  top: 42px;
+}
+
+.iconGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.line {
+  border: 1px solid #262626;
+  width: 1135px;
+}
+
+.lists {
+  padding: 32px;
+}
+
+.listTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1135px;
+  position: relative;
+  top: 30px;
+}
+
+.titleTextP {
+  color: #898989;
+  font-size: 14px;
+}
+
+.btn1 {
+  background-color: #1a1a1a;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  width: 84px;
+  cursor: pointer;
+  color: #898989;
+  font-size: 12px;
+}
+
+.blurred {
+  filter: blur(5px);
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.popupContainer {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  border-top: 1px solid #1e1e1e;
+  border-left: 1px solid #1e1e1e;
+  background: rgba(35, 35, 35, 0.8);
+  backdrop-filter: blur(25px);
+  z-index: 1000;
+  width: 326px;
+  height: 166px;
+  color: white;
+}
+
+.popupContainer h2 {
+  color: #fff;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 22px; /* 137.5% */
+  letter-spacing: -0.32px;
+  text-transform: capitalize;
+}
+
+.infoHolder {
+  display: flex;
+  width: 243px;
+  height: 48px;
+  padding: 12px 16px;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: #f7f7f7;
+}
+
+.input {
+  width: 240px;
+  font-family: Poppins;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%;
+  border: none;
+  cursor: pointer;
+  background: #f7f7f7;
+  outline: none;
+}
+
+.cancelButton {
+  display: flex;
+  width: 100px;
+  color: white;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: #3d3d3d;
+  cursor: pointer;
+}
+
+.playListName {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formButtons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.submitButton {
+  display: flex;
+  width: 100px;
+  color: white;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--PrimaryCollor, #ff5f5f);
+  cursor: pointer;
+}
+
+.yesButton {
+  display: flex;
+  width: 131px;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: var(--PrimaryCollor, #ff5f5f);
+  cursor: pointer;
+  color: white;
+}
+
+.noButton {
+  display: flex;
+  width: 131px;
+  color: white;
+  padding: 8px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+  background: #3d3d3d;
+  cursor: pointer;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent dark background */
+  z-index: 900; /* Ensure the overlay is below the popup */
+}
+
+@media (max-width: 700px) {
+  .mainContent {
     display: flex;
-    align-items: center;
-    gap: 16px;
+    flex-direction: column-reverse;
   }
-
-  .line{
-    border: 1px solid #262626;
-    width: 1135px;
-  }
-
-  .lists{
-    padding: 32px;
-  }
-
-  .listTitle{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1135px;
-    position: relative;
-    top: 30px;
-  }
-
-  .titleTextP{
-    color: #898989;
-    font-size: 14px;
-  }
-
-  .btn1{
-    background-color: #1A1A1A;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 8px;
-    width: 84px;
-    cursor: pointer;
-    color: #898989;
-    font-size: 12px;
-  }
-
-  @media (max-width:700px) {
-    .mainContent{
-      display: flex;
-      flex-direction: column-reverse;
-    }
-  }
+}

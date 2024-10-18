@@ -1,16 +1,15 @@
-import Cookies from "js-cookie";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./MusicCard.module.scss";
-import { getCookie } from "../Aside/Aside";
-import axios from "axios";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
+import axios from "axios";
+import { getCookie } from "../Aside/Aside";
 
 interface Music {
-  id: number; // or string based on your API response
+  id: number;
   name: string;
   artist: {
-    firstName: string; // Ensure this matches your API response
+    firstName: string;
   };
 }
 
@@ -19,91 +18,60 @@ interface Props {
   author: string;
   songTitle: string;
   id: number;
+  playlists: any[];
 }
 
-function MusicCard({ url, author, songTitle, id }: Props) {
-  const [getData, setGetData] = useState<Music[]>([]);
-  const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") ?? null);
-  const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [showPlaylistInput, setShowPlaylistInput] = useState<boolean>(false); // State for input visibility
-  const [playlistName, setPlaylistName] = useState<string>("");
+function MusicCard(props: Props) {
+  const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const cardClassName = themeColor === "dark" 
-    ? `${styles.musicCard} ${styles.darkMusicCard}` 
-    : styles.musicCard;
+  const handleAddToPlaylist = async (playlistId: number) => {
+    try {
+      const userToken = getCookie("userToken"); 
+      const response = await axios.post(
+        `https://music-back-1s59.onrender.com/playlists/${playlistId}/add-song`,
+        { songId: props.id }, 
+        { headers: { Authorization: `Bearer ${userToken}` } }
+      );
 
-  useEffect(() => {
-    const userToken = Cookies.get("userToken");
-
-    axios
-      .get("https://music-back-1s59.onrender.com/music", {
-        headers: {
-          Authorization: `Bearer ${userToken}`,
-        },
-      })
-      .then((response) => {
-        setGetData(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching music data:", error);
-      });
-  }, []);
-
-  const handleDotsClick = () => {
-    setShowPopup(!showPopup); // Toggle popup visibility
-  };
-
-  const handleAddToPlaylist = () => {
-    setShowPlaylistInput(true); // Show the input field when "Add to Playlist" is clicked
-  };
-
-  const handleCreatePlaylist = () => {
-    console.log(`Playlist Name: ${playlistName}`);
-    setPlaylistName(""); // Clear the input after handling
-    setShowPlaylistInput(false); // Close the input field
-    setShowPopup(false); // Close the popup
+      setMessage(`deeemata: ${response.data.playlistName}`);
+      setShowPlaylistMenu(false);
+    } catch (error) {
+      console.error("ratom gavixade:", error);
+      setMessage("saba kutai");
+    }
   };
 
   return (
-    <div className={cardClassName}>
-      <div className={styles.musicPhoto1}>
-        <div key={id} className={styles.musicWrap}>
-          <div className={styles.musicPhoto}>
-            <Image
-              className={styles.img}
-              src={url}
-              alt={songTitle}
-              height={176}
-              width={168}
-              layout="intrinsic"
-            />
-            <div className={styles.musicInfo}>
-              <div className={styles.right}>
-                <p className={styles.songTitle}>{songTitle}</p>
-                <p className={styles.author}>{author}</p>
-              </div>
-              <div className={styles.left}>
-                <Icon name={"3dots"} onClick={handleDotsClick} />
-              </div>
-            </div>
+    <div className={styles.musicCard}>
+      <div className={styles.musicPhoto}>
+        <Image
+          className={styles.img}
+          src={props.url}
+          alt={props.songTitle}
+          height={176}
+          width={168}
+        />
+        <div className={styles.musicInfo}>
+          <div className={styles.right}>
+            <p className={styles.songTitle}>{props.songTitle}</p>
+            <p className={styles.author}>{props.author}</p>
+            {message && <p className={styles.message}>{message}</p>} 
           </div>
-        </div>
-        {showPopup && (
-          <div className={styles.popup}>
-            <button className={styles.playlist} onClick={handleAddToPlaylist}>Add to Playlist</button>
-            {showPlaylistInput && (
-              <div>
-                <input 
-                  type="text" 
-                  value={playlistName} 
-                  onChange={(e) => setPlaylistName(e.target.value)} 
-                  placeholder="Enter Playlist Name"
-                />
-                <button className={styles.playlistButton} onClick={handleCreatePlaylist}>Create Playlist</button>
+          <div className={styles.left}>
+            <Icon name={"3dots"} onClick={() => setShowPlaylistMenu(!showPlaylistMenu)} />
+            {showPlaylistMenu && (
+              <div className={styles.playlistMenu}>
+                <span className={styles.playlistHeader}>Add to Playlist</span>
+                {props.playlists.map((playlist) => (
+                  <div key={playlist.id} onClick={() => handleAddToPlaylist(playlist.id)}>
+                    {playlist.name}
+                  </div>
+                ))}
               </div>
             )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );
