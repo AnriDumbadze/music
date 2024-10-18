@@ -13,11 +13,8 @@ import axios from "axios";
 import BurgerMenuMobile from "./Components/burgermenumobile/burgetmobile";
 import Icon from "./Components/Icon/Icon";
 import Cookies from "js-cookie";
-<<<<<<< HEAD
 import { log } from "console";
-=======
 import ComputerPlayer from "./Components/ComputerPlayer/ComputerPlayer";
->>>>>>> 9d7dfac6960ba158591e528ede95167e7d60e1ab
 
 interface Artist {
   id: number;
@@ -53,7 +50,6 @@ const Home = () => {
   const [showPlayer, setShowPlayer] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
-<<<<<<< HEAD
   const [searchedMusic, setSearchedMusic] = useState<any>(undefined);
   const [albumMusic, setAlbumMusic] = useState<any>(undefined)
 
@@ -81,9 +77,7 @@ const Home = () => {
   }, [searchedMusic, albumMusic]);
   
  
-=======
 
->>>>>>> 9d7dfac6960ba158591e528ede95167e7d60e1ab
   // Fetch artist data
   useEffect(() => {
     const userToken = getCookie("userToken");
