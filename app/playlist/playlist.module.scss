@@ -1,5 +1,6 @@
 .mainContent {
     display: flex;
+    height: 300vh;
   }
   
   .default{
@@ -14,6 +15,8 @@
   .darkStatic{
     background-color: #0E0E0E;
     width: 100%;
+    height: 100%;
+    overflow: hidden;
   }
 
 

@@ -43,7 +43,7 @@ export default function Playlist() {
                                     <p className={styles.titleTextP}>Music</p>
                                     <p className={styles.titleTextP}>Album</p>
                                     <p className={styles.titleTextP}>Time Added</p>
-                                    <button className={styles.btn1}>Mussic</button>
+                                    <button className={styles.btn1}>Music</button>
                                 </div>
                             </div>
                             <PlaylistCard />
