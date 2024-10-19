@@ -183,6 +183,7 @@ export default function ArtistList() {
                           author={item.artist.firstName}
                           songTitle={item.name}
                           id={item.id}
+                          playlists={item.playlist}
                         />
                       </div>
                     ))}
@@ -212,7 +213,7 @@ export default function ArtistList() {
             )}
             {showPlaylist &&
               <>
-                <PlaylistCard />
+                <PlaylistCard playlists={[]} />
               </>
             }
           </div>

@@ -24,17 +24,31 @@ interface Props {
 function MusicCard(props: Props) {
   const [showPlaylistMenu, setShowPlaylistMenu] = useState(false);
   const [message, setMessage] = useState("");
+  const [rensponse, setReponse] = useState();
 
   const handleAddToPlaylist = async (playlistId: number) => {
     try {
       const userToken = getCookie("userToken"); 
+
+      let responseData: any = await axios.get('https://music-back-1s59.onrender.com/playlist/' + playlistId, {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        }
+      })
+
+      console.log(responseData.data);
+      let arr = []
+      for(let i in responseData.data.musics) {
+        arr.push(responseData.data.musics[i].id)
+      } 
+
       const response = await axios.patch(
         `https://music-back-1s59.onrender.com/playlist/${playlistId}`,  // Include playlistId in the URL
-        { musicIds: [props.id] }, 
+        { musicIds: [props.id, ...arr] }, 
         { headers: { Authorization: `Bearer ${userToken}` } }
       );  
-
-      setMessage(`Added to playlist: ${response.data.playlistName}`);
+      console.log(response.data);
+      setMessage(`Added to playlist: ${responseData.data.name}`);
       setShowPlaylistMenu(false);
     } catch (error) {
       console.error("Error adding to playlist:", error);

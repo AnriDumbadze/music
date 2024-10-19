@@ -50,9 +50,10 @@ const Home = () => {
   const [showPlayer, setShowPlayer] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentTrackTime, setCurrentTrackTime] = useState(0);
-  const [searchedMusic, setSearchedMusic] = useState<any>(undefined);
-  const [albumMusic, setAlbumMusic] = useState<any>(undefined);
+  const [searchedMusic, setSearchedMusic] = useState<any>(null);
+  const [albumMusic, setAlbumMusic] = useState<any>(null);
   const [playlists, setPlaylists] = useState<any[]>([]); // State to hold playlists
+  const [playlistMusic, setPlaylistMusic] = useState<any>(null);
 
   // Fetch playlists data
   useEffect(() => {
@@ -76,16 +77,22 @@ const Home = () => {
   useEffect(() => {
     const searched_music = localStorage.getItem("Searched_Music");
     const album_music = localStorage.getItem("albumItem");
+    const playlist_music = localStorage.getItem("playlistMusic");
     if (searched_music) {
       const music = JSON.parse(searched_music);
       setSearchedMusic(music.musics); // This will trigger a re-render
-      localStorage.removeItem("Searched_Music");
+      localStorage.removeItem("Searched_Music")
     } else if (album_music) {
       const music = JSON.parse(album_music);
       setAlbumMusic(music.musics);
       localStorage.removeItem("albumItem");
+    } else if (playlist_music) {
+      const music = JSON.parse(playlist_music);
+      setPlaylistMusic(music);
+      localStorage.removeItem("playlistMusic");
     }
   }, []);
+
 
   // Log the updated searchedMusic when it changes
   useEffect(() => {
@@ -93,8 +100,10 @@ const Home = () => {
       console.log(searchedMusic); // This will now log after it's updated
     } else if (albumMusic) {
       console.log(albumMusic); //undefined
+    } else if (playlistMusic) {
+      console.log(playlistMusic);
     }
-  }, [searchedMusic, albumMusic]);
+  }, [searchedMusic, albumMusic, playlistMusic]);
 
   // Fetch artist data
   useEffect(() => {
@@ -113,53 +122,7 @@ const Home = () => {
 
   // Fetch music data
   // Fetch music data
-  useEffect(() => {
-    const userToken = getCookie("userToken");
-
-    const fetchMusicData = async () => {
-      try {
-        const response = await axios.get(
-          "https://music-back-1s59.onrender.com/music",
-          {
-            headers: { Authorization: `Bearer ${userToken}` },
-          }
-        );
-
-        // Start with the fetched music data
-        const musicArr: any[] = response.data;
-
-        // If searchedMusic exists, check for duplicates
-        if (searchedMusic) {
-          // Filter out any music that has the same ID as searchedMusic
-          const filteredMusicArr = musicArr.filter(
-            (music) => music.id !== searchedMusic.id
-          );
-
-          // Combine the searchedMusic with the filtered music array
-          const finalMusicArr = [searchedMusic, ...filteredMusicArr];
-          setMusicData(finalMusicArr);
-        } else if (albumMusic) {
-          console.log("albumId: " + albumMusic);
-
-          // If no searchedMusic, just set the fetched music data
-          const filteredMusicArr = musicArr.filter(
-            (music) => music.id !== albumMusic.id
-          );
-          const finalMusicArr = [albumMusic, ...filteredMusicArr];
-          setMusicData(finalMusicArr);
-        } else {
-          console.log("nothing");
-          setMusicData(musicArr);
-        }
-
-        console.log(musicArr);
-      } catch (error) {
-        console.error("Failed to fetch music:", error);
-      }
-    };
-
-    fetchMusicData();
-  }, [searchedMusic, albumMusic]); // Add searchedMusic as a dependency to run this effect when it changes
+ // Add searchedMusic as a dependency to run this effect when it changes
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   // Handle track change
@@ -197,20 +160,74 @@ const Home = () => {
   }, [currentIndex, musicData]); // Run when currentIndex or musicData changes
 
   const currentSong = musicData[currentIndex];
+
+  useEffect(() => {
+    // Exit early if all are null or undefined
+
+  
+    const userToken = getCookie("userToken");
+  
+    const fetchMusicData = async () => {
+      try {
+        const response = await axios.get(
+          "https://music-back-1s59.onrender.com/music",
+          {
+            headers: { Authorization: `Bearer ${userToken}` },
+          }
+        );
+  
+        const musicArr: any[] = response.data;
+  
+        // If searchedMusic exists, check for duplicates
+        if (searchedMusic) {
+          const filteredMusicArr = musicArr.filter(
+            (music) => music.id !== searchedMusic.id
+          );
+  
+          const finalMusicArr = [searchedMusic, ...filteredMusicArr];
+          setMusicData(finalMusicArr);
+        } else if (albumMusic) {
+          console.log("albumId: " + albumMusic);
+  
+          const filteredMusicArr = musicArr.filter(
+            (music) => music.id !== albumMusic.id
+          );
+          const finalMusicArr = [albumMusic, ...filteredMusicArr];
+          setMusicData(finalMusicArr);
+  
+        } else if (playlistMusic) {
+          const filteredMusicArr = musicArr.filter(
+            (music) => music.id !== playlistMusic.id
+          );
+          const finalMusicArr = [playlistMusic, ...filteredMusicArr];
+          setMusicData(finalMusicArr);
+        } else {
+          console.log("nothing");
+          setMusicData(musicArr);
+        }
+  
+        console.log(musicArr);
+      } catch (error) {
+        console.error("Failed to fetch music:", error);
+      }
+    };
+  
+    fetchMusicData();
+  }, [searchedMusic || albumMusic || playlistMusic]);
+  
   return (
     <RecoilRoot>
       <div className={styles.mainContent}>
         <div className={styles.burger}>
-          <Icon width="72px" name="FAZER" isActive={false} onClick={() => {}} />
+          <Icon width="72px" name="FAZER" isActive={false} onClick={() => { }} />
           <BurgerMenuMobile />
         </div>
         <div className={styles.mainAside}>
           <Aside />
         </div>
         <div
-          className={`${styles.static} ${
-            themeColor === "dark" ? styles.darkStatic : ""
-          }`}
+          className={`${styles.static} ${themeColor === "dark" ? styles.darkStatic : ""
+            }`}
         >
           <Header />
           <div className={styles.staticFlex}>
@@ -296,7 +313,7 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.computerPlayer}>
-         
+
         </div>
 
         <div className={styles.secondAside}>
