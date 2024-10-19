@@ -41,8 +41,8 @@ export default function ArtistList() {
       }
     })
       .then((rensponse) => {
-        localStorage.setItem("albumItem", JSON.stringify(rensponse.data))
         if (typeof window != 'undefined') {
+          localStorage.setItem("albumItem", JSON.stringify(rensponse.data))
           window.location.replace('/');
         }
       })
