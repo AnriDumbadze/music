@@ -11,11 +11,12 @@ import MusicCard from "../Components/MusicCard/Musiccard";
 export default function PlaylistPage() {
     const [themeColor] = useState<string | null>(Cookies.get("theme") || null);
     const [playlistMusics, setPlaylistMusics] = useState<any[]>([]);
-    const musics = localStorage.getItem("musics");
-    const parsedMusics: any[] = musics ? JSON.parse(musics) : [];
     const userToken = Cookies.get("userToken");
 
     useEffect(() => {
+        const musics = localStorage.getItem("musics");
+        const parsedMusics: any[] = musics ? JSON.parse(musics) : [];
+
         const fetchMusics = async () => {
             try {
                 const fetchedMusics = await Promise.all(
@@ -40,16 +41,12 @@ export default function PlaylistPage() {
         if (parsedMusics.length > 0) {
             fetchMusics();
         }
-    }, [parsedMusics, userToken]);
+    }, [userToken]);
 
     const handleClick = (item: any) => {
-
-        if (typeof window != 'undefined') {
-            localStorage.setItem("playlistMusic", JSON.stringify(item));
-        }
-
-        if (typeof window != 'undefined') {
-            window.location.replace('/')
+        localStorage.setItem("playlistMusic", JSON.stringify(item));
+        if (typeof window !== 'undefined') {
+            window.location.replace('/');
         }
     }
 
@@ -64,7 +61,7 @@ export default function PlaylistPage() {
                 <div className={styles.mainContent}>
                     <h1>Playlist</h1>
                     {playlistMusics.map((item) => (
-                        <div key={item.id} onClick={() => handleClick(item)}>  
+                        <div key={item.id} onClick={() => handleClick(item)}>
                             <MusicCard
                                 url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                                 author={item.artist.firstName}
@@ -74,7 +71,6 @@ export default function PlaylistPage() {
                             />
                         </div>
                     ))}
-
                 </div>
             </div>
         </>
