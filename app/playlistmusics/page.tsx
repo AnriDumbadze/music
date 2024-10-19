@@ -44,8 +44,10 @@ export default function PlaylistPage() {
 
     const handleClick = (item: any) => {
 
+        if (typeof window != 'undefined') {
+            localStorage.setItem("playlistMusic", JSON.stringify(item));
+        }
 
-        localStorage.setItem("playlistMusic", JSON.stringify(item));
         if (typeof window != 'undefined') {
             window.location.replace('/')
         }

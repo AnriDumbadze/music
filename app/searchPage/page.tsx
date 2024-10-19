@@ -39,11 +39,11 @@ interface SearchData {
 export default function SearchPage() {
     const [themeColor, setThemeColor] = useState<string | null>(getCookie("theme") || null);
     const [search, setSearch] = useState('');
-    
+
     const [data, setData] = useState<SearchData[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [artistData, setArtistData] = useState<Artist[]>([]); 
+    const [artistData, setArtistData] = useState<Artist[]>([]);
 
     useEffect(() => {
         const updateTheme = () => {
@@ -72,7 +72,9 @@ export default function SearchPage() {
             })
                 .then((response) => {
                     setData(response.data);
-                    localStorage.setItem("searchData", JSON.stringify(response.data));
+                    if (typeof window != 'undefined') {
+                        localStorage.setItem("searchData", JSON.stringify(response.data));
+                    }
                 })
                 .catch((error) => {
                     if (error.response && error.response.status === 401) {
@@ -94,11 +96,11 @@ export default function SearchPage() {
                 Authorization: `Bearer ${userToken}`,
             },
         }).then((response) => {
-            setArtistData(response.data); 
+            setArtistData(response.data);
         })
-        .catch(() => {
-            console.log('Error fetching artist data');
-        });
+            .catch(() => {
+                console.log('Error fetching artist data');
+            });
     }, []);
 
     const artistCards = artistData.map((artist) => (
@@ -114,17 +116,17 @@ export default function SearchPage() {
 
 
     const popularCharts = data.map((chart) => {
-        const artist = artistData.find((a) => a.id === chart.artistId); 
+        const artist = artistData.find((a) => a.id === chart.artistId);
         const imageUrl = chart.image ? chart.image[chart.image.length - 1]?.url : "/Image/topChart.png";
 
         return (
-          <TopChart
-            image={imageUrl}
-            key={chart.id}
-            songName={chart.name}
-            artistName={artist ? artist.firstName : "Unknown Artist"}
-            rank={chart.rank}
-          />
+            <TopChart
+                image={imageUrl}
+                key={chart.id}
+                songName={chart.name}
+                artistName={artist ? artist.firstName : "Unknown Artist"}
+                rank={chart.rank}
+            />
         );
     });
 
@@ -136,18 +138,18 @@ export default function SearchPage() {
                 <Aside />
             </div>
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-                <Header onchange={(e) => setSearch(e.target.value)} isSeachPage = {true} />
+                <Header onchange={(e) => setSearch(e.target.value)} isSeachPage={true} />
                 <div>
                     {firstResult && (
 
-                            <RecentSearch 
-                                name={firstResult.name} 
-                                musicId={firstResult.id} 
-                                id={firstResult.id} 
-                                description={firstResult.description} 
-                                data={[firstResult]} 
-                                image={firstResult.image[firstResult.image.length - 1]} 
-                            />
+                        <RecentSearch
+                            name={firstResult.name}
+                            musicId={firstResult.id}
+                            id={firstResult.id}
+                            description={firstResult.description}
+                            data={[firstResult]}
+                            image={firstResult.image[firstResult.image.length - 1]}
+                        />
 
                     )}
                 </div>

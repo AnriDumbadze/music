@@ -42,8 +42,8 @@ export default function RecentSearch(props: Props) {
             }
         })
         .then((response) => {
-            localStorage.setItem("Searched_Music", JSON.stringify(response.data));
             if(typeof window !== 'undefined') {
+                localStorage.setItem("Searched_Music", JSON.stringify(response.data));
                 window.location.replace('/');
             }
         })
