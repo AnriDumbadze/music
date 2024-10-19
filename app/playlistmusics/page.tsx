@@ -62,7 +62,7 @@ export default function PlaylistPage() {
                 <div className={styles.mainContent}>
                     <h1>Playlist</h1>
                     {playlistMusics.map((item) => (
-                        <div key={item.id} onClick={() => handleClick(item)}>  // Key is now here
+                        <div key={item.id} onClick={() => handleClick(item)}>  
                             <MusicCard
                                 url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                                 author={item.artist.firstName}
