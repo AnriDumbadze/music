@@ -45,6 +45,8 @@ export default function Playlist() {
   const handleFormSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
+
+
     // Add the new playlist to the local state along with the backend playlists
     const newPlaylist = {
       id: playlists.length + 1, // Generate a simple id
@@ -60,6 +62,22 @@ export default function Playlist() {
     setPopupVisible(false);
     setFormVisible(false);
   };
+
+
+  const createPlaylist = () => {
+    const userToken = getCookie("userToken");
+    axios.post(
+      "https://music-back-1s59.onrender.com/playlist ",
+      { name: playlistName },  // Request body
+      {
+        headers: { Authorization: `Bearer ${userToken}` }  // Headers
+      }
+    ).then((res) => {
+      console.log(res.data);
+    }).catch(() => {
+      console.log('sds'); 
+    })
+  }
 
   return (
     <>
@@ -142,7 +160,7 @@ export default function Playlist() {
                         />
                       </div>
                       <div className={styles.formButtons}>
-                        <button type="submit" className={styles.submitButton}>
+                        <button onClick={createPlaylist} type="submit" className={styles.submitButton}>
                           Create
                         </button>
                         <button

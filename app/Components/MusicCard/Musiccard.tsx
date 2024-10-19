@@ -28,17 +28,17 @@ function MusicCard(props: Props) {
   const handleAddToPlaylist = async (playlistId: number) => {
     try {
       const userToken = getCookie("userToken"); 
-      const response = await axios.post(
-        `https://music-back-1s59.onrender.com/playlists/${playlistId}/add-song`,
-        { songId: props.id }, 
+      const response = await axios.patch(
+        `https://music-back-1s59.onrender.com/playlist/${playlistId}`,  // Include playlistId in the URL
+        { musicIds: [props.id] }, 
         { headers: { Authorization: `Bearer ${userToken}` } }
-      );
+      );  
 
-      setMessage(`deeemata: ${response.data.playlistName}`);
+      setMessage(`Added to playlist: ${response.data.playlistName}`);
       setShowPlaylistMenu(false);
     } catch (error) {
-      console.error("ratom gavixade:", error);
-      setMessage("saba kutai");
+      console.error("Error adding to playlist:", error);
+      setMessage("Failed to add to playlist");
     }
   };
 

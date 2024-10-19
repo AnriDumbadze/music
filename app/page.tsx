@@ -296,7 +296,7 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.computerPlayer}>
-          <ComputerPlayer />
+         
         </div>
 
         <div className={styles.secondAside}>
