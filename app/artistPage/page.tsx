@@ -33,7 +33,7 @@ export default function ArtistList() {
 
   const handleClick = (index: number) => {
     console.log("clicked");
-    
+
     const userToken = Cookies.get("userToken");
     axios.get('https://music-back-1s59.onrender.com/music/' + index, {
       headers: {
@@ -175,10 +175,9 @@ export default function ArtistList() {
                       />
                     ))}
 
-                    {musicData.map((item, index) => (
-                      <div onClick={() => handleClick(item.id)}>
+                    {musicData.map((item) => (
+                      <div key={item.id} onClick={() => handleClick(Number(item.id))}>  // Key is now here
                         <MusicCard
-                          key={index}
                           url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                           author={item.artist.firstName}
                           songTitle={item.name}
@@ -187,13 +186,13 @@ export default function ArtistList() {
                         />
                       </div>
                     ))}
+
                   </>
                 )}
 
                 {onlyArtist &&
                   <>
                     {artistData.map((item, index) => (
-                      <div>
                         <ArtistCard
                           key={index}
                           onClick={() =>
@@ -204,7 +203,6 @@ export default function ArtistList() {
                           artistType={""}
                           biography={""}
                         />
-                      </div>
                     ))}
                   </>
                 }
