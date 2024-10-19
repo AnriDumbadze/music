@@ -176,7 +176,7 @@ export default function ArtistList() {
                     ))}
 
                     {musicData.map((item) => (
-                      <div key={item.id} onClick={() => handleClick(Number(item.id))}>  // Key is now here
+                      <div key={item.id} onClick={() => handleClick(Number(item.id))}>  
                         <MusicCard
                           url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                           author={item.artist.firstName}
