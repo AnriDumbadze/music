@@ -136,7 +136,7 @@ export default function SearchPage() {
                 <Aside />
             </div>
             <div className={`${styles.static} ${themeColor === 'dark' ? styles.darkStatic : ''}`}>
-                <Header onchange={(e) => setSearch(e.target.value)} />
+                <Header onchange={(e) => setSearch(e.target.value)} isSeachPage = {true} />
                 <div>
                     {firstResult && (
 
