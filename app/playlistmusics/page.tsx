@@ -44,13 +44,13 @@ export default function PlaylistPage() {
 
     const handleClick = (item: any) => {
 
-        
+
         localStorage.setItem("playlistMusic", JSON.stringify(item));
-        if(typeof window != 'undefined') {
+        if (typeof window != 'undefined') {
             window.location.replace('/')
         }
     }
- 
+
     return (
         <>
             <div className={styles.burger}>
@@ -61,10 +61,9 @@ export default function PlaylistPage() {
                 <Aside />
                 <div className={styles.mainContent}>
                     <h1>Playlist</h1>
-                    {playlistMusics.map((item, index) => (
-                        <div onClick={() => handleClick(item)}>
+                    {playlistMusics.map((item) => (
+                        <div key={item.id} onClick={() => handleClick(item)}>  // Key is now here
                             <MusicCard
-                                key={index}
                                 url={item.image[item.image.length - 1]?.url || "/Images/popHit.png"}
                                 author={item.artist.firstName}
                                 songTitle={item.name}
@@ -73,6 +72,7 @@ export default function PlaylistPage() {
                             />
                         </div>
                     ))}
+
                 </div>
             </div>
         </>
