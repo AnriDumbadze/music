@@ -2,7 +2,7 @@
 
 .wrapper {
   display: flex;
-  max-width: 1279px;
+  width: 1050px;
   overflow-x: scroll;
   flex-direction: column;
 }
@@ -18,7 +18,7 @@
   gap: 16px;
   flex-direction: column;
   display: flex;
-  max-width: 1279px;
+  width: 1050px;
   overflow-x: scroll;
 }
 
@@ -39,6 +39,7 @@
 
 .content {
   display: flex;
+  width: 1050px;
   gap: 24px;
   overflow-y: hidden;
 }

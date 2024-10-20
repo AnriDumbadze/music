@@ -1,6 +1,5 @@
 .mainContent {
   display: flex;
-  margin-left: 241px;
   height: 100vh;
   overflow: hidden;
   overflow-y: scroll;
@@ -242,35 +241,36 @@ letter-spacing: -0.48px;
 
 
 @media (max-width: 768px) { 
-    .mainAside{
-      display: none;
-    }
+  .mainAside{
+    display: none;
+  }
 
-    .mainContent{
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+  .mainContent{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 0; /* Reset the margin */
+    padding: 0 16px; /* Add padding if necessary */
+  }
 
-    .burger{
-      display: flex;
-      padding: 56px 220px 16px 16px;
-    }
+  .burger{
+    display: flex;
+    padding: 56px 220px 16px 16px;
+  }
 
-    .secondAside{
-      display: flex;
-      
-    }
+  .secondAside{
+    display: flex;
+  }
 
-    .staticFlex{
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      padding-right: 16px;
-      flex-direction: column;
-    }
-    
+  .staticFlex{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 16px;
+    flex-direction: column;
+  }
 }
+
 
 .playerController {
   display: flex;
